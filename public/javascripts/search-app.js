@@ -37,7 +37,7 @@
       $scope.appData = {};
       $scope.appBehavior = {};
       $scope.appData.allSearchResultsData = [];
-      $scope.appData.host = "http://tvserieswebapplication.herokuapp.com";
+      $scope.appData.host = "http://tvserieswebapp.herokuapp.com";
       $scope.appData.progressIndicatorStatus = false;
       $scope.appBehavior.onKeyUp = function(event) {
         var url;

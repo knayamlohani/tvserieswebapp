@@ -6,7 +6,7 @@ appData =
 	actors     : []
 	data       : {}
 	artworkUrl : ""
-	host       : "http://tvserieswebapplication.herokuapp.com"
+	host       : "http://tvserieswebapp.herokuapp.com"
 	backgroundImageUrl: ""
 
 
