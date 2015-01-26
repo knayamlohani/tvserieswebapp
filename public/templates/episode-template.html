@@ -1,0 +1,8 @@
+<div class="episode-title notlCicked" ng-click="click = !click" ng-init="click = false" episode-repeat-directive>
+  <div class="episode-name">
+  	<span class="episode-number"><span ng-show="episode.number<=9">{{0}}</span>{{episode.number}}</span>
+  	<span class="episode-name-inner">{{episode.name}}</span>
+  </div>
+  <div class="episode-air-date">{{episode.airDate | date: 'mediumDate'}} </div>
+</div>
+<div class="episode-body display-none"><p>{{episode.overview}}</p></div>

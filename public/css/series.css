@@ -1,0 +1,204 @@
+* {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  text-decoration: none; }
+
+body {
+  color: white; }
+
+#blur-layer {
+  filter: blur(0.8em);
+  z-index: 4;
+  position: absolute;
+  height: 100%;
+  width: 100%; }
+
+#series {
+  position: absolute;
+  width: 100%;
+  z-index: 5;
+  background-color: rgba(0, 0, 0, 0.5); }
+
+#series-section {
+  width: 100%; }
+  #series-section #series-info {
+    width: 100%; }
+  #series-section #series-info > div {
+    width: 45%;
+    padding: 0 2.5%; }
+  #series-section #series-info {
+    display: flex;
+    flex-flow: row nowrap;
+    height: 57em; }
+    #series-section #series-info #series-artwork img {
+      width: 80%;
+      margin: 15% 10%;
+      min-height: 44em; }
+    #series-section #series-info #series-details {
+      height: 100%; }
+      #series-section #series-info #series-details #series-details-inner {
+        width: 100%;
+        margin: 15% 0;
+        height: 70%; }
+      #series-section #series-info #series-details #cast {
+        height: 44%; }
+        #series-section #series-info #series-details #cast #cast-title {
+          margin: 0;
+          height: 13%; }
+        #series-section #series-info #series-details #cast #actors {
+          display: flex;
+          flex-flow: row wrap;
+          width: 100%;
+          height: 86%;
+          padding-top: 1%; }
+          #series-section #series-info #series-details #cast #actors .actor {
+            width: 15%;
+            margin-right: 5%;
+            font-size: .8em; }
+            #series-section #series-info #series-details #cast #actors .actor .actor-inner {
+              postion: relative;
+              width: 100%;
+              height: 100%; }
+              #series-section #series-info #series-details #cast #actors .actor .actor-inner img {
+                min-height: 9.6em;
+                width: 100%;
+                border-radius: 15em; }
+              #series-section #series-info #series-details #cast #actors .actor .actor-inner .actor-description {
+                height: 6em;
+                overflow: hidden;
+                text-align: center; }
+      #series-section #series-info #series-details #other-details {
+        display: flex;
+        flex-flow: row wrap;
+        height: 20%;
+        margin-top: 3%; }
+      #series-section #series-info #series-details #other-details > div {
+        width: 50%; }
+      #series-section #series-info #series-details #other-details > div > div {
+        display: inline-block; }
+      #series-section #series-info #series-details #other-details > div#coming-up {
+        width: 100%; }
+      #series-section #series-info #series-details #other-details > div#coming-up > div:first-child {
+        width: 20%; }
+      #series-section #series-info #series-details #other-details > div > div:first-child {
+        width: 40%; }
+      #series-section #series-info #series-details #overview {
+        height: 36%; }
+        #series-section #series-info #series-details #overview #overview-title {
+          height: 15%; }
+        #series-section #series-info #series-details #overview #overview-body {
+          height: 84%;
+          overflow: scroll; }
+
+#seasons-container {
+  color: white;
+  display: flex;
+  flex-flow: column wrap; }
+  #seasons-container .season {
+    width: 95%;
+    padding: 2.5%;
+    background-color: rgba(0, 0, 0, 0.5); }
+
+.season-body-old {
+  display: flex;
+  flex-flow: row wrap; }
+  .season-body-old .episode {
+    width: 50%;
+    padding-top: .15%;
+    transition: all .6s ease-in-out; }
+    .season-body-old .episode .episode-inner {
+      width: 100%; }
+      .season-body-old .episode .episode-inner .episode-title {
+        border-radius: .2em;
+        width: 97.5%;
+        padding: 0 1.25%;
+        display: flex;
+        flex-flow: row nowrap; }
+        .season-body-old .episode .episode-inner .episode-title .episode-name {
+          width: 75%; }
+          .season-body-old .episode .episode-inner .episode-title .episode-name > div {
+            margin: 0;
+            padding: 0; }
+          .season-body-old .episode .episode-inner .episode-title .episode-name .episode-number {
+            width: 5%;
+            display: inline-block;
+            vertical-align: top; }
+          .season-body-old .episode .episode-inner .episode-title .episode-name .episode-name-inner {
+            width: 94%;
+            display: inline-block; }
+        .season-body-old .episode .episode-inner .episode-title .episode-air-date {
+          width: 25%;
+          text-align: right; }
+      .season-body-old .episode .episode-inner .episode-title:hover {
+        background-color: rgba(0, 0, 0, 0.4); }
+      .season-body-old .episode .episode-inner .episode-title.selected {
+        background-color: rgba(0, 0, 0, 0.4); }
+      .season-body-old .episode .episode-inner .episode-body {
+        font-size: .9em;
+        width: 95%;
+        padding: .5% 2.5%;
+        padding-bottom: 1.5%; }
+        .season-body-old .episode .episode-inner .episode-body p {
+          margin: 0;
+          padding: 0; }
+      .season-body-old .episode .episode-inner .episode-body.display-none {
+        display: none; }
+  .season-body-old .episode:nth-child(2n+1) {
+    width: 48.75%;
+    padding-right: 1.25%; }
+  .season-body-old .episode:nth-child(2n+2) {
+    width: 48.75%;
+    padding-left: 1.25%; }
+
+.season-body {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap; }
+  .season-body .season-body-half {
+    width: 50%;
+    display: flex;
+    flex-flow: column wrap; }
+    .season-body .season-body-half .episode {
+      padding-top: .15%;
+      transition: all .6s ease-in-out; }
+      .season-body .season-body-half .episode .episode-title {
+        border-radius: .2em;
+        width: 97.5%;
+        padding: 0 1.25%;
+        display: flex;
+        flex-flow: row nowrap; }
+        .season-body .season-body-half .episode .episode-title .episode-name {
+          width: 75%; }
+          .season-body .season-body-half .episode .episode-title .episode-name > div {
+            margin: 0;
+            padding: 0; }
+          .season-body .season-body-half .episode .episode-title .episode-name .episode-number {
+            width: 5%;
+            display: inline-block;
+            vertical-align: top; }
+          .season-body .season-body-half .episode .episode-title .episode-name .episode-name-inner {
+            width: 94%;
+            display: inline-block; }
+        .season-body .season-body-half .episode .episode-title .episode-air-date {
+          width: 25%;
+          text-align: right; }
+      .season-body .season-body-half .episode .episode-title:hover {
+        background-color: rgba(0, 0, 0, 0.4); }
+      .season-body .season-body-half .episode .episode-title.selected {
+        background-color: rgba(0, 0, 0, 0.4); }
+      .season-body .season-body-half .episode .episode-body {
+        font-size: .9em;
+        width: 95%;
+        padding: .5% 2.5%;
+        padding-bottom: 1.5%;
+        max-height: 5.8em;
+        overflow: auto; }
+        .season-body .season-body-half .episode .episode-body p {
+          margin: 0;
+          padding: 0; }
+      .season-body .season-body-half .episode .episode-body.display-none {
+        display: none; }
+    .season-body .season-body-half .episode {
+      width: 98.75%;
+      padding-right: 1.25%; }

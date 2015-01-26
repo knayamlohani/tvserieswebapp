@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+  <head >
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+    <!--
+    <link rel="stylesheet" type="text/css" href="stylesheets/home.css">
+    -->
+    <link rel="stylesheet" type="text/css" href="includes/font-awesome-4.2.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/series.css">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript" src="./javascripts/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="./includes/modernizr.custom.83855.js"></script>
+    <script type="text/javascript" src="./includes/angular-1.3.9.js"></script>
+    <!--
+    <script type="text/javascript" src="./javascripts/series.js"></script>
+    -->
+    <script type="text/javascript" src="./javascripts/app.js"></script>
+
+    <title>Series</title>
+  </head>
+
+  <body ng-app="app" ng-controller="controller as appController">
+    <div id="blur-layer" blur-layer-directive></div>
+    <div id="series">
+      <header>
+        <div class="inner">
+          <h1 id="series-title">{{appController.appData.name}}</h1>
+          <h2></h2>
+        </div>
+      </header>
+      
+      
+      
+      <div id="series-section">
+        
+        <div id="series-info">
+          
+          <div id="series-artwork">
+            <img ng-src="{{appController.appData.artworkUrl}}" series-artwork-directive></img>
+          </div>
+          
+          <div id="series-details">
+            <div id="series-details-inner">
+              <div id="cast">
+                <h3 id="cast-title">Cast</h3>
+                <div id="actors">
+                  <div ng-repeat="actor in appController.appData.actors | limitTo: 5" class="actor">
+                    <actor-template class="actor-inner"></actor-template>
+                  </div>
+                </div>
+                
+              </div>
+
+              <div id="overview">
+                <div id="overview-title"><h3>Overview</h3></div>
+                <div id="overview-body"><p>{{appController.appData.data.overview}}<p></div>
+              </div>
+
+              <div id="other-details">
+                <div id="network">
+                  <div>Network</div> : 
+                  <div>{{appController.appData.data.network}}</div>
+                </div>
+                <div id="content-rating">
+                  <div>Content-Rating</div> : 
+                  <div>{{appController.appData.data.contentRating}}</div>
+                </div>
+
+                <div id="number-of-season">
+                  <div>Seasons</div> :
+                  <div>{{appController.appData.data.seasons.length}}</div>
+                </div>
+                <div id="runing-status">
+                  <div>Status</div> :
+                  <div>{{appController.appData.data.runningStatus}}</div>
+                </div>
+
+                <div id="airs-on-day-of-week" ng-hide="!appController.appData.data.airsOnDayOfWeek">
+                  <div>Airs On</div> : 
+                  <div>{{appController.appData.data.airsOnDayOfWeek}}</div>
+                </div>
+                <div id="airs-at-time" ng-hide="!appController.appData.data.airsAtTime">
+                  <div>Air Time</div> :
+                  <div>{{appController.appData.data.airsAtTime}}</div>
+                </div>
+                
+                <div id="coming-up" ng-hide="appController.appData.data.runningStatus != 'Continuing'" class="ng-cloak">
+                  <div>Coming Up</div> :
+                  <div>{{appController.appData.data.comingUp}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <div id="seasons-container" all-seasons-directive>
+      <!-- iterating over each season-->
+      <div ng-repeat="season in appController.appData.data.seasons" class="season" season-directive>
+        <div class="season-title">
+          <h3 ng-show="season.number==0">Specials</h3>
+          <h3 ng-show="season.number>=1">Season {{season.number}}</h3>
+        </div>
+        <div class="season-body">
+          <!-- iterating over episodes in a season-->
+          <div class="season-body-half">
+            <div ng-repeat="episode in season.episodes | sliceFirstHalf" class="episode">
+              
+              <!-- episode contents-->
+              <div class="episode-title" episode-directive>
+                <div class="episode-name">
+                  <span class="episode-number"><span ng-show="episode.number<=9">{{0}}</span>{{episode.number}}</span>
+                  <span class="episode-name-inner">{{episode.name}}</span>
+                </div>
+                <div class="episode-air-date">{{episode.airDate | date: 'mediumDate'}} </div>
+              </div>
+              <div class="episode-body display-none"><p>{{episode.overview}}</p></div>            
+              <!-- end of episode contents-->
+
+            </div>
+          </div>
+
+          <div class="season-body-half">
+            <div ng-repeat="episode in season.episodes | sliceSecondHalf" class="episode">
+              
+              <!-- episode contents-->
+              <div class="episode-title" episode-directive>
+                <div class="episode-name">
+                  <span class="episode-number"><span ng-show="episode.number<=9">{{0}}</span>{{episode.number}}</span>
+                  <span class="episode-name-inner">{{episode.name}}</span>
+                </div>
+                <div class="episode-air-date">{{episode.airDate | date: 'mediumDate'}} </div>
+              </div>
+              <div class="episode-body display-none"><p>{{episode.overview}}</p></div>            
+              <!-- end of episode contents-->
+
+            </div>
+          </div>
+
+
+        </div>
+
+      </div>
+    </div>
+
+
+
+
+    </div>
+  </body>
+</html>

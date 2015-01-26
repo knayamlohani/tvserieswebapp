@@ -1,0 +1,9 @@
+<div class="season-title">
+	<h3 ng-show="season.number==0">Specials</h3>
+	<h3 ng-show="season.number>=1">Season {{season.number}}</h3>
+</div>
+<div class="season-body">
+	<div ng-repeat="episode in season.episodes" class="episode">
+		<div ng-include="'./templates/episode-template.html'" class="episode-inner"></div>
+	</div>
+</div>

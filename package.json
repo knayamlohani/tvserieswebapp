@@ -1,0 +1,23 @@
+{
+  "name": "tvserieswebapplication",
+  "version": "0.0.1",
+  "description": "A web app to search and view your favourite TV Shows",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies" : {
+    "express" : "4.10.7",
+    "tvdbwebservice": "0.0.3"
+  },
+  "engines": {
+    "node": "0.10.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "keywords": [
+  ],
+  "license": "MIT"
+}
