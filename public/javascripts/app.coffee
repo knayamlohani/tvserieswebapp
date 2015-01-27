@@ -135,14 +135,14 @@ app.directive 'allSeasonsDirective', ->
 app.directive 'seriesOverviewBodyDirective', ->
 	(scope, element, attrs) ->
 		if navigator.platform != "MacIntel" and !$('#overview-body').hasClass 'nice-scrolled'
-			$('#overview-body').niceScroll()
-			$('#overview-body').addClass 'nice-scrolled'
+			element.niceScroll()
+			element.addClass 'nice-scrolled'
 app.directive 'actorDescriptionDirective', ->
 	link: (scope, element, attrs) ->
 		console.log "actor-description"
 		if navigator.platform != "MacIntel" and !$('.actor-description').hasClass 'nice-scrolled'
-			$('.actor-description').niceScroll()
-			$('.actor-description').addClass 'nice-scrolled'
+			element.niceScroll()
+			element.addClass 'nice-scrolled'
 		return
 		
 

@@ -155,8 +155,8 @@
   app.directive('seriesOverviewBodyDirective', function() {
     return function(scope, element, attrs) {
       if (navigator.platform !== "MacIntel" && !$('#overview-body').hasClass('nice-scrolled')) {
-        $('#overview-body').niceScroll();
-        return $('#overview-body').addClass('nice-scrolled');
+        element.niceScroll();
+        return element.addClass('nice-scrolled');
       }
     };
   });
@@ -166,8 +166,8 @@
       link: function(scope, element, attrs) {
         console.log("actor-description");
         if (navigator.platform !== "MacIntel" && !$('.actor-description').hasClass('nice-scrolled')) {
-          $('.actor-description').niceScroll();
-          $('.actor-description').addClass('nice-scrolled');
+          element.niceScroll();
+          element.addClass('nice-scrolled');
         }
       }
     };
