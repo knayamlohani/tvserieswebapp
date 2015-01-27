@@ -165,7 +165,7 @@
     return {
       link: function(scope, element, attrs) {
         console.log("actor-description");
-        if (navigator.platform !== "MacIntel" && !$('.actor-description').hasClass('nice-scrolled')) {
+        if (navigator.platform !== "MacIntel" && !element.hasClass('nice-scrolled')) {
           element.niceScroll();
           element.addClass('nice-scrolled');
         }

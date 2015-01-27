@@ -140,7 +140,7 @@ app.directive 'seriesOverviewBodyDirective', ->
 app.directive 'actorDescriptionDirective', ->
 	link: (scope, element, attrs) ->
 		console.log "actor-description"
-		if navigator.platform != "MacIntel" and !$('.actor-description').hasClass 'nice-scrolled'
+		if navigator.platform != "MacIntel" and !element.hasClass 'nice-scrolled'
 			element.niceScroll()
 			element.addClass 'nice-scrolled'
 		return
