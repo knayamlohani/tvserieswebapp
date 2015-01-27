@@ -150,6 +150,10 @@ $('window').ready ->
 	if navigator.platform != "MacIntel"
 	  $("html").niceScroll()
 
+	height = screen.height
+	width  = screen.width
+	$('body').css "font-size", "#{15/1280*width}px"
+
 
 
 

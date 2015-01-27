@@ -174,9 +174,13 @@
   });
 
   $('window').ready(function() {
+    var height, width;
     if (navigator.platform !== "MacIntel") {
-      return $("html").niceScroll();
+      $("html").niceScroll();
     }
+    height = screen.height;
+    width = screen.width;
+    return $('body').css("font-size", "" + (15 / 1280 * width) + "px");
   });
 
 }).call(this);
