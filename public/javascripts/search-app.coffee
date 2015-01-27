@@ -2,6 +2,9 @@
 searchQuery = ""
 
 $('window').ready ->
+	if navigator.platform != "MacIntel"
+		$("html").niceScroll()
+
 	$('#search-field').on 'focus', (e) ->
 		# displaying the exit button for distraction free search mode
 		$('#close-distraction-free-search-mode i').removeClass 'display-none'

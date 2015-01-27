@@ -5,6 +5,9 @@
   searchQuery = "";
 
   $('window').ready(function() {
+    if (navigator.platform !== "MacIntel") {
+      $("html").niceScroll();
+    }
     $('#search-field').on('focus', function(e) {
       $('#close-distraction-free-search-mode i').removeClass('display-none');
       $('#search-field').removeClass("animate-search-field restore-search-field");

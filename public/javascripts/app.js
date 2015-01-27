@@ -173,6 +173,12 @@
     };
   });
 
+  $('window').ready(function() {
+    if (navigator.platform !== "MacIntel") {
+      return $("html").niceScroll();
+    }
+  });
+
 }).call(this);
 
 

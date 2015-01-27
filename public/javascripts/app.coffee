@@ -146,6 +146,9 @@ app.directive 'actorDescriptionDirective', ->
 		return
 		
 
+$('window').ready ->
+	if navigator.platform != "MacIntel"
+	  $("html").niceScroll()
 
 
 
