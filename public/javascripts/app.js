@@ -92,13 +92,7 @@
   }).directive('actorTemplate', function() {
     return {
       restrict: 'E',
-      templateUrl: 'templates/actor-template.html',
-      link: function(scope, element, attrs) {
-        if (navigator.platform !== "MacIntel" && !$('.actor-name').hasClass('nice-scrolled')) {
-          $('.actor-name').niceScroll();
-          $('.actor-name').addClass('nice-scrolled');
-        }
-      }
+      templateUrl: 'templates/actor-template.html'
     };
   }).directive('seasonDirective', function() {
     return function(scope, element, attrs) {
@@ -163,6 +157,18 @@
       if (navigator.platform !== "MacIntel" && !$('#overview-body').hasClass('nice-scrolled')) {
         $('#overview-body').niceScroll();
         return $('#overview-body').addClass('nice-scrolled');
+      }
+    };
+  });
+
+  app.directive('actorDescriptionDirective', function() {
+    return {
+      link: function(scope, element, attrs) {
+        console.log("actor-description");
+        if (navigator.platform !== "MacIntel" && !$('.actor-description').hasClass('nice-scrolled')) {
+          $('.actor-description').niceScroll();
+          $('.actor-description').addClass('nice-scrolled');
+        }
       }
     };
   });
