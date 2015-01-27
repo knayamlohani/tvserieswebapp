@@ -5,7 +5,7 @@
   searchQuery = "";
 
   $('window').ready(function() {
-    $('body').css("font-size", "" + (15 / 1280 * width) + "px");
+    $('body').css("font-size", "" + (15 / 1280 * screen.width) + "px");
     if (navigator.platform !== "MacIntel") {
       $("html").niceScroll();
     }
