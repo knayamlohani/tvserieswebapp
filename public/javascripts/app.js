@@ -83,7 +83,7 @@
         episodeBody = $(this).parent().find('.episode-body');
         episodeBody.toggleClass('display-none');
         if (!episodeBody.hasClass('display-none')) {
-          episodeBody.parent().antiscroll();
+          episodeBody.antiscroll();
         }
       });
     };
