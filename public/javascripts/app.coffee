@@ -93,6 +93,11 @@ app.controller 'controller',[ '$scope','$http',($scope,$http) ->
 .directive 'actorTemplate', ->
 	restrict : 'E'
 	templateUrl: 'templates/actor-template.html'
+	link: (scope, element, attrs) ->
+		if navigator.platform != "MacIntel" and !$('.actor-name').hasClass 'nice-scrolled'
+			$('.actor-name').niceScroll()
+			$('.actor-name').addClass 'nice-scrolled'
+		return
 .directive 'seasonDirective', ->
 	(scope, element, attrs) ->
     seasonNumber = scope.$index
@@ -132,6 +137,12 @@ app.directive 'allSeasonsDirective', ->
 		height = +$('#series').css('height').split('px')[0]  +  +$('#seasons-container').css('height').split('px')[0]
 		console.log height
 		$('#blur-layer').css "height", height
+app.directive 'seriesOverviewBodyDirective', ->
+	(scope, element, attrs) ->
+		if navigator.platform != "MacIntel" and !$('#overview-body').hasClass 'nice-scrolled'
+			$('#overview-body').niceScroll()
+			$('#overview-body').addClass 'nice-scrolled'
+		
 		
 
 

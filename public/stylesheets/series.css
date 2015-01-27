@@ -75,7 +75,7 @@ body {
                 border-radius: 15em; }
               #series-section #series-info #series-details #cast #actors .actor .actor-inner .actor-description {
                 height: 6em;
-                overflow: hidden;
+                overflow: auto;
                 text-align: center; }
       #series-section #series-info #series-details #other-details {
         display: -webkit-flex;

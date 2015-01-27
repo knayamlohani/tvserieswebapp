@@ -92,7 +92,13 @@
   }).directive('actorTemplate', function() {
     return {
       restrict: 'E',
-      templateUrl: 'templates/actor-template.html'
+      templateUrl: 'templates/actor-template.html',
+      link: function(scope, element, attrs) {
+        if (navigator.platform !== "MacIntel" && !$('.actor-name').hasClass('nice-scrolled')) {
+          $('.actor-name').niceScroll();
+          $('.actor-name').addClass('nice-scrolled');
+        }
+      }
     };
   }).directive('seasonDirective', function() {
     return function(scope, element, attrs) {
@@ -149,6 +155,15 @@
       height = +$('#series').css('height').split('px')[0] + +$('#seasons-container').css('height').split('px')[0];
       console.log(height);
       return $('#blur-layer').css("height", height);
+    };
+  });
+
+  app.directive('seriesOverviewBodyDirective', function() {
+    return function(scope, element, attrs) {
+      if (navigator.platform !== "MacIntel" && !$('#overview-body').hasClass('nice-scrolled')) {
+        $('#overview-body').niceScroll();
+        return $('#overview-body').addClass('nice-scrolled');
+      }
     };
   });
 
