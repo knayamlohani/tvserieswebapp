@@ -102,7 +102,7 @@ body {
           height: 15%; }
         #series-section #series-info #series-details #overview #overview-body {
           height: 84%;
-          overflow: scroll; }
+          overflow: auto; }
 
 #seasons-container {
   color: white;
