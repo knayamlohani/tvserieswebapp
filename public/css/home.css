@@ -105,6 +105,7 @@ body {
 #div-blur-layer.animate-blur-layer {
   transition: all .4s ease-in-out;
   transform: scale(1.5);
+  filter: url(#blurFilter);
   filter: blur(0.7em);
   background: #fafafa url(../images/backgroundWall.jpg) 0 0 repeat; }
 

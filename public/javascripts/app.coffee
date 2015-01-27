@@ -81,9 +81,11 @@ app.controller 'controller',[ '$scope','$http',($scope,$http) ->
       $('.episode-title').not($(this)).removeClass 'selected'
       $(this).toggleClass 'selected'
       $('.episode-title').not($(this)).parent().find('.episode-body').addClass 'display-none'
-      $(this).parent().find('.episode-body').toggleClass 'display-none'
+      episodeBody = $(this).parent().find('.episode-body')
+      episodeBody.toggleClass 'display-none'
+      if !episodeBody.hasClass 'display-none'
+      	episodeBody.parent().antiscroll()
       return
-
     return
 .directive 'actorTemplate', ->
 	restrict : 'E'
