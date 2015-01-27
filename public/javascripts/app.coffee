@@ -83,12 +83,11 @@ app.controller 'controller',[ '$scope','$http',($scope,$http) ->
       $('.episode-title').not($(this)).parent().find('.episode-body').addClass 'display-none'
       episodeBody = $(this).parent().find('.episode-body')
       episodeBody.toggleClass 'display-none'
-      console.log episodeBody.hasClass 'antiscrolled'
-      if navigator.platform != "MacIntel" and !episodeBody.hasClass 'antiscrolled' and !episodeBody.hasClass 'display-none'
-
+      if navigator.platform != "MacIntel" and !episodeBody.hasClass 'nice-scrolled' and !episodeBody.hasClass 'display-none'
+      #if !episodeBody.hasClass 'display-none' and !episodeBody.hasClass 'nice-scrolled'
       	console.log navigator.platform == "MacIntel"
-      	episodeBody.antiscroll()
-      	episodeBody.addClass 'antiscrolled'
+      	episodeBody.niceScroll()
+      	episodeBody.addClass 'nice-scrolled'
       return
     return
 .directive 'actorTemplate', ->

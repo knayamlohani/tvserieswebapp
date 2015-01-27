@@ -649,30 +649,6 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/public\/javascripts\/app.coffee": {
-		"createSourceMap": 1,
-		"fileType": 32,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/public\/javascripts\/app.coffee",
-		"minifyOutput": 0,
-		"outputAbbreviatedPath": "\/public\/javascripts\/app.js",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"outputStyle": 0,
-		"syntaxCheckerStyle": 0
-		},
-	"\/public\/javascripts\/app.js": {
-		"fileType": 64,
-		"ignore": 1,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/public\/javascripts\/app.js",
-		"outputAbbreviatedPath": "\/public\/javascripts\/min\/app-min.js",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"outputStyle": 1,
-		"syntaxCheckerStyle": 1
-		},
 	"\/public\/javascripts\/index.coffee": {
 		"createSourceMap": 1,
 		"fileType": 32,
@@ -787,15 +763,6 @@
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/public\/README.md",
 		"outputAbbreviatedPath": "\/public\/README.html",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0
-		},
-	"\/public\/series.html": {
-		"fileType": 8192,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/public\/series.html",
-		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
