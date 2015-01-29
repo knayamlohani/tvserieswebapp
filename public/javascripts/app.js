@@ -73,28 +73,43 @@
         return $scope.globalClick = false;
       }
     }
-  ]).directive('episodeDirective', function() {
-    return function(scope, element, attrs) {
-      $(angular.element(element)).click(function() {
-        var episodeBody;
-        $('.episode-title').not($(this)).removeClass('selected');
-        $(this).toggleClass('selected');
-        $('.episode-title').not($(this)).parent().find('.episode-body').addClass('display-none');
-        episodeBody = $(this).parent().find('.episode-body');
-        episodeBody.toggleClass('display-none');
-        if (navigator.platform !== "MacIntel" && !episodeBody.hasClass('nice-scrolled' && !episodeBody.hasClass('display-none'))) {
-          console.log(navigator.platform === "MacIntel");
-          episodeBody.niceScroll();
-          episodeBody.addClass('nice-scrolled');
-        }
-      });
-    };
-  }).directive('actorTemplate', function() {
+  ]);
+
+  app.directive('episodeDirective', [
+    '$timeout', function($timeout) {
+      return function(scope, element, attrs) {
+        return $timeout(function() {
+          scope.$apply(function() {
+            if (!scope.episode.name || scope.episode.name === "TBA") {
+              scope.episode.name = "To Be Anounced";
+            }
+          });
+          $(angular.element(element)).click(function() {
+            var episodeBody;
+            $('.episode-title').not($(this)).removeClass('selected');
+            $(this).toggleClass('selected');
+            $('.episode-title').not($(this)).parent().find('.episode-body').addClass('display-none');
+            episodeBody = $(this).parent().find('.episode-body');
+            episodeBody.toggleClass('display-none');
+            if (navigator.platform !== "MacIntel" && !episodeBody.hasClass('nice-scrolled' && !episodeBody.hasClass('display-none'))) {
+              console.log(navigator.platform === "MacIntel");
+              episodeBody.niceScroll();
+              episodeBody.addClass('nice-scrolled');
+            }
+          });
+        });
+      };
+    }
+  ]);
+
+  app.directive('actorTemplate', function() {
     return {
       restrict: 'E',
       templateUrl: 'templates/actor-template.html'
     };
-  }).directive('seasonDirective', function() {
+  });
+
+  app.directive('seasonDirective', function() {
     return function(scope, element, attrs) {
       var episodesCount, seasonNumber;
       seasonNumber = scope.$index;
@@ -106,14 +121,6 @@
       }
     };
   });
-
-
-  /*
-  app.filer 'sliceFirstHalf', ->
-  	(arr,center) ->
-  		console.log (arr || []).slice(0, center.length()/2)
-  		(arr || []).slice(0, center.length()/2)
-   */
 
   app.filter('sliceFirstHalf', function() {
     return function(arr) {
@@ -147,19 +154,20 @@
     return function(scope, element, attrs) {
       var height;
       height = +$('#series').css('height').split('px')[0] + +$('#seasons-container').css('height').split('px')[0];
-      console.log(height);
       return $('#blur-layer').css("height", height);
     };
   });
 
-  app.directive('seriesOverviewBodyDirective', function() {
-    return function(scope, element, attrs) {
-      if (navigator.platform !== "MacIntel" && !$('#overview-body').hasClass('nice-scrolled')) {
-        element.niceScroll();
-        return element.addClass('nice-scrolled');
-      }
-    };
-  });
+  app.directive('seriesOverviewBodyDirective', [
+    '$timeout', function($timeout) {
+      return function(scope, element, attrs) {
+        if (navigator.platform !== "MacIntel" && !$('#overview-body').hasClass('nice-scrolled')) {
+          element.niceScroll();
+          return element.addClass('nice-scrolled');
+        }
+      };
+    }
+  ]);
 
   app.directive('actorDescriptionDirective', function() {
     return {

@@ -70,30 +70,41 @@ app.controller 'controller',[ '$scope','$http',($scope,$http) ->
 		
 	if series.actors.length == 0
 		url = "#{series.host}/series/seriesId/#{series.id}/actors"
-		$http.get(url).success((data) ->
+		$http.get(url).success (data) ->
 			series.actors = data
-		)
+		
   $scope.globalClick = false
 ]
-.directive 'episodeDirective', ->
-  (scope, element, attrs) ->
+
+app.directive 'episodeDirective', ['$timeout', ($timeout)->
+	(scope, element, attrs) ->
+		$timeout ->
+			scope.$apply ->
+	    	if !scope.episode.name or scope.episode.name == "TBA"
+	    		scope.episode.name = "To Be Anounced"
+	    	return
+
     $(angular.element(element)).click ->
       $('.episode-title').not($(this)).removeClass 'selected'
       $(this).toggleClass 'selected'
       $('.episode-title').not($(this)).parent().find('.episode-body').addClass 'display-none'
       episodeBody = $(this).parent().find('.episode-body')
       episodeBody.toggleClass 'display-none'
+
+
       if navigator.platform != "MacIntel" and !episodeBody.hasClass 'nice-scrolled' and !episodeBody.hasClass 'display-none'
-      #if !episodeBody.hasClass 'display-none' and !episodeBody.hasClass 'nice-scrolled'
       	console.log navigator.platform == "MacIntel"
       	episodeBody.niceScroll()
       	episodeBody.addClass 'nice-scrolled'
       return
     return
-.directive 'actorTemplate', ->
+ ]
+
+app.directive 'actorTemplate', ->
 	restrict : 'E'
 	templateUrl: 'templates/actor-template.html'
-.directive 'seasonDirective', ->
+
+app.directive 'seasonDirective', ->
 	(scope, element, attrs) ->
     seasonNumber = scope.$index
     episodesCount =  +appData.data.seasons[seasonNumber].episodes.length 
@@ -104,12 +115,7 @@ app.controller 'controller',[ '$scope','$http',($scope,$http) ->
     
     #$(angular.element(element)).find('.season-body').css "height","#{episodesCount * 1.6 }em"
     return
-###
-app.filer 'sliceFirstHalf', ->
-	(arr,center) ->
-		console.log (arr || []).slice(0, center.length()/2)
-		(arr || []).slice(0, center.length()/2)
-###
+
 app.filter 'sliceFirstHalf', ->
   (arr) ->
   	if arr.length %2 == 1
@@ -130,13 +136,17 @@ app.directive 'blurLayerDirective', ->
 app.directive 'allSeasonsDirective', ->
 	(scope, element, attrs) ->
 		height = +$('#series').css('height').split('px')[0]  +  +$('#seasons-container').css('height').split('px')[0]
-		console.log height
 		$('#blur-layer').css "height", height
-app.directive 'seriesOverviewBodyDirective', ->
+
+
+app.directive 'seriesOverviewBodyDirective', ['$timeout', ($timeout)->
 	(scope, element, attrs) ->
 		if navigator.platform != "MacIntel" and !$('#overview-body').hasClass 'nice-scrolled'
 			element.niceScroll()
 			element.addClass 'nice-scrolled'
+]
+
+
 app.directive 'actorDescriptionDirective', ->
 	link: (scope, element, attrs) ->
 		console.log "actor-description"
