@@ -52,10 +52,12 @@
             <div id="series-details-inner">
               <div id="cast">
                 <h3 id="cast-title">Cast</h3>
-                <div id="actors">
+                <div id="actors" all-actors-directive>
                   <div ng-repeat="actor in appController.appData.actors | limitTo: 5" class="actor">
                     <actor-template class="actor-inner"></actor-template>
                   </div>
+                  <div ng-show="appController.appData.actorsNotDownloaded">Getting Cast Information</div> 
+                  <div ng-hide="appController.appData.castAvailable">Cast Information not Available</div>
                 </div>
                 
               </div>

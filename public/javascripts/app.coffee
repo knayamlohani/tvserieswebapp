@@ -27,7 +27,13 @@ app = angular.module 'app', []
 #app controller
 app.controller 'controller',[ '$scope','$http',($scope,$http) ->
 	this.appData = appData
+	this.appData.actorsNotDownloaded = true
+	this.appBehavior = {}
 	series = this.appData
+	series.castAvailable = true
+
+	this.appBehavior.getCastAvailabilityCurrently = ->
+		series.actors!=[0]
 
 
   
@@ -72,8 +78,10 @@ app.controller 'controller',[ '$scope','$http',($scope,$http) ->
 		url = "#{series.host}/series/seriesId/#{series.id}/actors"
 		$http.get(url).success (data) ->
 			series.actors = data
-		
-  $scope.globalClick = false
+			if series.actors.length == 0
+				appData.castAvailable = false
+			appData.actorsNotDownloaded = false
+			return
 ]
 
 app.directive 'episodeDirective', ['$timeout', ($timeout)->
@@ -113,7 +121,6 @@ app.directive 'seasonDirective', ->
     else
     	episodesCount= episodesCount/2 +1
     
-    #$(angular.element(element)).find('.season-body').css "height","#{episodesCount * 1.6 }em"
     return
 
 app.filter 'sliceFirstHalf', ->
@@ -154,6 +161,16 @@ app.directive 'actorDescriptionDirective', ->
 			element.niceScroll()
 			element.addClass 'nice-scrolled'
 		return
+
+app.directive 'allActorsDirective',[ '$timeout', ($timeout)->
+	link: (scope, element, attrs) ->
+		$timeout ->
+			console.log " cast "+ appData.actors
+		if appData.actors.length == 0
+			console.log "no cast details"
+		
+		return
+]
 		
 
 $('window').ready ->
