@@ -8,7 +8,8 @@ body {
   color: white; }
 
 #blur-layer {
-  filter: blur(0.8em);
+  -webkit-filter: blur(0.8em);
+          filter: blur(0.8em);
   z-index: 4;
   position: absolute;
   height: 100%;
@@ -28,8 +29,12 @@ body {
     width: 45%;
     padding: 0 2.5%; }
   #series-section #series-info {
+    display: -webkit-flex;
+    display: -ms-flexbox;
     display: flex;
-    flex-flow: row nowrap;
+    -webkit-flex-flow: row nowrap;
+        -ms-flex-flow: row nowrap;
+            flex-flow: row nowrap;
     height: 57em; }
     #series-section #series-info #series-artwork img {
       width: 80%;
@@ -47,8 +52,12 @@ body {
           margin: 0;
           height: 13%; }
         #series-section #series-info #series-details #cast #actors {
+          display: -webkit-flex;
+          display: -ms-flexbox;
           display: flex;
-          flex-flow: row wrap;
+          -webkit-flex-flow: row wrap;
+              -ms-flex-flow: row wrap;
+                  flex-flow: row wrap;
           width: 100%;
           height: 86%;
           padding-top: 1%; }
@@ -66,11 +75,15 @@ body {
                 border-radius: 15em; }
               #series-section #series-info #series-details #cast #actors .actor .actor-inner .actor-description {
                 height: 6em;
-                overflow: hidden;
+                overflow: auto;
                 text-align: center; }
       #series-section #series-info #series-details #other-details {
+        display: -webkit-flex;
+        display: -ms-flexbox;
         display: flex;
-        flex-flow: row wrap;
+        -webkit-flex-flow: row wrap;
+            -ms-flex-flow: row wrap;
+                flex-flow: row wrap;
         height: 20%;
         margin-top: 3%; }
       #series-section #series-info #series-details #other-details > div {
@@ -89,32 +102,45 @@ body {
           height: 15%; }
         #series-section #series-info #series-details #overview #overview-body {
           height: 84%;
-          overflow: scroll; }
+          overflow: auto; }
 
 #seasons-container {
   color: white;
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
-  flex-flow: column wrap; }
+  -webkit-flex-flow: column wrap;
+      -ms-flex-flow: column wrap;
+          flex-flow: column wrap; }
   #seasons-container .season {
     width: 95%;
     padding: 2.5%;
     background-color: rgba(0, 0, 0, 0.5); }
 
 .season-body-old {
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
-  flex-flow: row wrap; }
+  -webkit-flex-flow: row wrap;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap; }
   .season-body-old .episode {
     width: 50%;
     padding-top: .15%;
-    transition: all .6s ease-in-out; }
+    -webkit-transition: all .6s ease-in-out;
+            transition: all .6s ease-in-out; }
     .season-body-old .episode .episode-inner {
       width: 100%; }
       .season-body-old .episode .episode-inner .episode-title {
         border-radius: .2em;
         width: 97.5%;
         padding: 0 1.25%;
+        display: -webkit-flex;
+        display: -ms-flexbox;
         display: flex;
-        flex-flow: row nowrap; }
+        -webkit-flex-flow: row nowrap;
+            -ms-flex-flow: row nowrap;
+                flex-flow: row nowrap; }
         .season-body-old .episode .episode-inner .episode-title .episode-name {
           width: 75%; }
           .season-body-old .episode .episode-inner .episode-title .episode-name > div {
@@ -153,21 +179,34 @@ body {
 
 .season-body {
   width: 100%;
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
-  flex-flow: row nowrap; }
+  -webkit-flex-flow: row nowrap;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap; }
   .season-body .season-body-half {
     width: 50%;
+    display: -webkit-flex;
+    display: -ms-flexbox;
     display: flex;
-    flex-flow: column wrap; }
+    -webkit-flex-flow: column wrap;
+        -ms-flex-flow: column wrap;
+            flex-flow: column wrap; }
     .season-body .season-body-half .episode {
       padding-top: .15%;
-      transition: all .6s ease-in-out; }
+      -webkit-transition: all .6s ease-in-out;
+              transition: all .6s ease-in-out; }
       .season-body .season-body-half .episode .episode-title {
         border-radius: .2em;
         width: 97.5%;
         padding: 0 1.25%;
+        display: -webkit-flex;
+        display: -ms-flexbox;
         display: flex;
-        flex-flow: row nowrap; }
+        -webkit-flex-flow: row nowrap;
+            -ms-flex-flow: row nowrap;
+                flex-flow: row nowrap; }
         .season-body .season-body-half .episode .episode-title .episode-name {
           width: 75%; }
           .season-body .season-body-half .episode .episode-title .episode-name > div {
@@ -202,3 +241,5 @@ body {
     .season-body .season-body-half .episode {
       width: 98.75%;
       padding-right: 1.25%; }
+
+/*# sourceMappingURL=series.css.map */

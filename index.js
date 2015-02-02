@@ -60,4 +60,8 @@
     console.log("Node app is running at" + app.get('port'));
   });
 
+  app.get('/signup', function(req, res) {
+    res.end('Welcome to signup page');
+  });
+
 }).call(this);

@@ -60,6 +60,9 @@ app.listen app.get('port') , ->
   return
 
 
+app.get '/signup', (req, res)  ->
+  res.end 'Welcome to signup page'
+  return
 
 
 

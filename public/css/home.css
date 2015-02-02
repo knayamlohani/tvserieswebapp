@@ -1,7 +1,7 @@
 body {
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5) url(../images/backgroundWall.jpg) 0 0 repeat;
+  background: rgba(0, 0, 0, 0.5) url(../img/backgroundWall.jpg) 0 0 repeat;
   background-size: cover; }
 
 #div-search-section {
@@ -19,7 +19,7 @@ body {
   border-radius: .8em;
   border-color: white;
   border-style: double;
-  background: #2e7bcf url(../images/body-bg.jpg) 0 0 repeat-x;
+  background: #2e7bcf url(../img/body-bg.jpg) 0 0 repeat-x;
   opacity: .9;
   margin: 6em auto;
   text-align: center;
@@ -40,8 +40,12 @@ body {
 
 .progress-indicator {
   width: 100%;
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
-  align-content: center;
+  -webkit-align-content: center;
+      -ms-flex-line-pack: center;
+          align-content: center;
   height: 25.6em; }
   .progress-indicator i.fa-spin {
     color: white;
@@ -53,14 +57,24 @@ body {
   display: none; }
 
 .current-search-results {
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
   align-tems: center;
-  align-content: center;
-  justify-content: center;
-  flex-flow: row wrap;
+  -webkit-align-content: center;
+      -ms-flex-line-pack: center;
+          align-content: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-flex-flow: row wrap;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
   #border-top: 0.1em solid rgba(255, 255, 255, 0.2); }
   .current-search-results .progress-indicator {
     width: 100%;
+    display: -webkit-flex;
+    display: -ms-flexbox;
     display: flex;
     align-contents: center;
     height: 25.6em; }
@@ -102,16 +116,27 @@ body {
   background: transparent; }
 
 /* animations */
+svg {
+  blur-radius: 10em; }
+
 #div-blur-layer.animate-blur-layer {
-  transition: all .4s ease-in-out;
-  transform: scale(1.5);
-  filter: url(#blurFilter);
-  filter: blur(0.7em);
-  background: #fafafa url(../images/backgroundWall.jpg) 0 0 repeat; }
+  -webkit-transition: all .4s ease-in-out;
+          transition: all .4s ease-in-out;
+  -webkit-transform: scale(1.5);
+      -ms-transform: scale(1.5);
+          transform: scale(1.5);
+  -webkit-filter: url(#blurFilter);
+          filter: url(#blurFilter);
+  -webkit-filter: blur(0.7em);
+          filter: blur(0.7em);
+  background: #fafafa url(../img/backgroundWall.jpg) 0 0 repeat; }
 
 #div-search-section.animate-search-section {
-  transform: translateY(-8em);
-  transition: all .4s; }
+  -webkit-transform: translateY(-8em);
+      -ms-transform: translateY(-8em);
+          transform: translateY(-8em);
+  -webkit-transition: all .4s;
+          transition: all .4s; }
 
 #search-field.animate-search-field {
   background: transparent;
@@ -120,17 +145,22 @@ body {
   opacity: 1;
   width: 40em;
   height: 3em;
-  transition: all .4s;
+  -webkit-transition: all .4s;
+          transition: all .4s;
   font-size: 1.2em; }
 
 /* restorations */
 #div-search-section.restore-search-section {
-  transform: translateY(0em);
-  transition: all .4s; }
+  -webkit-transform: translateY(0em);
+      -ms-transform: translateY(0em);
+          transform: translateY(0em);
+  -webkit-transition: all .4s;
+          transition: all .4s; }
 
 #search-field.restore-search-field {
-  transition: all .4s;
-  background: #2e7bcf url(../images/body-bg.jpg) 0 0 repeat-x;
+  -webkit-transition: all .4s;
+          transition: all .4s;
+  background: #2e7bcf url(../img/body-bg.jpg) 0 0 repeat-x;
   border-color: white;
   opacity: .9;
   width: 35em;
@@ -138,9 +168,15 @@ body {
   font-size: 1em; }
 
 #div-blur-layer.restore-blur-layer {
-  transition: all .4s ease-in-out;
-  transform: scale(1);
-  filter: blur(0em); }
+  -webkit-transition: all .4s ease-in-out;
+          transition: all .4s ease-in-out;
+  -webkit-transform: scale(1);
+      -ms-transform: scale(1);
+          transform: scale(1);
+  -webkit-filter: blur(0em);
+          filter: blur(0em); }
 
 #div-blur-layer.remove-blur-layer-background {
   background: transparent; }
+
+/*# sourceMappingURL=home.css.map */
