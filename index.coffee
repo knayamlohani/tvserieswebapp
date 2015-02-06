@@ -97,10 +97,12 @@ app.post '/signup', (req, res)  ->
   (cookie) ->
     console.log cookie
     res.cookie 'username',cookie
-    res.end()
+    res.redirect('/')
     return
   
   return
+
+
 
 
 

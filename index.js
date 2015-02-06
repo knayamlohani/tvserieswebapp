@@ -98,7 +98,7 @@
     }, function(cookie) {
       console.log(cookie);
       res.cookie('username', cookie);
-      res.end();
+      res.redirect('/');
     });
   });
 
