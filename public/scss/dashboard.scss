@@ -1,0 +1,64 @@
+body{
+	background: none;
+}
+
+nav#app-nav-bar {
+	height: 5em;
+	width: 100%;
+	background: rgba(255,255,255,0);
+	>div{
+		background: rgba(0,0,0,0.8);
+		color: white;
+		height: 100%;
+		
+		>div {
+			display: inline-block;
+		}
+		#back-to-app-home {
+			width: 7%;
+			text-align: center;
+			a {
+			color: white;
+			}
+		}
+
+		#app-info {
+			width: 83%;
+			>div {
+				display: inline-block;
+			}
+
+
+			#app-name {
+				padding-right: .5em;
+				vertical-align: center;
+				h1 {
+					font-weight: 100;
+				}
+			}
+			#viewing-series {
+				padding: 0em 1em;
+				
+			}
+			#series-name {
+				h1 {
+					font-weight: 100;
+				}
+			}
+			#app-for-windows {
+				padding: 0em 1em;
+
+			}
+
+		}
+		
+		#signin-to-app{
+			vertical-align: center;
+			button {
+				padding: 0;
+				margin: 0;
+			}
+		}
+	}
+	
+}

@@ -4,6 +4,38 @@ body {
   background: rgba(0, 0, 0, 0.5) url(../img/backgroundWall.jpg) 0 0 repeat;
   background-size: cover; }
 
+body {
+  color: white; }
+  body h1, body h2, body h3, body h4, body h5, body h6 {
+    font-weight: 200; }
+
+nav#app-nav-bar {
+  height: 5em;
+  width: 100%;
+  background: rgba(255, 255, 255, 0); }
+  nav#app-nav-bar > div {
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    height: 100%; }
+    nav#app-nav-bar > div > div {
+      display: inline-block; }
+    nav#app-nav-bar > div #app-info {
+      width: 90%; }
+      nav#app-nav-bar > div #app-info > div {
+        display: inline-block; }
+      nav#app-nav-bar > div #app-info #app-name {
+        padding: 0em 2em 0 3em;
+        vertical-align: center; }
+      nav#app-nav-bar > div #app-info #app-for-mac {
+        padding: 0em 1em; }
+      nav#app-nav-bar > div #app-info #app-for-windows {
+        padding: 0em 1em; }
+    nav#app-nav-bar > div #signin-to-app {
+      vertical-align: center; }
+      nav#app-nav-bar > div #signin-to-app button {
+        padding: 0;
+        margin: 0; }
+
 #div-search-section {
   position: absolute;
   z-index: 5;
@@ -132,9 +164,9 @@ svg {
   background: #fafafa url(../img/backgroundWall.jpg) 0 0 repeat; }
 
 #div-search-section.animate-search-section {
-  -webkit-transform: translateY(-8em);
-      -ms-transform: translateY(-8em);
-          transform: translateY(-8em);
+  -webkit-transform: translateY(-4em);
+      -ms-transform: translateY(-4em);
+          transform: translateY(-4em);
   -webkit-transition: all .4s;
           transition: all .4s; }
 

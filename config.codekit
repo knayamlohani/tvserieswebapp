@@ -9,22 +9,73 @@
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/index.coffee",
 		"minifyOutput": 0,
-		"outputAbbreviatedPath": "\/js\/index.js",
+		"outputAbbreviatedPath": "\/index.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 0,
 		"syntaxCheckerStyle": 0
 		},
-	"\/index.js": {
+	"\/js\/index.js": {
 		"fileType": 64,
 		"ignore": 1,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/index.js",
-		"outputAbbreviatedPath": "\/min\/index-min.js",
+		"inputAbbreviatedPath": "\/js\/index.js",
+		"outputAbbreviatedPath": "\/js\/min\/index-min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 1,
 		"syntaxCheckerStyle": 1
+		},
+	"\/mongodbclient.coffee": {
+		"createSourceMap": 0,
+		"fileType": 32,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/mongodbclient.coffee",
+		"minifyOutput": 1,
+		"outputAbbreviatedPath": "\/mongodbclient.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 0,
+		"syntaxCheckerStyle": 1
+		},
+	"\/mongodbclient.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/mongodbclient.js",
+		"outputAbbreviatedPath": "\/min\/mongodbclient-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
+	"\/public\/account\/dashboard.html": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/public\/account\/dashboard.html",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/public\/account\/sign-in.html": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/public\/account\/sign-in.html",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/public\/account\/sign-up.html": {
+		"fileType": 8192,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/public\/account\/sign-up.html",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
 		},
 	"\/public\/coffee\/app.coffee": {
 		"createSourceMap": 1,
@@ -51,6 +102,28 @@
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 0,
 		"syntaxCheckerStyle": 0
+		},
+	"\/public\/coffee\/signup.coffee": {
+		"createSourceMap": 0,
+		"fileType": 32,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/public\/coffee\/signup.coffee",
+		"minifyOutput": 1,
+		"outputAbbreviatedPath": "\/public\/js\/signup.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 0,
+		"syntaxCheckerStyle": 1
+		},
+	"\/public\/css\/dashboard.css": {
+		"fileType": 16,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/public\/css\/dashboard.css",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
 		},
 	"\/public\/css\/home.css": {
 		"fileType": 16,
@@ -88,6 +161,24 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
+	"\/public\/css\/sign-in.css": {
+		"fileType": 16,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/public\/css\/sign-in.css",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
+	"\/public\/css\/sign-up.css": {
+		"fileType": 16,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/public\/css\/sign-up.css",
+		"outputAbbreviatedPath": "No Output Path",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
+		},
 	"\/public\/css\/signup-signin.css": {
 		"fileType": 16,
 		"ignore": 1,
@@ -106,79 +197,79 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/public\/images\/backgroundWall.jpg": {
+	"\/public\/img\/backgroundWall.jpg": {
 		"fileType": 16384,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"initialSize": 1.30587e+06,
-		"inputAbbreviatedPath": "\/public\/images\/backgroundWall.jpg",
-		"outputAbbreviatedPath": "\/public\/images\/backgroundWall.jpg",
+		"inputAbbreviatedPath": "\/public\/img\/backgroundWall.jpg",
+		"outputAbbreviatedPath": "\/public\/img\/backgroundWall.jpg",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
-	"\/public\/images\/body-bg.jpg": {
+	"\/public\/img\/body-bg.jpg": {
 		"fileType": 16384,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"initialSize": 2281,
-		"inputAbbreviatedPath": "\/public\/images\/body-bg.jpg",
-		"outputAbbreviatedPath": "\/public\/images\/body-bg.jpg",
+		"inputAbbreviatedPath": "\/public\/img\/body-bg.jpg",
+		"outputAbbreviatedPath": "\/public\/img\/body-bg.jpg",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
-	"\/public\/images\/download-button.png": {
+	"\/public\/img\/download-button.png": {
 		"fileType": 32768,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"initialSize": 27151,
-		"inputAbbreviatedPath": "\/public\/images\/download-button.png",
-		"outputAbbreviatedPath": "\/public\/images\/download-button.png",
+		"inputAbbreviatedPath": "\/public\/img\/download-button.png",
+		"outputAbbreviatedPath": "\/public\/img\/download-button.png",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
-	"\/public\/images\/github-button.png": {
+	"\/public\/img\/github-button.png": {
 		"fileType": 32768,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"initialSize": 1550,
-		"inputAbbreviatedPath": "\/public\/images\/github-button.png",
-		"outputAbbreviatedPath": "\/public\/images\/github-button.png",
+		"inputAbbreviatedPath": "\/public\/img\/github-button.png",
+		"outputAbbreviatedPath": "\/public\/img\/github-button.png",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
-	"\/public\/images\/header-bg.jpg": {
+	"\/public\/img\/header-bg.jpg": {
 		"fileType": 16384,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"initialSize": 9461,
-		"inputAbbreviatedPath": "\/public\/images\/header-bg.jpg",
-		"outputAbbreviatedPath": "\/public\/images\/header-bg.jpg",
+		"inputAbbreviatedPath": "\/public\/img\/header-bg.jpg",
+		"outputAbbreviatedPath": "\/public\/img\/header-bg.jpg",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
-	"\/public\/images\/highlight-bg.jpg": {
+	"\/public\/img\/highlight-bg.jpg": {
 		"fileType": 16384,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"initialSize": 30991,
-		"inputAbbreviatedPath": "\/public\/images\/highlight-bg.jpg",
-		"outputAbbreviatedPath": "\/public\/images\/highlight-bg.jpg",
+		"inputAbbreviatedPath": "\/public\/img\/highlight-bg.jpg",
+		"outputAbbreviatedPath": "\/public\/img\/highlight-bg.jpg",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
-	"\/public\/images\/sidebar-bg.jpg": {
+	"\/public\/img\/sidebar-bg.jpg": {
 		"fileType": 16384,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"initialSize": 2270,
-		"inputAbbreviatedPath": "\/public\/images\/sidebar-bg.jpg",
-		"outputAbbreviatedPath": "\/public\/images\/sidebar-bg.jpg",
+		"inputAbbreviatedPath": "\/public\/img\/sidebar-bg.jpg",
+		"outputAbbreviatedPath": "\/public\/img\/sidebar-bg.jpg",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
@@ -791,6 +882,39 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
+	"\/public\/js\/app.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/public\/js\/app.js",
+		"outputAbbreviatedPath": "\/public\/js\/min\/app-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
+	"\/public\/js\/search-app.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/public\/js\/search-app.js",
+		"outputAbbreviatedPath": "\/public\/js\/min\/search-app-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
+	"\/public\/js\/signup.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/public\/js\/signup.js",
+		"outputAbbreviatedPath": "\/public\/js\/min\/signup-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
 	"\/public\/README.md": {
 		"enableFootnoteSupport": 0,
 		"enableSmartyPants": 1,
@@ -802,6 +926,22 @@
 		"outputAbbreviatedPath": "\/public\/README.html",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
+		},
+	"\/public\/scss\/dashboard.scss": {
+		"createSourceMap": 0,
+		"debugStyle": 0,
+		"decimalPrecision": 10,
+		"fileType": 4,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/public\/scss\/dashboard.scss",
+		"outputAbbreviatedPath": "\/public\/css\/dashboard.css",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 0,
+		"shouldRunAutoprefixer": 1,
+		"shouldRunBless": 0,
+		"useLibsass": 0
 		},
 	"\/public\/scss\/home.scss": {
 		"createSourceMap": 1,
@@ -835,15 +975,31 @@
 		"shouldRunBless": 0,
 		"useLibsass": 0
 		},
-	"\/public\/scss\/signup-signin.scss": {
+	"\/public\/scss\/sign-in.scss": {
 		"createSourceMap": 1,
 		"debugStyle": 0,
 		"decimalPrecision": 10,
 		"fileType": 4,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/public\/scss\/signup-signin.scss",
-		"outputAbbreviatedPath": "\/public\/css\/signup-signin.css",
+		"inputAbbreviatedPath": "\/public\/scss\/sign-in.scss",
+		"outputAbbreviatedPath": "\/public\/css\/sign-in.css",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 0,
+		"shouldRunAutoprefixer": 1,
+		"shouldRunBless": 0,
+		"useLibsass": 0
+		},
+	"\/public\/scss\/sign-up.scss": {
+		"createSourceMap": 0,
+		"debugStyle": 0,
+		"decimalPrecision": 10,
+		"fileType": 4,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/public\/scss\/sign-up.scss",
+		"outputAbbreviatedPath": "\/public\/css\/sign-up.css",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 0,
@@ -856,24 +1012,6 @@
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/public\/series.html",
-		"outputAbbreviatedPath": "No Output Path",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0
-		},
-	"\/public\/signup.html": {
-		"fileType": 8192,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/public\/signup.html",
-		"outputAbbreviatedPath": "No Output Path",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0
-		},
-	"\/public\/sigup-signin.html": {
-		"fileType": 8192,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/public\/sigup-signin.html",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0

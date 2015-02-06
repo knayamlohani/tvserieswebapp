@@ -30,12 +30,21 @@
   <body ng-app="app" ng-controller="controller as appController">
     <div id="blur-layer" blur-layer-directive></div>
     <div id="series">
-      <header>
-        <div class="inner">
-          <h1 id="series-title">{{appController.appData.name}}</h1>
-          <h2></h2>
+    
+    <nav id="app-nav-bar">
+      <div>
+        <div id="back-to-app-home"><a href="index.html"><i class="fa fa-arrow-left fa-2x"></i></a></div>
+        <div id="app-info">
+          <div id="app-name"><h1>TV Series</h1></div>
+          <div id="viewing-series"><i class="fa fa-caret-right fa-2x"></i></div>
+          <div id="series-name"><h1>{{appController.appData.name}}</h1></div>
         </div>
-      </header>
+        <div id="signin-to-app">
+          <a href="account/sign-in.html"><h4>Sign in</h4></a> 
+          <a href="#"><i class="fa fa-rss fa-2x"></i></a>
+        </div>
+      </div>   
+    </nav>
       
       
       

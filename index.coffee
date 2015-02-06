@@ -59,9 +59,43 @@ app.listen app.get('port') , ->
   console.log "Node app is running at" + app.get 'port'
   return
 
-
+###
 app.get '/signup', (req, res)  ->
   res.end 'Welcome to signup page'
+  return
+###
+
+
+mongodbclient = require('./mongodbclient.js')
+mongodbclient.setDbConfig process.env["DB_USER"], process.env["DB_PASSWORD"]
+cookieParser = require('cookie-parser')
+app.use(cookieParser());
+
+
+
+bodyParser = require('body-parser');
+multer = require('multer'); 
+
+app.use(bodyParser.json()); 
+app.use(bodyParser.urlencoded({ extended: true })); 
+app.use(multer()); 
+
+
+app.post '/signup', (req, res)  ->
+  console.log req.originalUrl
+  mongodbclient.addNewUser
+    "first-name" : req.body['first-name']
+    "last-name"  : req.body['last-name']
+    "username"   : req.body['username']
+    "email"      : req.body['email']
+    "password"   : req.body['password']
+  ,
+  (cookie) ->
+    console.log cookie
+    res.cookie 'username',cookie
+    res.end()
+    return
+  
   return
 
 

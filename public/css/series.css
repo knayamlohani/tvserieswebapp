@@ -5,7 +5,42 @@
   text-decoration: none; }
 
 body {
-  color: white; }
+  color: white;
+  font-weight: 100; }
+  body h1, body h2, body h3, body h4, body h5, body h6 {
+    font-weight: 200; }
+
+nav#app-nav-bar {
+  height: 5em;
+  width: 100%;
+  background: rgba(255, 255, 255, 0); }
+  nav#app-nav-bar > div {
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    height: 100%; }
+    nav#app-nav-bar > div > div {
+      display: inline-block; }
+    nav#app-nav-bar > div #back-to-app-home {
+      width: 7%;
+      text-align: center; }
+      nav#app-nav-bar > div #back-to-app-home a {
+        color: white; }
+    nav#app-nav-bar > div #app-info {
+      width: 83%; }
+      nav#app-nav-bar > div #app-info > div {
+        display: inline-block; }
+      nav#app-nav-bar > div #app-info #app-name {
+        padding-right: .5em;
+        vertical-align: center; }
+      nav#app-nav-bar > div #app-info #viewing-series {
+        padding: 0em 1em; }
+      nav#app-nav-bar > div #app-info #app-for-windows {
+        padding: 0em 1em; }
+    nav#app-nav-bar > div #signin-to-app {
+      vertical-align: center; }
+      nav#app-nav-bar > div #signin-to-app button {
+        padding: 0;
+        margin: 0; }
 
 #blur-layer {
   -webkit-filter: blur(0.8em);

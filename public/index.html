@@ -28,7 +28,12 @@
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-    
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="includes/bootstrap/3.3.2/css/bootstrap.min.css">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="includes/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <!-- Latest compiled and minified JavaScript -->
+    <script  scr="includes/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
    
 
@@ -40,13 +45,41 @@
   </head>
 
   <body ng-app="search-app">
+  <!--
     <header>
-      <div class="inner">
-        <h1>TV Series</h1>
-        <h2></h2>
-        
-      </div>
+    -->
+      <nav id="app-nav-bar">
+        <div>
+          <div id="app-info">
+            <div id="app-name"><h1>TV Series</h1></div>
+            <div id="app-for-mac"><a href="#"><i class="fa fa-apple fa-2x"></i></a></div>
+            <div id="app-for-windows"><a href="#"><i class="fa fa-windows fa-2x"></i></a></div>
+          </div>
+         
+            
+
+          <div class="dropdown" id="signin-to-app">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+              <a href="account/sign-in.html">Sign in</a>
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
+              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
+              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
+              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
+            </ul>
+          </div>
+
+
+
+          
+        </div>   
+          
+      </nav>
+      <!--
     </header>
+    -->
     <div id="div-blur-layer"></div>
     
     <div id="div-search-section" ng-controller="controller as appController">

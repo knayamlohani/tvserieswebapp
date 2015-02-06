@@ -26,11 +26,14 @@
       $('#div-blur-layer').addClass("restore-blur-layer");
       $('#search-results-container').empty();
     });
-    return $('#search-field').on('keyup', function(event) {
+    $('#search-field').on('keyup', function(event) {
       if (event.keyCode === 13) {
         $('.progress-indicator').removeClass('display-none');
         console.log("search");
       }
+    });
+    return $('#signin-to-app a').on('click', function(event) {
+      return event.preventDefault();
     });
   });
 

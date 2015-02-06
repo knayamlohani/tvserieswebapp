@@ -37,6 +37,10 @@ $('window').ready ->
 			console.log "search"
 		return
 
+	$('#signin-to-app a').on 'click', (event) ->
+		#if document.cookie.split[';'] != ""
+			event.preventDefault()
+
 searchApp = angular.module 'search-app', []
 searchApp.controller 'controller', [ '$scope','$http', ($scope, $http) ->
 	$scope.appData = {}
