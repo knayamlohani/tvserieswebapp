@@ -1,5 +1,5 @@
 {
-  "name": "tvserieswebapplication",
+  "name": "tvserieswebapp",
   "version": "0.0.1",
   "description": "A web app to search and view your favourite TV Shows",
   "main": "index.js",
