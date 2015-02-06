@@ -7,8 +7,24 @@ app.set 'tvdbApiKey', (process.env.TVDB_API_KEY)
 app.use express.static __dirname + '/public' ;
 
 
-
+#tvdbwebservice config
 tvdbWebService.setTvdbApiKey app.get 'tvdbApiKey'
+
+
+# mongo db config
+mongodbclient = require('./mongodbclient.js')
+mongodbclient.setDbConfig process.env["DB_USER"], process.env["DB_PASSWORD"]
+cookieParser = require('cookie-parser')
+app.use(cookieParser());
+
+
+
+bodyParser = require('body-parser');
+multer = require('multer'); 
+
+app.use(bodyParser.json()); 
+app.use(bodyParser.urlencoded({ extended: true })); 
+app.use(multer()); 
 
 app.use (req, res, next) -> 
   res.header "Access-Control-Allow-Origin", "*"
@@ -66,19 +82,7 @@ app.get '/signup', (req, res)  ->
 ###
 
 
-mongodbclient = require('./mongodbclient.js')
-mongodbclient.setDbConfig process.env["DB_USER"], process.env["DB_PASSWORD"]
-cookieParser = require('cookie-parser')
-app.use(cookieParser());
 
-
-
-bodyParser = require('body-parser');
-multer = require('multer'); 
-
-app.use(bodyParser.json()); 
-app.use(bodyParser.urlencoded({ extended: true })); 
-app.use(multer()); 
 
 
 app.post '/signup', (req, res)  ->

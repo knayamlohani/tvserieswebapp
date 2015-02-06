@@ -16,6 +16,26 @@
 
   tvdbWebService.setTvdbApiKey(app.get('tvdbApiKey'));
 
+  mongodbclient = require('./mongodbclient.js');
+
+  mongodbclient.setDbConfig(process.env["DB_USER"], process.env["DB_PASSWORD"]);
+
+  cookieParser = require('cookie-parser');
+
+  app.use(cookieParser());
+
+  bodyParser = require('body-parser');
+
+  multer = require('multer');
+
+  app.use(bodyParser.json());
+
+  app.use(bodyParser.urlencoded({
+    extended: true
+  }));
+
+  app.use(multer());
+
   app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -66,26 +86,6 @@
     res.end 'Welcome to signup page'
     return
    */
-
-  mongodbclient = require('./mongodbclient.js');
-
-  mongodbclient.setDbConfig(process.env["DB_USER"], process.env["DB_PASSWORD"]);
-
-  cookieParser = require('cookie-parser');
-
-  app.use(cookieParser());
-
-  bodyParser = require('body-parser');
-
-  multer = require('multer');
-
-  app.use(bodyParser.json());
-
-  app.use(bodyParser.urlencoded({
-    extended: true
-  }));
-
-  app.use(multer());
 
   app.post('/signup', function(req, res) {
     console.log(req.originalUrl);
