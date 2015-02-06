@@ -24,14 +24,14 @@ MongoStore = require('connect-mongo')(session);
  
 
 
-
+###
 app.use session 
   store: new MongoStore
     "db": 'tvserieswebappdatabase',
     "username": process.env["DB_USER"],
     "password": process.env["DB_PASSWORD"]
     
-
+###
 
 
 bodyParser = require('body-parser');
@@ -113,7 +113,7 @@ app.post '/signup', (req, res)  ->
     #req.session.username = cookie
     console.log cookie
     res.cookie 'username',cookie
-    req.session.username = cookie
+    #req.session.username = cookie
 
     res.redirect('/')
 

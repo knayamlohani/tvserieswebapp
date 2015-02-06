@@ -28,13 +28,14 @@
 
   MongoStore = require('connect-mongo')(session);
 
-  app.use(session({
-    store: new MongoStore({
+
+  /*
+  app.use session 
+    store: new MongoStore
       "db": 'tvserieswebappdatabase',
       "username": process.env["DB_USER"],
       "password": process.env["DB_PASSWORD"]
-    })
-  }));
+   */
 
   bodyParser = require('body-parser');
 
@@ -110,7 +111,6 @@
     }, function(cookie) {
       console.log(cookie);
       res.cookie('username', cookie);
-      req.session.username = cookie;
       res.redirect('/');
     });
   });
