@@ -18,6 +18,21 @@ cookieParser = require('cookie-parser')
 app.use(cookieParser());
 
 
+#mongo connect session config
+session = require('express-session');
+MongoStore = require('connect-mongo')(session);
+ 
+
+
+
+app.use session 
+  store: new MongoStore
+    "db": 'tvserieswebappdatabase',
+    "username": process.env["DB_USER"],
+    "password": process.env["DB_PASSWORD"]
+    
+
+
 
 bodyParser = require('body-parser');
 multer = require('multer'); 
@@ -95,12 +110,19 @@ app.post '/signup', (req, res)  ->
     "password"   : req.body['password']
   ,
   (cookie) ->
+    #req.session.username = cookie
     console.log cookie
     res.cookie 'username',cookie
+    req.session.username = cookie
+
     res.redirect('/')
+
     return
   
   return
+
+
+
 
 
 
