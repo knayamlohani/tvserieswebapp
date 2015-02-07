@@ -108,6 +108,9 @@
     }, function(user) {
       req.session.username = user.username;
       req.session.password = user.password;
+      req.session.email = user.email;
+      req.session["signin-status"] = true;
+      res.session.username = user.username;
       res.redirect('/');
     });
   });
