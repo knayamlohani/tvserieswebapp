@@ -51,7 +51,7 @@
         "username": "",
         "signed-in": ""
       };
-      url = "http://tvserieswebapp.herokuapp.com/account/signin-status";
+      url = "" + $scope.appData.host + "/signin-status";
       $http.get(url).success(function(data) {
         return $scope.appData.user = {
           "first-name": data["first-name"],

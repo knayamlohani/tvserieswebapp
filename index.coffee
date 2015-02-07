@@ -123,14 +123,15 @@ app.post '/signup', (req, res)  ->
     return
 
 
-app.get '/account/signin-status', (req, res) ->
+app.get '/signin-status', (req, res) ->
   if req.session.username != ""
     req.session["signin-status"] = true
-    res.end
-      "first-name"    : req.session["first-name"]
-      "email"         : req.session["email"]
-      "username"      : req.session["username"]
-      "signin-status" : req.session["signin-status"]
+  res.end JSON.stringify
+    "first-name"    : req.session["first-name"]
+    "email"         : req.session["email"]
+    "username"      : req.session["username"]
+    "signin-status" : req.session["signin-status"]
+  return
 
 
 
