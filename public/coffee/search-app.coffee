@@ -143,7 +143,7 @@ searchApp.directive 'signInStatusDirective', ->
 		#if $('#all-search-results .current-search-results').length > 1
 	
 		$(element).on 'click', (event) ->
-			if appData.user["signin-status"]
+			if $scope.appData.user["signin-status"]
 				event.preventDefault()
 
 		return
