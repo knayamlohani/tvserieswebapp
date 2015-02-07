@@ -58,7 +58,8 @@ searchApp.controller 'controller', [ '$scope','$http', ($scope, $http) ->
 
 	url = "#{$scope.appData.host}/signin-status"
 	$http.get(url).success (data) ->
-		console.log "data is - #{data}"
+		console.log "data is"
+		console.log data
 		$scope.appData.user =
 			"first-name"    : data["first-name"]
 			"email"         : data["email"]
