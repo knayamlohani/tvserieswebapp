@@ -127,6 +127,16 @@
     };
   });
 
+  searchApp.directive('signInStatusDirective', function() {
+    return function(scope, element, attrs) {
+      $(element).on('click', function(event) {
+        if (appData.user["signin-status"]) {
+          return event.preventDefault();
+        }
+      });
+    };
+  });
+
 }).call(this);
 
 

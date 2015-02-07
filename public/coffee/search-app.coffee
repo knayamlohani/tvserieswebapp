@@ -67,6 +67,8 @@ searchApp.controller 'controller', [ '$scope','$http', ($scope, $http) ->
 			"signin-status" : data["signin-status "]
 
 
+
+
   #$scope.appData.requestStatus = true
 	
   
@@ -134,6 +136,15 @@ searchApp.directive 'currentSearchResultsDirective', ->
 		#if $('#all-search-results .current-search-results').length > 1
 	
 		$('#div-blur-layer').css "height", $('#div-search-section').css "height"
+
+		return
+searchApp.directive 'signInStatusDirective', ->
+	(scope,element,attrs) ->
+		#if $('#all-search-results .current-search-results').length > 1
+	
+		$(element).on 'click', (event) ->
+			if appData.user["signin-status"]
+				event.preventDefault()
 
 		return
 

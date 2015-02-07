@@ -134,6 +134,9 @@ app.get '/signin-status', (req, res) ->
     "signin-status" : session["signin-status"]
   return
 
+app.get '/signout', (req, res) ->
+  
+
 
 
 

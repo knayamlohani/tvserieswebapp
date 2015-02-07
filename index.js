@@ -128,4 +128,6 @@
     }));
   });
 
+  app.get('/signout', function(req, res) {});
+
 }).call(this);
