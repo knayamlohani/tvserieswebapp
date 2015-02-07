@@ -6,9 +6,13 @@
 
 body {
   color: white;
-  font-weight: 100; }
+  font-weight: 200; }
   body h1, body h2, body h3, body h4, body h5, body h6 {
-    font-weight: 200; }
+    font-weight: 300; }
+
+div {
+  -moz-box-sizing: content-box;
+       box-sizing: content-box; }
 
 nav#app-nav-bar {
   height: 5em;
@@ -26,7 +30,7 @@ nav#app-nav-bar {
       nav#app-nav-bar > div #back-to-app-home a {
         color: white; }
     nav#app-nav-bar > div #app-info {
-      width: 83%; }
+      width: 80%; }
       nav#app-nav-bar > div #app-info > div {
         display: inline-block; }
       nav#app-nav-bar > div #app-info #app-name {
@@ -36,6 +40,10 @@ nav#app-nav-bar {
         padding: 0em 1em; }
       nav#app-nav-bar > div #app-info #app-for-windows {
         padding: 0em 1em; }
+    nav#app-nav-bar > div #subscribe-series {
+      text-align: center;
+      padding-right: 3%;
+      margin: 0; }
     nav#app-nav-bar > div #signin-to-app {
       vertical-align: center; }
       nav#app-nav-bar > div #signin-to-app button {

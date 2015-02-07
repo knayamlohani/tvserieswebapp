@@ -105,10 +105,13 @@
       "username": req.body['username'],
       "email": req.body['email'],
       "password": req.body['password']
-    }, function(cookie) {
-      req.session.cookie = cookie;
-      res.end();
+    }, function(user) {
+      req.session.username = user.username;
+      req.session.password = user.password;
+      res.redirect('/');
     });
   });
+
+  app.post('/signin', function(req, res) {});
 
 }).call(this);

@@ -9,7 +9,6 @@
     <link rel="stylesheet" type="text/css" href="css/pygment_trac.css" media="screen">
     <link rel="stylesheet" type="text/css" href="css/print.css" media="print">
     <link rel="stylesheet" type="text/css" href="includes/font-awesome/4.2.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="css/series.css">
     
 
     <!--[if lt IE 9]>
@@ -22,6 +21,14 @@
     
     <script type="text/javascript" src="js/app.js"></script>
     <script type="text/javascript" src="includes/nicescroll/3.6.0/nicescroll.js"></script>
+
+
+    <link rel="stylesheet" href="includes/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="includes/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <script  type="text/javascript" src="includes/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/series.css">
+
 
 
     <title>Series</title>
@@ -39,11 +46,23 @@
           <div id="viewing-series"><i class="fa fa-caret-right fa-2x"></i></div>
           <div id="series-name"><h1>{{appController.appData.name}}</h1></div>
         </div>
-        <div id="signin-to-app">
-          <a href="account/sign-in.html"><h4>Sign in</h4></a> 
-          <a href="#"><i class="fa fa-rss fa-2x"></i></a>
+        <div id="subscribe-series">
+          <a href="#"><i class="fa fa-rss fa-2x"></i></a>  
         </div>
-      </div>   
+        <div class="dropdown" id="signin-to-app">
+            <div class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+            <!-- account/sign-in.html-->
+              <a href="#">Sign in</a>
+              <span class="caret"></span>
+            </div>
+            <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
+              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Name</a></li>
+              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">eMail</a></li>
+              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Sign out</a></li>
+            </ul>
+        </div>
+      </div> 
+
     </nav>
       
       

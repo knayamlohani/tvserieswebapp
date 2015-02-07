@@ -32,9 +32,7 @@
         console.log("search");
       }
     });
-    return $('#signin-to-app a').on('click', function(event) {
-      return event.preventDefault();
-    });
+    return $('#signin-to-app a').on('click', function(event) {});
   });
 
   searchApp = angular.module('search-app', []);

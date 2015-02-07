@@ -39,7 +39,7 @@ $('window').ready ->
 
 	$('#signin-to-app a').on 'click', (event) ->
 		#if document.cookie.split[';'] != ""
-			event.preventDefault()
+			#event.preventDefault()
 
 searchApp = angular.module 'search-app', []
 searchApp.controller 'controller', [ '$scope','$http', ($scope, $http) ->

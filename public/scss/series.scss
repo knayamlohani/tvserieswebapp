@@ -7,12 +7,15 @@
 
 body {
 	color: white;
-	font-weight: 100;
 	h1, h2, h3, h4, h5, h6 {
-		font-weight: 200;
+		font-weight: 300;
 	}
+	font-weight: 200;
 }
 
+div {
+	box-sizing: content-box;
+}
 
 
 nav#app-nav-bar {
@@ -36,7 +39,7 @@ nav#app-nav-bar {
 		}
 
 		#app-info {
-			width: 83%;
+			width: 80%;
 			>div {
 				display: inline-block;
 			}
@@ -60,9 +63,17 @@ nav#app-nav-bar {
 			}
 
 		}
+		#subscribe-series{
 		
+			text-align: center;
+			padding-right: 3%;
+			margin: 0;
+		}
+
 		#signin-to-app{
+		
 			vertical-align: center;
+
 			button {
 				padding: 0;
 				margin: 0;

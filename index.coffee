@@ -112,12 +112,14 @@ app.post '/signup', (req, res)  ->
     "email"      : req.body['email']
     "password"   : req.body['password']
   ,
-  (cookie) ->
-    req.session.cookie = cookie
-    res.end()
+  (user) ->
+    req.session.username = user.username
+    req.session.password = user.password
+    res.redirect('/')
     return
 
 
+app.post '/signin', (req, res) ->
 
 
 
