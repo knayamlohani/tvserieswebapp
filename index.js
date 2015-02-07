@@ -31,8 +31,8 @@
   app.use(session({
     store: new MongoStore({
       "db": 'tvserieswebappdatabase',
-      "username": process.env["DB_USER"],
-      "password": process.env["DB_PASSWORD"]
+      "username": process.env["username"],
+      "password": process.env["password"]
     })
   }));
 
