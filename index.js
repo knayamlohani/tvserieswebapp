@@ -107,7 +107,7 @@
       "password": req.body['password']
     }, function(cookie) {
       req.session.cookie = cookie;
-      res.redirect('/');
+      res.end();
     });
   });
 
