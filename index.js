@@ -106,24 +106,23 @@
       "email": req.body['email'],
       "password": req.body['password']
     }, function(user) {
-      req.session.username = user.username;
-      req.session.password = user.password;
-      req.session.email = user.email;
-      req.session["signin-status"] = true;
-      res.session.username = user.username;
+      session.username = user.username;
+      session.password = user.password;
+      session.email = user.email;
+      session["signin-status"] = true;
       res.redirect('/');
     });
   });
 
   app.get('/signin-status', function(req, res) {
-    if (req.session.username !== "") {
-      req.session["signin-status"] = true;
+    if (session.username !== "") {
+      session["signin-status"] = true;
     }
     res.end(JSON.stringify({
-      "first-name": req.session["first-name"],
-      "email": req.session["email"],
-      "username": req.session["username"],
-      "signin-status": req.session["signin-status"]
+      "first-name": session["first-name"],
+      "email": session["email"],
+      "username": session["username"],
+      "signin-status": session["signin-status"]
     }));
   });
 
