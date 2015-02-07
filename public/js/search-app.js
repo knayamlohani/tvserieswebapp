@@ -53,6 +53,7 @@
       };
       url = "" + $scope.appData.host + "/signin-status";
       $http.get(url).success(function(data) {
+        console.log("data is - " + data);
         return $scope.appData.user = {
           "first-name": data["first-name"],
           "email": data["email"],
