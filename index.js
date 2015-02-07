@@ -28,14 +28,12 @@
 
   MongoStore = require('connect-mongo')(session);
 
-
-  /*
-  app.use session 
-    store: new MongoStore
-      "db": 'tvserieswebappdatabase'
-      "username": process.env["DB_USER"]
-      "password": process.env["DB_PASSWORD"]
-   */
+  app.use(session({
+    "secret": 'foo',
+    "store": new MongoStore({
+      "url": "mongodb://tvserieswebappadmin:s4U-dxF-SrA-dLa@ds029640.mongolab.com:29640/tvserieswebappdatabase"
+    })
+  }));
 
   bodyParser = require('body-parser');
 
@@ -101,16 +99,14 @@
    */
 
   app.post('/signup', function(req, res) {
-    console.log(req.originalUrl);
-    mongodbclient.addNewUser({
+    return mongodbclient.addNewUser({
       "first-name": req.body['first-name'],
       "last-name": req.body['last-name'],
       "username": req.body['username'],
       "email": req.body['email'],
       "password": req.body['password']
     }, function(cookie) {
-      console.log(cookie);
-      res.cookie('username', cookie);
+      req.session.cookie = cookie;
       res.redirect('/');
     });
   });

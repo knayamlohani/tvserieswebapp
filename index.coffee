@@ -22,16 +22,19 @@ app.use(cookieParser());
 session = require('express-session');
 MongoStore = require('connect-mongo')(session);
  
-
-
-
-###
 app.use session 
-  store: new MongoStore
-    "db": 'tvserieswebappdatabase'
-    "username": process.env["DB_USER"]
-    "password": process.env["DB_PASSWORD"]
-###   
+  "secret" : 'foo'
+  "store"  : new MongoStore
+    "url"   : "mongodb://tvserieswebappadmin:s4U-dxF-SrA-dLa@ds029640.mongolab.com:29640/tvserieswebappdatabase"
+
+
+
+
+
+
+
+
+
 
 
 
@@ -102,7 +105,6 @@ app.get '/signup', (req, res)  ->
 
 
 app.post '/signup', (req, res)  ->
-  console.log req.originalUrl
   mongodbclient.addNewUser
     "first-name" : req.body['first-name']
     "last-name"  : req.body['last-name']
@@ -111,16 +113,9 @@ app.post '/signup', (req, res)  ->
     "password"   : req.body['password']
   ,
   (cookie) ->
-    #req.session.username = cookie
-    console.log cookie
-    res.cookie 'username',cookie
-    #req.session.username = cookie
-
+    req.session.cookie = cookie
     res.redirect('/')
-
     return
-  
-  return
 
 
 
