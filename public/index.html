@@ -67,7 +67,7 @@
             <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1" sign-in-staus-directive>
               <li role="presentation"><a role="menuitem" tabindex="-1" href="#">{{appData.user["first-name"]}}</a></li>
               <li role="presentation"><a role="menuitem" tabindex="-1" href="#">{{appData.user["username"]}}</a></li>
-              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">{{appData.user["signin-status"]}}</a></li>
+              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">{{appData.user["signin-status"] ? "true": "false"}}</a></li>
             </ul>
           </div>
 

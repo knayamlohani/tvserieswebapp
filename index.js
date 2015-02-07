@@ -115,8 +115,10 @@
   });
 
   app.get('/signin-status', function(req, res) {
-    if (session.username !== "") {
+    if (session.username) {
       session["signin-status"] = true;
+    } else {
+      session["signin-status"] = false;
     }
     res.end(JSON.stringify({
       "first-name": session["first-name"],
