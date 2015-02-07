@@ -112,6 +112,16 @@
     });
   });
 
-  app.post('/signin', function(req, res) {});
+  app.get('/account/signin-status', function(req, res) {
+    if (req.session.username !== "") {
+      req.session["signin-status"] = true;
+      return res.end({
+        "first-name": req.session["first-name"],
+        "email": req.session["email"],
+        "username": req.session["username"],
+        "signin-status": req.session["signin-status"]
+      });
+    }
+  });
 
 }).call(this);

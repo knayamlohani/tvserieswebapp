@@ -48,6 +48,23 @@ searchApp.controller 'controller', [ '$scope','$http', ($scope, $http) ->
 	$scope.appData.allSearchResultsData = []
 	$scope.appData.host = "http://tvserieswebapp.herokuapp.com" 
 	$scope.appData.progressIndicatorStatus = false
+
+	$scope.appData.user =
+		"first-name" : ""
+		"email"      : ""
+		"username"   : ""
+		"signed-in"  : ""
+
+
+	url = "#{$scope.appData.host}/account/signin-status"
+	$http.get(url).success (data) ->
+		$scope.appData.user =
+			"first-name"    : data["first-name"]
+			"email"         : data["email"]
+			"username"      : data["username"]
+			"signin-status" : data["signin-status "]
+
+
   #$scope.appData.requestStatus = true
 	
   

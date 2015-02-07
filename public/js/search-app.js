@@ -39,13 +39,28 @@
 
   searchApp.controller('controller', [
     '$scope', '$http', function($scope, $http) {
+      var url;
       $scope.appData = {};
       $scope.appBehavior = {};
       $scope.appData.allSearchResultsData = [];
       $scope.appData.host = "http://tvserieswebapp.herokuapp.com";
       $scope.appData.progressIndicatorStatus = false;
+      $scope.appData.user = {
+        "first-name": "",
+        "email": "",
+        "username": "",
+        "signed-in": ""
+      };
+      url = "" + $scope.appData.host + "/account/signin-status";
+      $http.get(url).success(function(data) {
+        return $scope.appData.user = {
+          "first-name": data["first-name"],
+          "email": data["email"],
+          "username": data["username"],
+          "signin-status": data["signin-status "]
+        };
+      });
       $scope.appBehavior.onKeyUp = function(event) {
-        var url;
         if (event.keyCode === 13) {
           console.log($scope.appData.searchQuery);
           $scope.appData.progressIndicatorStatus = true;
