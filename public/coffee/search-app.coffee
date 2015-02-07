@@ -37,10 +37,6 @@ $('window').ready ->
 			console.log "search"
 		return
 
-	$('#signin-to-app a').on 'click', (event) ->
-		#if document.cookie.split[';'] != ""
-			#event.preventDefault()
-
 searchApp = angular.module 'search-app', []
 searchApp.controller 'controller', [ '$scope','$http', ($scope, $http) ->
 	$scope.appData = {}
@@ -64,7 +60,7 @@ searchApp.controller 'controller', [ '$scope','$http', ($scope, $http) ->
 			"first-name"    : data["first-name"]
 			"email"         : data["email"]
 			"username"      : data["username"]
-			"signin-status" : data["signin-status "]
+			"signin-status" : data["signin-status"]
 
 
 
@@ -139,12 +135,21 @@ searchApp.directive 'currentSearchResultsDirective', ->
 
 		return
 searchApp.directive 'signInStatusDirective', ->
-	(scope,element,attrs) ->
+	scope: false,
+	transclude: false,
+	link: (scope,element,attrs) ->
 		#if $('#all-search-results .current-search-results').length > 1
-	
+	  
 		$(element).on 'click', (event) ->
-			if $scope.appData.user["signin-status"]
+			
+			console.log scope.appData
+			if scope.appData.user["signin-status"]
 				event.preventDefault()
+				$("#signin-to-app").addClass 'dropdown'
+				$("#signin-to-app .dropdown-toggle").attr("data-toggle","dropdown")
+			
+			return
+				
 
 		return
 

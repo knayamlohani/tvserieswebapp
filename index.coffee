@@ -113,25 +113,24 @@ app.post '/signup', (req, res)  ->
     "password"   : req.body['password']
   ,
   (user) ->
-    session.username = user.username
-    session.password = user.password
-    session.email = user.email
-    session["signin-status"] = true
+    req.session.username = user.username
+    req.session.password = user.password
+    req.session.email = user.email
+    req.session["signin-status"] = true
 
-    #res.session.username = user.username
     res.redirect('/')
     return
 
 
 app.get '/signin-status', (req, res) ->
-  if session.username
-    session["signin-status"] = true
-  else session["signin-status"] = false
+  if req.session.username
+    req.session["signin-status"] = true
+  else req.session["signin-status"] = false
   res.end JSON.stringify
-    "first-name"    : session["first-name"]
-    "email"         : session["email"]
-    "username"      : session["username"]
-    "signin-status" : session["signin-status"]
+    "first-name"    : req.session["first-name"]
+    "email"         : req.session["email"]
+    "username"      : req.session["username"]
+    "signin-status" : req.session["signin-status"]
   return
 
 app.get '/signout', (req, res) ->
