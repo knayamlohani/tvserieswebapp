@@ -103,7 +103,7 @@
    */
 
   app.post('/signup', function(req, res) {
-    return mongodbclient.checkIfAlreadyRegistered(req.body.email, function(alreadyRegistered) {
+    mongodbclient.checkIfAlreadyRegistered(req.body.email, function(alreadyRegistered) {
       if (!alreadyRegistered) {
         mongodbclient.addNewUser({
           "first-name": req.body['first-name'],
