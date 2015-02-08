@@ -24,7 +24,7 @@
       }
       collection = db.collection('useraccountdetails');
       collection.find({
-        "username": "knayamlohani"
+        "username": username
       }).toArray(function(err, results) {
         if (results.length > 0) {
           callback("false");
@@ -69,7 +69,9 @@
         });
       }
       collection = db.collection('useraccountdetails');
-      collection.find(email).toArray(function(err, results) {
+      collection.find({
+        "email": email
+      }).toArray(function(err, results) {
         db.close();
         if (results.length === 1 && results[0].password === password) {
           callback({
@@ -78,6 +80,14 @@
             "first-name": results[0]["first-name"],
             "last-name": results[0]["last-name"],
             "signin-status": true
+          });
+        } else {
+          callback({
+            "username": "",
+            "email": "",
+            "first-name": "",
+            "last-name": "",
+            "signin-status": flase
           });
         }
       });

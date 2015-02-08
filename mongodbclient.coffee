@@ -16,7 +16,7 @@ exports.checkIfUsernameAvailable = (username, callback) ->
      throw err
 
     collection = db.collection 'useraccountdetails'
-    collection.find( {"username":"knayamlohani"}).toArray (err, results) ->
+    collection.find( {"username":username}).toArray (err, results) ->
       if results.length > 0
         callback "false"
       else callback "true"
@@ -56,7 +56,7 @@ exports.authenticateUserCredentials  = (email, password, callback) ->
 
     collection = db.collection 'useraccountdetails'
     
-    collection.find(email).toArray (err, results) ->
+    collection.find({"email": email}).toArray (err, results) ->
       db.close()
       if results.length == 1 and results[0].password == password
         callback
