@@ -103,18 +103,24 @@
    */
 
   app.post('/signup', function(req, res) {
-    return mongodbclient.addNewUser({
-      "first-name": req.body['first-name'],
-      "last-name": req.body['last-name'],
-      "username": req.body['username'],
-      "email": req.body['email'],
-      "password": req.body['password']
-    }, function(user) {
-      req.session.username = user.username;
-      req.session.password = user.password;
-      req.session.email = user.email;
-      req.session["signin-status"] = true;
-      res.redirect('/');
+    return mongodbclient.checkIfAlreadyRegistered(req.body.email, function(alreadyRegistered) {
+      if (!alreadyRegistered) {
+        mongodbclient.addNewUser({
+          "first-name": req.body['first-name'],
+          "last-name": req.body['last-name'],
+          "username": req.body['username'],
+          "email": req.body['email'],
+          "password": req.body['password']
+        }, function(user) {
+          req.session.username = user.username;
+          req.session.password = user.password;
+          req.session.email = user.email;
+          req.session["signin-status"] = true;
+          res.redirect('/');
+        });
+      } else {
+        res.redirect('/sign-up.html');
+      }
     });
   });
 

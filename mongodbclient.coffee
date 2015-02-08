@@ -10,19 +10,18 @@ exports.setDbConfig = (dbuser, dbpassword) ->
   dbConfig.dbpassword = dbpassword
   return
 
-exports.checkIfUsernameAvailable = (username, callback) ->
+exports.checkIfAlreadyRegistered = (email, callback) ->
   mongoClient.connect "mongodb://#{dbConfig.dbuser}:#{dbConfig.dbpassword}@ds029640.mongolab.com:29640/tvserieswebappdatabase", (err, db) ->
     if err
      throw err
 
     collection = db.collection 'useraccountdetails'
-    collection.find( {"username":username}).toArray (err, results) ->
+    collection.find({"email": email}).toArray (err, results) ->
+      db.close()
       if results.length > 0
         callback "false"
       else callback "true"
-      db.close()
       return
-
     return
 
 exports.addNewUser = (user, callback) ->

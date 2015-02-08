@@ -16,7 +16,7 @@
     dbConfig.dbpassword = dbpassword;
   };
 
-  exports.checkIfUsernameAvailable = function(username, callback) {
+  exports.checkIfAlreadyRegistered = function(email, callback) {
     return mongoClient.connect("mongodb://" + dbConfig.dbuser + ":" + dbConfig.dbpassword + "@ds029640.mongolab.com:29640/tvserieswebappdatabase", function(err, db) {
       var collection;
       if (err) {
@@ -24,14 +24,14 @@
       }
       collection = db.collection('useraccountdetails');
       collection.find({
-        "username": username
+        "email": email
       }).toArray(function(err, results) {
+        db.close();
         if (results.length > 0) {
           callback("false");
         } else {
           callback("true");
         }
-        db.close();
       });
     });
   };

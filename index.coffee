@@ -108,20 +108,27 @@ app.get '/signup', (req, res)  ->
 
 
 app.post '/signup', (req, res)  ->
-  mongodbclient.addNewUser
-    "first-name" : req.body['first-name']
-    "last-name"  : req.body['last-name']
-    "username"   : req.body['username']
-    "email"      : req.body['email']
-    "password"   : req.body['password']
-  ,
-  (user) ->
-    req.session.username = user.username
-    req.session.password = user.password
-    req.session.email = user.email
-    req.session["signin-status"] = true
 
-    res.redirect('/')
+  mongodbclient.checkIfAlreadyRegistered req.body.email, (alreadyRegistered) ->
+
+    if !alreadyRegistered
+      mongodbclient.addNewUser
+        "first-name" : req.body['first-name']
+        "last-name"  : req.body['last-name']
+        "username"   : req.body['username']
+        "email"      : req.body['email']
+        "password"   : req.body['password']
+      ,
+      (user) ->
+        req.session.username = user.username
+        req.session.password = user.password
+        req.session.email = user.email
+        req.session["signin-status"] = true
+
+        res.redirect('/')
+        return
+    else
+      res.redirect('/sign-up.html')
     return
 
 
