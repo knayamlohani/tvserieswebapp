@@ -19,8 +19,8 @@ exports.checkIfAlreadyRegistered = (email, callback) ->
     collection.find({"email": email}).toArray (err, results) ->
       db.close()
       if results.length > 0
-        callback false
-      else callback true
+        callback true
+      else callback false
       return
     return
 

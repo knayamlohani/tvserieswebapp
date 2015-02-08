@@ -28,9 +28,9 @@
       }).toArray(function(err, results) {
         db.close();
         if (results.length > 0) {
-          callback(false);
-        } else {
           callback(true);
+        } else {
+          callback(false);
         }
       });
     });
