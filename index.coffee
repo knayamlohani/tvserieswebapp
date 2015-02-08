@@ -128,7 +128,7 @@ app.post '/signup', (req, res)  ->
         res.redirect('/')
         return
     else
-      res.redirect('/account/sign-up.html')
+      res.redirect('/')
     return
 
 

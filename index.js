@@ -119,7 +119,7 @@
           res.redirect('/');
         });
       } else {
-        res.redirect('/account/sign-up.html');
+        res.redirect('/');
       }
     });
   });
