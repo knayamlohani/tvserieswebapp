@@ -139,6 +139,7 @@
   });
 
   app.post('/signin', function(req, res) {
+    res.redirect('/');
     mongodbclient.authenticateUserCredentials(req.body.email, req.body.password, function(userCredentials) {
       req.session.username = userCredentials.username;
       req.session["signin-status"] = userCredentials["signin-status"];
