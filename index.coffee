@@ -144,7 +144,7 @@ app.get '/signout', (req, res) ->
   return
 
 app.post '/signin', (req, res) ->
-  authenticateUserCredentials req.body.email, req.body.password, (userCredentials) ->
+  mongodbclient.authenticateUserCredentials req.body.email, req.body.password, (userCredentials) ->
     req.session.username = userCredentials.username
     req.session["signin-status"] = userCredentials["signin-status"]
     res.redirect('/')
