@@ -57,7 +57,7 @@ exports.authenticateUserCredentials  = (email, password, callback) ->
     
     collection.find({"email": email}).toArray (err, results) ->
       db.close()
-      if results.length == 1 and results[0].password == password
+      if results.length > 0 and results[0].password == password
         callback
           "username"      : results[0].username
           "email"         : results[0].email
