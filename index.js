@@ -31,10 +31,11 @@
   app.use(session({
     "secret": 'foo',
     "store": new MongoStore({
-      "url": "mongodb://tvserieswebappadmin:s4U-dxF-SrA-dLa@ds029640.mongolab.com:29640/tvserieswebappdatabase"
+      "url": "mongodb://tvserieswebappadmin:s4U-dxF-SrA-dLa@ds029640.mongolab.com:29640/tvserieswebappdatabase",
+      "ttl": 60 * 60
     }),
     "cookie": {
-      "maxAge": 60000
+      "maxAge": 60 * 60
     }
   }));
 
@@ -131,6 +132,8 @@
     }));
   });
 
-  app.get('/signout', function(req, res) {});
+  app.get('/signout', function(req, res) {
+    req.session.destroy(function(err) {});
+  });
 
 }).call(this);
