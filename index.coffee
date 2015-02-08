@@ -138,6 +138,7 @@ app.get '/signin-status', (req, res) ->
 
 app.get '/signout', (req, res) ->
   req.session.destroy (err) ->
+    res.redirect('/')
     return
   return
   

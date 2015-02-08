@@ -133,7 +133,9 @@
   });
 
   app.get('/signout', function(req, res) {
-    req.session.destroy(function(err) {});
+    req.session.destroy(function(err) {
+      res.redirect('/');
+    });
   });
 
 }).call(this);
