@@ -119,6 +119,7 @@
           res.redirect('/');
         });
       } else {
+        req.session["signin-status"] = false;
         res.redirect('/');
       }
     });

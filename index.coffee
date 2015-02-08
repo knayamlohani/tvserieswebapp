@@ -128,6 +128,7 @@ app.post '/signup', (req, res)  ->
         res.redirect('/')
         return
     else
+      req.session["signin-status"] = false
       res.redirect('/')
     return
 
