@@ -25,7 +25,7 @@ MongoStore = require('connect-mongo')(session);
 app.use session 
   "secret" : 'foo'
   "store"  : new MongoStore
-    "url" : "mongodb://tvserieswebappadmin:s4U-dxF-SrA-dLa@ds029640.mongolab.com:29640/tvserieswebappdatabase"
+    "url" : "mongodb://#{process.env["DB_USER"]}:#{process.env["DB_PASSWORD"]}@ds029640.mongolab.com:29640/tvserieswebappdatabase"
     "ttl" : 60*60
   "cookie" : 
     "maxAge" : 60*60
