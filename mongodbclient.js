@@ -56,22 +56,28 @@
     });
   };
 
-  exports.authenticateUserCredentials = function(username, password, callback) {
+  exports.authenticateUserCredentials = function(email, password, callback) {
     return mongoClient.connect("mongodb://" + dbConfig.dbuser + ":" + dbConfig.dbpassword + "@ds029640.mongolab.com:29640/tvserieswebappdatabase", function(err, db) {
       var collection;
       if (err) {
         callback({
           "username": "",
-          "password": ""
+          "email": "",
+          "first-name": "",
+          "last-name": "",
+          "signin-status": flase
         });
       }
       collection = db.collection('useraccountdetails');
-      collection.find(username).toArray(function(err, results) {
+      collection.find(email).toArray(function(err, results) {
         db.close();
         if (results.length === 1 && results[0].password === password) {
           callback({
             "username": results[0].username,
-            "password": results[0].password
+            "email": results[0].email,
+            "first-name": results[0]["first-name"],
+            "last-name": results[0]["last-name"],
+            "signin-status": true
           });
         }
       });

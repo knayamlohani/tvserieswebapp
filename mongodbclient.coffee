@@ -44,21 +44,27 @@ exports.addNewUser = (user, callback) ->
     return
   return
 
-exports.authenticateUserCredentials  = (username, password, callback) ->
+exports.authenticateUserCredentials  = (email, password, callback) ->
   mongoClient.connect "mongodb://#{dbConfig.dbuser}:#{dbConfig.dbpassword}@ds029640.mongolab.com:29640/tvserieswebappdatabase", (err, db) ->
     if err
      callback
-        "username" : ""
-        "password" : ""
+        "username"      : ""
+        "email"         : ""
+        "first-name"    : ""
+        "last-name"     : ""
+        "signin-status" : flase
 
     collection = db.collection 'useraccountdetails'
     
-    collection.find(username).toArray (err, results) ->
+    collection.find(email).toArray (err, results) ->
       db.close()
       if results.length == 1 and results[0].password == password
         callback
-          "username" : results[0].username
-          "password" : results[0].password
+          "username"      : results[0].username
+          "email"         : results[0].email
+          "first-name"    : results[0]["first-name"]
+          "last-name"     : results[0]["last-name"]
+          "signin-status" : true
 
       return
     return  

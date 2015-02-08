@@ -32,10 +32,10 @@
     "secret": '67gvgchgch987jbcfgxdfmhye435jvgxzdzf',
     "store": new MongoStore({
       "url": "mongodb://" + process.env["DB_USER"] + ":" + process.env["DB_PASSWORD"] + "@ds029640.mongolab.com:29640/tvserieswebappdatabase",
-      "ttl": 24 * 60 * 60
+      "ttl": 7 * 24 * 60 * 60 * 1000
     }),
     "cookie": {
-      "maxAge": 24 * 60 * 60
+      "maxAge": 7 * 24 * 60 * 60 * 1000
     }
   }));
 
@@ -134,6 +134,14 @@
 
   app.get('/signout', function(req, res) {
     req.session.destroy(function(err) {
+      res.redirect('/');
+    });
+  });
+
+  app.post('/signin', function(req, res) {
+    authenticateUserCredentials(req.body.email, req.body.password, function(userCredentials) {
+      req.session.username = userCredentials.username;
+      req.session["signin-status"] = userCredentials["signin-status"];
       res.redirect('/');
     });
   });
