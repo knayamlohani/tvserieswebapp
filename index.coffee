@@ -129,6 +129,7 @@ app.get '/signin-status', (req, res) ->
   if req.session.username
     req.session["signin-status"] = true
   else req.session["signin-status"] = false
+  
   res.end JSON.stringify
     "first-name"    : req.session["first-name"]
     "email"         : req.session["email"]
