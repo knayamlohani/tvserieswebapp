@@ -26,8 +26,18 @@ app.use session
   "secret" : '67gvgchgch987jbcfgxdfmhye435jvgxzdzf'
   "store"  : new MongoStore
     "url" : "mongodb://#{process.env["DB_USER"]}:#{process.env["DB_PASSWORD"]}@ds029640.mongolab.com:29640/tvserieswebappdatabase"
+    "ttl" : 24*60*60
   "cookie" : 
     "maxAge" : 24*60*60
+
+
+
+
+
+
+
+
+
 
 
 
@@ -98,11 +108,6 @@ app.get '/signup', (req, res)  ->
 
 
 app.post '/signup', (req, res)  ->
-  req.session.username = user.username
-  req.session.password = user.password
-  req.session.email = user.email
-  req.session["signin-status"] = true
-
   mongodbclient.addNewUser
     "first-name" : req.body['first-name']
     "last-name"  : req.body['last-name']
@@ -111,6 +116,11 @@ app.post '/signup', (req, res)  ->
     "password"   : req.body['password']
   ,
   (user) ->
+    req.session.username = user.username
+    req.session.password = user.password
+    req.session.email = user.email
+    req.session["signin-status"] = true
+
     res.redirect('/')
     return
 
