@@ -148,7 +148,7 @@ app.post '/signin', (req, res) ->
     req.session.username = userCredentials.username
     req.session["signin-status"] = userCredentials["signin-status"]
     #res.redirect('/')
-    rrs.end()
+    res.end()
     return
   return
   
