@@ -64,12 +64,6 @@ exports.authenticateUserCredentials  = (email, password, callback) ->
           "first-name"    : results[0]["first-name"]
           "last-name"     : results[0]["last-name"]
           "signin-status" : true
-      else callback
-        "username"      : ""
-        "email"         : ""
-        "first-name"    : ""
-        "last-name"     : ""
-        "signin-status" : flase
       return
     return  
 

@@ -90,7 +90,19 @@ app.get '/series/seriesId/:id/banners/', (req, res) ->
   return
 
 app.get '/', (req, res)  ->
-  res.end 'Welcome to tvserieswebserver'
+  account = 
+    "status"  : "Sign in"
+    "email"   : ""
+    "signout" : ""
+
+  if req.session.username
+    account =
+      "status"  : req.session.username
+      "email"   : req.session.username
+      "signout" : "signout"
+
+  res.render 'index', status
+
   return
 
 app.listen app.get('port') , ->

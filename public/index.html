@@ -20,6 +20,7 @@
     <script type="text/javascript" src="includes/angular-js/1.3.9/angular.js"></script>
     <script type="text/javascript" src="js/search-app.js"></script>
     <script type="text/javascript"  src="includes/nicescroll/3.6.0/nicescroll.js"></script>
+    <script type="text/javascript"  src="includes/handlebars/2.0.0/handlebars.js"></script>
 
 
    
@@ -61,7 +62,8 @@
           <div class="dropdown" id="signin-to-app" ng-controller="controller as appController">
             <div class="dropdown-toggle" type="button" id="dropdownMenu1" aria-expanded="true">
             <!-- account/sign-in.html-->
-              <a href="account/sign-in.html" sign-in-status-directive>{{appData.user["username"] ? appData.user["username"] : "Sign in"}}</a>
+            <!-- {{appData.user["username"] ? appData.user["username"] : "Sign in"}}-->
+              <a href="account/sign-in.html" sign-in-status-directive>{{account.status}}</a>
               <span class="caret"></span>
             </div>
             <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">

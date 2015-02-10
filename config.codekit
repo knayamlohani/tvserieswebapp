@@ -829,6 +829,17 @@
 		"shouldRunBless": 0,
 		"useLibsass": 0
 		},
+	"\/public\/includes\/handlebars\/2.0.0\/handlebars.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/public\/includes\/handlebars\/2.0.0\/handlebars.js",
+		"outputAbbreviatedPath": "\/public\/includes\/handlebars\/2.0.0\/min\/handlebars-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
 	"\/public\/includes\/jquery\/1.11.0\/jquery.min.js": {
 		"fileType": 64,
 		"ignore": 0,

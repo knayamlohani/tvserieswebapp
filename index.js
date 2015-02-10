@@ -88,7 +88,20 @@
   });
 
   app.get('/', function(req, res) {
-    res.end('Welcome to tvserieswebserver');
+    var account;
+    account = {
+      "status": "Sign in",
+      "email": "",
+      "signout": ""
+    };
+    if (req.session.username) {
+      account = {
+        "status": req.session.username,
+        "email": req.session.username,
+        "signout": "signout"
+      };
+    }
+    res.render('index', status);
   });
 
   app.listen(app.get('port'), function() {

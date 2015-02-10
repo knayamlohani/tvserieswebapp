@@ -52,6 +52,7 @@ searchApp.controller 'controller', [ '$scope','$http', ($scope, $http) ->
 		"signed-in"  : ""
 
 
+  ###
 	url = "#{$scope.appData.host}/signin-status"
 	$http.get(url).success (data) ->
 		console.log "data is"
@@ -61,7 +62,7 @@ searchApp.controller 'controller', [ '$scope','$http', ($scope, $http) ->
 			"email"         : data["email"]
 			"username"      : data["username"]
 			"signin-status" : data["signin-status"]
-
+  ###
 
 
 
