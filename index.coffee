@@ -2,7 +2,8 @@ tvdbWebService = require 'tvdbwebservice'
 express = require 'express'
 app = express()
 
-fs = require "fs";
+fs = require "fs"
+path = require 'path'
 handlebars = require "handlebars"
 
 handlebars.registerHelper 'raw-helper', (options) ->
@@ -136,15 +137,29 @@ app.get '/', (req, res)  ->
 
   return
 
-app.listen app.get('port') , ->
-  console.log "Node app is running at" + app.get 'port'
+server = app.listen app.get('port') , ->
+  ###
+  address = server.address()
+  console.log "Node app is running at" + address
+  if process.platform is 'darwin'
+    powHost = "webapp-tvseries"
+    powFile = path.resolve process.env['HOME'], ".pow/#{powHost}"
+    fs.writeFile powFile, address.port, (err) =>
+      return console.error err if err
+      console.log "Hosted on: #{powHost}.dev"
+      unhost = ->
+        try
+          fs.unlinkSync powFile
+          console.log "Unhosted from: #{powHost}.dev"
+        catch e
+          return console.error err if err
+        return
+      process.on 'SIGINT', -> unhost(); process.exit(); return
+      process.on 'exit', (code) -> unhost(); return
+  ###
   return
 
-###
-app.get '/signup', (req, res)  ->
-  res.end 'Welcome to signup page'
-  return
-###
+
 
 
 
