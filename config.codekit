@@ -9,18 +9,18 @@
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/index.coffee",
 		"minifyOutput": 1,
-		"outputAbbreviatedPath": "\/js\/index.js",
+		"outputAbbreviatedPath": "\/index.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 0,
 		"syntaxCheckerStyle": 0
 		},
-	"\/index.js": {
+	"\/index2.js": {
 		"fileType": 64,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/index.js",
-		"outputAbbreviatedPath": "\/min\/index-min.js",
+		"inputAbbreviatedPath": "\/index2.js",
+		"outputAbbreviatedPath": "\/min\/index2-min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 1,

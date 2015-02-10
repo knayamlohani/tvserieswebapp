@@ -4,7 +4,7 @@ app = express()
 
 fs = require "fs";
 handlebars = require "handlebars"
-
+console.log "starting"
 
 
 app.set 'port', (process.env.PORT || 5000)
@@ -95,6 +95,7 @@ app.get '/series/seriesId/:id/banners/', (req, res) ->
   return
 
 app.get '/', (req, res)  ->
+  console.log "welcome to tvseries"
   indexHTML = fs.readFileSync "./index.html", "utf8"
   
   account = 
@@ -110,6 +111,8 @@ app.get '/', (req, res)  ->
 
   template = handlebars.compile(indexHTML)
   result = template(account)
+
+  console.log "account:", account
 
   res.writeHead(200, {"Context-Type": "text/html"});
   res.write(result);
