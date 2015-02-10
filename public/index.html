@@ -45,7 +45,7 @@
     <title>Tvserieswebapp by mayanklohani</title>
   </head>
 
-  <body ng-app="search-app">
+  <body>
   <!--
     <header>
     -->
@@ -63,13 +63,13 @@
             <div class="dropdown-toggle" type="button" id="dropdownMenu1" aria-expanded="true">
             <!-- account/sign-in.html-->
             <!-- {{appData.user["username"] ? appData.user["username"] : "Sign in"}}-->
-              <a href="account/sign-in.html" sign-in-status-directive>{{"account"}}</a>
+              <a href="account/sign-in.html" sign-in-status-directive>{{account.status}}</a>
               <span class="caret"></span>
             </div>
             <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
-              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">{{appData.user["first-name"]}}</a></li>
-              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">{{appData.user["username"]}}</a></li>
-              <li role="presentation"><a role="menuitem" tabindex="-1" href="/signout">{{appData.user["signin-status"] ? "true": "false"}}</a></li>
+              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">{{account.email}}</a></li>
+              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">{{account.username}}</a></li>
+              <li role="presentation"><a role="menuitem" tabindex="-1" href="/signout">{{account.signout}}</a></li>
             </ul>
           </div>
 
@@ -82,7 +82,7 @@
     -->
     <div id="div-blur-layer"></div>
     
-    <div id="div-search-section" ng-controller="controller as appController">
+    <div id="div-search-section" ng-controller="controller as appController" ng-app="search-app">
       <div id="search-field-container">
         <div id="close-distraction-free-search-mode">
           <i class="fa fa-times fa-2x display-none" ng-click="appData.allSearchResultsData = []"></i>
