@@ -63,13 +63,13 @@
             <div class="dropdown-toggle" type="button" id="dropdownMenu1" aria-expanded="true">
             <!-- account/sign-in.html-->
             <!-- {{appData.user["username"] ? appData.user["username"] : "Sign in"}}-->
-              <a href="account/sign-in.html" sign-in-status-directive>{{account.status}}</a>
+              <a href="account/sign-in.html" sign-in-status-directive>{{status}}</a>
               <span class="caret"></span>
             </div>
             <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
-              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">{{account.email}}</a></li>
-              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">{{account.username}}</a></li>
-              <li role="presentation"><a role="menuitem" tabindex="-1" href="/signout">{{account.signout}}</a></li>
+              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">{{email}}</a></li>
+              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">{{username}}</a></li>
+              <li role="presentation"><a role="menuitem" tabindex="-1" href="/signout">{{signout}}</a></li>
             </ul>
           </div>
 
