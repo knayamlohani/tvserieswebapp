@@ -51,8 +51,7 @@ searchApp.controller 'controller', [ '$scope','$http', ($scope, $http) ->
 		"username"   : ""
 		"signed-in"  : ""
 
-
-  ###
+	###
 	url = "#{$scope.appData.host}/signin-status"
 	$http.get(url).success (data) ->
 		console.log "data is"
@@ -135,6 +134,8 @@ searchApp.directive 'currentSearchResultsDirective', ->
 		$('#div-blur-layer').css "height", $('#div-search-section').css "height"
 
 		return
+
+###
 searchApp.directive 'signInStatusDirective', ->
 	scope: false,
 	transclude: false,
@@ -153,4 +154,6 @@ searchApp.directive 'signInStatusDirective', ->
 				
 
 		return
+
+###
 

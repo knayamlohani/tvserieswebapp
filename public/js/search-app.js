@@ -38,7 +38,6 @@
 
   searchApp.controller('controller', [
     '$scope', '$http', function($scope, $http) {
-      var url;
       $scope.appData = {};
       $scope.appBehavior = {};
       $scope.appData.allSearchResultsData = [];
@@ -50,18 +49,20 @@
         "username": "",
         "signed-in": ""
       };
-      url = "" + $scope.appData.host + "/signin-status";
-      $http.get(url).success(function(data) {
-        console.log("data is");
-        console.log(data);
-        return $scope.appData.user = {
-          "first-name": data["first-name"],
-          "email": data["email"],
-          "username": data["username"],
-          "signin-status": data["signin-status"]
-        };
-      });
+
+      /*
+      	url = "#{$scope.appData.host}/signin-status"
+      	$http.get(url).success (data) ->
+      		console.log "data is"
+      		console.log data
+      		$scope.appData.user =
+      			"first-name"    : data["first-name"]
+      			"email"         : data["email"]
+      			"username"      : data["username"]
+      			"signin-status" : data["signin-status"]
+       */
       $scope.appBehavior.onKeyUp = function(event) {
+        var url;
         if (event.keyCode === 13) {
           console.log($scope.appData.searchQuery);
           $scope.appData.progressIndicatorStatus = true;
@@ -126,22 +127,27 @@
     };
   });
 
-  searchApp.directive('signInStatusDirective', function() {
-    return {
-      scope: false,
-      transclude: false,
-      link: function(scope, element, attrs) {
-        $(element).on('click', function(event) {
-          console.log(scope.appData);
-          if (scope.appData.user["signin-status"]) {
-            event.preventDefault();
-            $("#signin-to-app").addClass('dropdown');
-            $("#signin-to-app .dropdown-toggle").attr("data-toggle", "dropdown");
-          }
-        });
-      }
-    };
-  });
+
+  /*
+  searchApp.directive 'signInStatusDirective', ->
+  	scope: false,
+  	transclude: false,
+  	link: (scope,element,attrs) ->
+  		 *if $('#all-search-results .current-search-results').length > 1
+  	  
+  		$(element).on 'click', (event) ->
+  			
+  			console.log scope.appData
+  			if scope.appData.user["signin-status"]
+  				event.preventDefault()
+  				$("#signin-to-app").addClass 'dropdown'
+  				$("#signin-to-app .dropdown-toggle").attr("data-toggle","dropdown")
+  			
+  			return
+  				
+  
+  		return
+   */
 
 }).call(this);
 
