@@ -96,6 +96,7 @@ app.get '/series/seriesId/:id/banners/', (req, res) ->
 
 app.get '/', (req, res)  ->
   console.log "welcome to tvseries"
+  
   indexHTML = fs.readFileSync "./index.html", "utf8"
   
   account = 
