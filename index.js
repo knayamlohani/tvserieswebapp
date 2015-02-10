@@ -101,7 +101,7 @@
         "signout": "signout"
       };
     }
-    res.render('index', status);
+    res.render('index', account);
   });
 
   app.listen(app.get('port'), function() {

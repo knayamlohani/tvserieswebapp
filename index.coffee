@@ -101,7 +101,7 @@ app.get '/', (req, res)  ->
       "email"   : req.session.username
       "signout" : "signout"
 
-  res.render 'index', status
+  res.render 'index', account
 
   return
 
