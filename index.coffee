@@ -4,12 +4,15 @@ app = express()
 
 fs = require "fs";
 handlebars = require "handlebars"
+
+handlebars.registerHelper 'raw-helper', (options) ->
+  options.fn()
+
 console.log "starting"
 
 
 app.set 'port', (process.env.PORT || 5000)
 app.set 'tvdbApiKey', (process.env.TVDB_API_KEY)
-app.use express.static __dirname + '/public' ;
 
 
 #tvdbwebservice config
@@ -52,6 +55,14 @@ multer = require('multer');
 app.use(bodyParser.json()); 
 app.use(bodyParser.urlencoded({ extended: true })); 
 app.use(multer()); 
+
+
+
+
+###================================================================================================
+Routs
+================================================================================================###
+
 
 app.use (req, res, next) -> 
   res.header "Access-Control-Allow-Origin", "*"
@@ -96,19 +107,23 @@ app.get '/series/seriesId/:id/banners/', (req, res) ->
 
 app.get '/', (req, res)  ->
   console.log "welcome to tvseries"
-  
-  indexHTML = fs.readFileSync "./index.html", "utf8"
+
+  indexHTML = fs.readFileSync "public/index.html", "utf8"
   
   account = 
-    "status"  : "Sign in"
-    "email"   : ""
-    "signout" : ""
+    "status"    : "Sign in"
+    "email"     : ""
+    "signout"   : ""
+    "toggle"    : ""
+    "signinLink": "/account/sign-in.html "
 
   if req.session.username
     account =
-      "status"  : req.session.username
-      "email"   : req.session.username
-      "signout" : "signout"
+      "status"      : req.session.username
+      "email"       : req.session.username
+      "signout"     : "signout"
+      "toggle"      : "dropdown"
+      "signinLink"  : ""
 
   template = handlebars.compile(indexHTML)
   result = template(account)
@@ -188,7 +203,7 @@ app.post '/signin', (req, res) ->
     return
   return
   
-
+app.use express.static __dirname + '/public'
 
 
 

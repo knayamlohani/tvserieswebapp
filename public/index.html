@@ -59,11 +59,10 @@
          
             
 
-          <div class="dropdown" id="signin-to-app">
-            <div class="dropdown-toggle" type="button" id="dropdownMenu1" aria-expanded="true">
+          <div class="dropdown" id="signin-to-app" class="dropdown" >
+            <div class="dropdown-toggle" data-toggle="{{toggle}}" type="button" id="dropdownMenu1" aria-expanded="true">
             <!-- account/sign-in.html-->
-            <!-- {{appData.user["username"] ? appData.user["username"] : "Sign in"}}-->
-              <a href="account/sign-in.html" sign-in-status-directive>{{status}}</a>
+              <a href="{{signinLink}}">{{status}}</a>
               <span class="caret"></span>
             </div>
             <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
@@ -80,6 +79,7 @@
       <!--
     </header>
     -->
+    {{{{raw-helper}}}}
     <div id="div-blur-layer"></div>
     
     <div id="div-search-section" ng-controller="controller as appController" ng-app="search-app">
@@ -106,12 +106,13 @@
         </div>
         
         <div ng-repeat="series in currentSearchResultsData.currentSearchResults" class="search-result">
-          <a ng-include="'templates/search-result-template.html'" ng-click="appBehavior.viewSeries($event)" class="search-result-inner" ng-href="./series.html?series-name={{series.name}}&series-id={{series.id}}"></a>
+          <a ng-include="'templates/search-result-template.html'" ng-click="appBehavior.viewSeries($event)" class="search-result-inner" ng-href="/series.html?series-name={{series.name}}&series-id={{series.id}}"></a>
         </div>
       </div>
       </div>
       
     </div>
+    {{{{/raw-helper}}}}
 
     <svg >
       <filter id="blurFilter" >
