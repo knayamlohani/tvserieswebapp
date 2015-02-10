@@ -2,6 +2,11 @@ tvdbWebService = require 'tvdbwebservice'
 express = require 'express'
 app = express()
 
+fs = require "fs";
+handlebars = require "handlebars"
+
+
+
 app.set 'port', (process.env.PORT || 5000)
 app.set 'tvdbApiKey', (process.env.TVDB_API_KEY)
 app.use express.static __dirname + '/public' ;
@@ -90,6 +95,8 @@ app.get '/series/seriesId/:id/banners/', (req, res) ->
   return
 
 app.get '/', (req, res)  ->
+  indexHTML = fs.readFileSync "./index.html", "utf8"
+  
   account = 
     "status"  : "Sign in"
     "email"   : ""
@@ -101,7 +108,12 @@ app.get '/', (req, res)  ->
       "email"   : req.session.username
       "signout" : "signout"
 
-  res.render 'index', account
+  template = handlebars.compile(indexHTML)
+  result = template(account)
+
+  res.writeHead(200, {"Context-Type": "text/html"});
+  res.write(result);
+  res.end();
 
   return
 
