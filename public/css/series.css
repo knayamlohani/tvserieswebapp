@@ -38,6 +38,8 @@ nav#app-nav-bar {
         vertical-align: center; }
       nav#app-nav-bar > div #app-info #viewing-series {
         padding: 0em 1em; }
+      nav#app-nav-bar > div #app-info #series-name a {
+        text-decoration: none; }
       nav#app-nav-bar > div #app-info #app-for-windows {
         padding: 0em 1em; }
     nav#app-nav-bar > div #subscribe-series {

@@ -5,6 +5,7 @@
   text-decoration: none;
 }
 
+
 body {
 	color: white;
 	h1, h2, h3, h4, h5, h6 {
@@ -52,10 +53,11 @@ nav#app-nav-bar {
 			}
 			#viewing-series {
 				padding: 0em 1em;
-				
 			}
 			#series-name {
-				
+				a{
+					text-decoration: none;
+				}
 			}
 			#app-for-windows {
 				padding: 0em 1em;

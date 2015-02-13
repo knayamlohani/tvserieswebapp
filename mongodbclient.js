@@ -36,52 +36,84 @@
     });
   };
 
-  exports.addNewUser = function(user, callback) {
+  exports.addNewUser = function(requestingUser, callback) {
     mongoClient.connect("mongodb://" + dbConfig.dbuser + ":" + dbConfig.dbpassword + "@ds029640.mongolab.com:29640/tvserieswebappdatabase", function(err, db) {
-      var collection;
+      var collection, user;
+      user = {
+        "firstName": "",
+        "lastName": "",
+        "username": "",
+        "email": "",
+        "signinStatus": false,
+        "siginPage": "/signin",
+        "dashboardPage": "",
+        "status": "Sign in",
+        "toggle": ""
+      };
       if (err) {
-        console.log(err);
-        callback({
-          "username": "",
-          "password": ""
-        });
+        callback(user);
       }
       collection = db.collection('useraccountdetails');
-      collection.insert(user, function(err, docs) {
-        user = docs[0];
-        console.log(user);
+      collection.insert(requestingUser, function(err, docs) {
         db.close();
+        if (!err) {
+          user = {
+            "firstName": docs[0]["firstName"],
+            "lastName": docs[0]["lastName"],
+            "username": docs[0]["username"],
+            "email": docs[0]["email"],
+            "signinStatus": true,
+            "siginPage": "",
+            "dashboardPage": "/dashboard",
+            "status": docs[0]["username"],
+            "toggle": "dropdown"
+          };
+        }
+        console.log(user);
         callback(user);
       });
     });
   };
 
   exports.authenticateUserCredentials = function(email, password, callback) {
+    console.log("authenticating user+++");
     return mongoClient.connect("mongodb://" + dbConfig.dbuser + ":" + dbConfig.dbpassword + "@ds029640.mongolab.com:29640/tvserieswebappdatabase", function(err, db) {
-      var collection;
+      var collection, user;
+      console.log("authenticating user====");
+      user = {
+        "firstName": "",
+        "lastName": "",
+        "username": "",
+        "email": "",
+        "signinStatus": false,
+        "siginPage": "/signin",
+        "dashboardPage": "",
+        "status": "Sign in",
+        "toggle": ""
+      };
       if (err) {
-        callback({
-          "username": "",
-          "email": "",
-          "first-name": "",
-          "last-name": "",
-          "signin-status": flase
-        });
+        callback(user);
       }
+      console.log("email", email);
       collection = db.collection('useraccountdetails');
       collection.find({
         "email": email
       }).toArray(function(err, results) {
         db.close();
-        if (results.length > 0 && results[0].password === password) {
-          callback({
-            "username": results[0].username,
-            "email": results[0].email,
-            "first-name": results[0]["first-name"],
-            "last-name": results[0]["last-name"],
-            "signin-status": true
-          });
+        if (!err && results.length > 0 && results[0].password === password) {
+          user = {
+            "firstName": results[0]["firstName"],
+            "lastName": results[0]["lastName"],
+            "username": results[0]["username"],
+            "email": results[0]["email"],
+            "signinStatus": true,
+            "siginPage": "",
+            "dashboardPage": "/dashboard",
+            "status": results[0]["username"],
+            "toggle": "dropdown"
+          };
         }
+        callback(user);
       });
     });
   };

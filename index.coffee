@@ -7,12 +7,20 @@ path = require 'path'
 http = require 'http'
 handlebars = require "handlebars"
 
-handlebars.registerHelper 'raw-helper', (options) ->
-  options.fn()
-
-console.log "starting"
 
 
+
+user = 
+  "first-name"     : ""
+  "last-name"      : ""
+  "username"       : ""
+  "email"          : ""
+  "signin-status"  : false
+  "sigin-page"     : ""
+  "dashboard-page" : ""
+
+
+#app config
 app.set 'port', (process.env.PORT)
 app.set 'tvdbApiKey', (process.env.TVDB_API_KEY)
 
@@ -31,7 +39,14 @@ app.use(cookieParser());
 #mongo connect session config
 session = require('express-session');
 MongoStore = require('connect-mongo')(session);
- 
+
+
+#handlebars helpers
+handlebars.registerHelper 'raw-helper', (options) ->
+  options.fn()
+
+
+
 app.use session 
   "secret" : '67gvgchgch987jbcfgxdfmhye435jvgxzdzf'
   "store"  : new MongoStore
@@ -39,16 +54,6 @@ app.use session
     "ttl" : 7*24*60*60*1000
   "cookie" : 
     "maxAge" : 7*24*60*60*1000
-
-
-
-
-
-
-
-
-
-
 
 
 bodyParser = require('body-parser');
@@ -61,16 +66,38 @@ app.use(multer());
 
 
 
+#caching up the templates
+
+indexHTML     = fs.readFileSync "public/index.html", "utf8"
+seriesHTML    = fs.readFileSync "public/series.html", "utf8"
+signupHTML    = fs.readFileSync "public/account/signup.html", "utf8"
+signinHTML    = fs.readFileSync "public/account/signin.html", "utf8"
+dashboardHTML = fs.readFileSync "public/account/dashboard.html", "utf8"
+
+indexTemplate     = handlebars.compile indexHTML
+seriesTemplate    = handlebars.compile seriesHTML
+signupTemplate    = handlebars.compile signupHTML
+signinTemplate    = handlebars.compile signinHTML
+dashboardTemplate = handlebars.compile dashboardHTML
+
+
 ###================================================================================================
 Routs
 ================================================================================================###
 
 
+###
 app.use (req, res, next) -> 
   res.header "Access-Control-Allow-Origin", "*"
   res.header "Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept"
   next()
   return
+###
+
+
+
+#routs to access TVDB
+
 
 app.get '/series/seriesName/:name', (req, res) ->
   tvdbWebService.getSeriesByName req.params.name, (data) ->
@@ -107,68 +134,130 @@ app.get '/series/seriesId/:id/banners/', (req, res) ->
   	return
   return
 
-app.get '/', (req, res)  ->
-  console.log "welcome to tvseries"
 
-  indexHTML = fs.readFileSync "public/index.html", "utf8"
+
+
+
+#routs to access the app
+
+app.get '/', (req, res)  ->  
+  console.log "requesting series homepage"
   
-  account = 
-    "status"    : "Sign in"
-    "email"     : ""
-    "signout"   : ""
-    "toggle"    : ""
-    "signinLink": "/account/sign-in.html "
+  if !indexTemplate
+    indexHTML = fs.readFileSync "public/index.html", "utf8"
+    indexTemplate = handlebars.compile(indexHTML)
+  
+  user = 
+    "firstName"     : ""
+    "lastName"      : ""
+    "username"      : ""
+    "email"         : ""
+    "signinStatus"  : false
+    "signinPage"    : "/signin"
+    "dashboardPage" : ""
+    "status"        : "Sign in"
+    "toggle"        : ""
+
+
+
 
   if req.session.username
-    account =
-      "status"      : req.session.username
-      "email"       : req.session.username
-      "signout"     : "signout"
-      "toggle"      : "dropdown"
-      "signinLink"  : ""
+    user = 
+      "firstName"     : req.session["firstName"]
+      "lastName"      : req.session["lastName"]
+      "username"      : req.session.username
+      "email"         : req.session.email
+      "signinStatus"  : true
+      "signinPage"     : ""
+      "dashboardPage" : "/dashboard"
+      "status"        : req.session.username
+      "toggle"        : "dropdown"
 
-  template = handlebars.compile(indexHTML)
-  result = template(account)
+  
+  result = indexTemplate user
 
-  console.log "account:", account
+  console.log "account:", user
 
-  res.writeHead(200, {"Context-Type": "text/html"});
-  res.write(result);
-  res.end();
+  res.writeHead 200, {"Context-Type": "text/html"}
+  res.write result
+  res.end()
 
   return
 
 
 
 
+app.get '/series.html', (req, res)  ->
+  console.log 'requesting series'
+  if !seriesHTML
+    indexHTML = fs.readFileSync "public/series.html", "utf8"
+  
+  user = 
+    "firstName"     : ""
+    "lastName"      : ""
+    "username"      : ""
+    "email"         : ""
+    "signinStatus"  : false
+    "signinPage"    : "/signin"
+    "dashboardPage" : ""
+    "status"        : "Sign in"
+    "toggle"        : ""
+
+  if req.session.username
+    user = 
+      "firstName"     : req.session["firstName"]
+      "lastName"      : req.session["lastName"]
+      "username"      : req.session.username
+      "email"         : req.session.email
+      "signinStatus"  : true
+      "signinPage"     : ""
+      "dashboardPage" : "/dashboard"
+      "status"        : req.session.username
+      "toggle"        : "dropdown"
+
+  template = handlebars.compile seriesHTML
+  result = template user
+
+  res.writeHead 200, {"Context-Type": "text/html"}
+  res.write result 
+  res.end()
+
+  return
 
 
 
 app.post '/signup', (req, res)  ->
+  console.log "signing up th user"
+
+  req.session["firstName"] = ""
+  req.session["lastName"] = ""
+  req.session.username = ""
+  req.session.email    = ""
+  req.session["signinStatus"] = false
 
   mongodbclient.checkIfAlreadyRegistered req.body.email, (alreadyRegistered) ->
-
     if !alreadyRegistered
       mongodbclient.addNewUser
-        "first-name" : req.body['first-name']
-        "last-name"  : req.body['last-name']
-        "username"   : req.body['username']
-        "email"      : req.body['email']
-        "password"   : req.body['password']
+        "firstName" : req.body["firstName"]
+        "lastName"  : req.body["lastName"]
+        "username"  : req.body["username"]
+        "email"     : req.body["email"]
+        "password"  : req.body["password"]   
       ,
       (user) ->
-        req.session.username = user.username
-        req.session.password = user.password
-        req.session.email = user.email
-        req.session["signin-status"] = true
-
-        res.redirect('/')
+        req.session["firstName"]    = user["firstName"]
+        req.session["lastName"]     = user["lastName"]
+        req.session.username        = user.username
+        req.session.email           = user.email
+        req.session["signinStatus"] = true
+        res.redirect '/'
         return
     else
-      req.session["signin-status"] = false
-      res.redirect('/')
+      res.redirect '/signup' 
     return
   return
+
+app.get '/signup', (req, res) ->
 
 
 app.get '/signin-status', (req, res) ->
@@ -177,25 +266,94 @@ app.get '/signin-status', (req, res) ->
   else req.session["signin-status"] = false
   
   res.end JSON.stringify
-    "first-name"    : req.session["first-name"]
+    "firstName"    : req.session["firstName"]
     "email"         : req.session["email"]
     "username"      : req.session["username"]
-    "signin-status" : req.session["signin-status"]
+    "signinStatus" : req.session["signinStatus"]
   return
 
 app.get '/signout', (req, res) ->
   req.session.destroy (err) ->
-    res.redirect('/')
+    res.redirect '/' 
     return
   return
 
+
+
+
+app.get '/signin', (req, res) ->
+  console.log "signin get================================================="
+  res.writeHead 200, {"Context-Type": "text/html"}
+  user = 
+    "email": ""
+    "errorMessage": ""
+
+  if !signinTemplate
+    signinHTML = fs.readFileSync "public/signin.html", "utf8"
+    signinTemplate = handlebars.compile signinHTML
+  result = signinTemplate user
+  res.write result
+  res.end()
+  return
+
+
+
+
+
 app.post '/signin', (req, res) ->
-  mongodbclient.authenticateUserCredentials req.body.email, req.body.password, (userCredentials) ->
-    req.session.username = userCredentials.username
-    req.session["signin-status"] = userCredentials["signin-status"]
-    res.redirect('/')
+  console.log "signin route+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+  mongodbclient.authenticateUserCredentials req.body.email, req.body.password, (user) ->
+
+    req.session.username = user.username
+    req.session["firstName"] = user.firstName
+    req.session["lastName"] = user.lastName
+    req.session["email"] = user.email
+    req.session["username"] = user.username
+    console.log "user", user
+
+
+    req.session["signinStatus"] = user["signinStatus"]
+    
+    if req.session["signinStatus"]
+      res.redirect '/' 
+    else 
+      res.writeHead 200, {"Context-Type": "text/html"}
+      if !signinTemplate
+        signinHTML = fs.readFileSync "public/account/signin.html", "utf8"
+        signinTemplate = handlebars.compile signinHTML
+
+      user["errorMessage"] = "Either the username or password you entered is wrong"
+      result = signinTemplate user
+      res.write result
+      res.end()
     return
   return
+
+app.get '/dashboard', (req, res) ->
+  console.log "requesting dashboard"
+  if !req.session["signinStatus"]
+    res.redirect '/signin'
+  else 
+    user = 
+      "firstName"     : req.session["firstName"]
+      "lastName"      : req.session["lastName"]
+      "username"      : req.session.username
+      "email"         : req.session.email
+      "signinStatus"  : true
+      "signinPage"     : ""
+      "dashboardPage" : "/dashboard"
+      "status"        : req.session.username
+      "toggle"        : "dropdown"
+    res.writeHead 200, {"Context-Type": "text/html"}
+    if !dashboardTemplate
+      dashboardHTML = fs.readFileSync "public/account/dashboard.html", "utf8"
+      dashboardTemplate = handlebars.compile dashboardHTML
+    result = dashboardTemplate user
+    res.write result
+    res.end()
+
+
+
   
 app.use express.static __dirname + '/public'
 

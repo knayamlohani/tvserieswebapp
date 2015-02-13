@@ -40,33 +40,34 @@
     
     <nav id="app-nav-bar">
       <div>
-        <div id="back-to-app-home"><a href="index.html"><i class="fa fa-arrow-left fa-2x"></i></a></div>
+        <div id="back-to-app-home"><a href="/"><i class="fa fa-angle-left fa-2x"></i></a></div>
         <div id="app-info">
           <div id="app-name"><h1>TV Series</h1></div>
           <div id="viewing-series"><i class="fa fa-caret-right fa-2x"></i></div>
+          {{{{raw-helper}}}}
           <div id="series-name"><h1>{{appController.appData.name}}</h1></div>
+          {{{{/raw-helper}}}}
         </div>
         <div id="subscribe-series">
           <a href="#"><i class="fa fa-rss fa-2x"></i></a>  
         </div>
-        <div class="dropdown" id="signin-to-app">
-            <div class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-            <!-- account/sign-in.html-->
-              <a href="#">Sign in</a>
+        <div class="dropdown" id="signin-to-app" class="dropdown" >
+            <div class="dropdown-toggle" data-toggle="{{toggle}}" type="button" id="dropdownMenu1" aria-expanded="true">
+              <a href="{{signinPage}}">{{status}}</a>
               <span class="caret"></span>
             </div>
             <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
-              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Name</a></li>
-              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">eMail</a></li>
-              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Sign out</a></li>
+              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">{{firstName}}</a></li>
+              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">{{email}}</a></li>
+              <li role="presentation"><a role="menuitem" tabindex="-1" href="{{dashboardPage}}">Dashboard</a></li>
+              <li role="presentation"><a role="menuitem" tabindex="-1" href="/signout">Sign out</a></li>
             </ul>
         </div>
       </div> 
-
     </nav>
       
       
-      
+      {{{{raw-helper}}}}
       <div id="series-section">
         
         <div id="series-info">
@@ -195,5 +196,6 @@
 
 
     </div>
+    {{{{/raw-helper}}}}
   </body>
 </html>

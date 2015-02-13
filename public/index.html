@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="css/stylesheet.css" media="screen">
     <link rel="stylesheet" type="text/css" href="css/pygment_trac.css" media="screen">
     <link rel="stylesheet" type="text/css" href="css/print.css" media="print">
-    <link rel="stylesheet" type="text/css" href="css/home.css">
+    
     <link rel="stylesheet" type="text/css" href="includes/font-awesome/4.2.0/css/font-awesome.min.css">
 
     <!--[if lt IE 9]>
@@ -36,6 +36,8 @@
     <!-- Latest compiled and minified JavaScript -->
     <script  type="text/javascript" src="includes/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
+    <link rel="stylesheet" type="text/css" href="css/home.css">
+
    
 
 
@@ -45,10 +47,7 @@
     <title>Tvserieswebapp by mayanklohani</title>
   </head>
 
-  <body>
-  <!--
-    <header>
-    -->
+  <body ng-app="search-app">
       <nav id="app-nav-bar">
         <div>
           <div id="app-info">
@@ -61,28 +60,24 @@
 
           <div class="dropdown" id="signin-to-app" class="dropdown" >
             <div class="dropdown-toggle" data-toggle="{{toggle}}" type="button" id="dropdownMenu1" aria-expanded="true">
-            <!-- account/sign-in.html-->
-              <a href="{{signinLink}}">{{status}}</a>
+              <a href="{{signinPage}}">{{status}}</a>
               <span class="caret"></span>
             </div>
             <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
+              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">{{firstName}}</a></li>
               <li role="presentation"><a role="menuitem" tabindex="-1" href="#">{{email}}</a></li>
-              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">{{username}}</a></li>
-              <li role="presentation"><a role="menuitem" tabindex="-1" href="/signout">{{signout}}</a></li>
+              <li role="presentation"><a role="menuitem" tabindex="-1" href="{{dashboardPage}}">Dashboard</a></li>
+              <li role="presentation"><a role="menuitem" tabindex="-1" href="/signout">Sign out</a></li>
             </ul>
           </div>
-
-          
         </div>   
           
       </nav>
-      <!--
-    </header>
-    -->
+     
     {{{{raw-helper}}}}
     <div id="div-blur-layer"></div>
     
-    <div id="div-search-section" ng-controller="controller as appController" ng-app="search-app">
+    <div id="div-search-section" ng-controller="controller as appController">
       <div id="search-field-container">
         <div id="close-distraction-free-search-mode">
           <i class="fa fa-times fa-2x display-none" ng-click="appData.allSearchResultsData = []"></i>
