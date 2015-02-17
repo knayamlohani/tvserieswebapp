@@ -41,7 +41,7 @@ app.controller 'controller',[ '$scope','$http',($scope,$http) ->
 #for testing storing the data to localstorage
 	#if localstorage.getItem "series-data"
 
-	url = "#{series.host}/series/seriesId/#{series.id}/seriesOnly"
+	url = "/series/seriesId/#{series.id}/seriesOnly"
 		#gets json
 	$http.get(url).success((data) ->
 		series.data = data
@@ -53,7 +53,7 @@ app.controller 'controller',[ '$scope','$http',($scope,$http) ->
 
 
 	if !series.artworkUrl
-		url = "#{series.host}/series/seriesId/#{series.id}/banners"
+		url = "/series/seriesId/#{series.id}/banners"
 		#gets json
 		$http.get(url).success((data) ->
 			series.banners = data
@@ -75,7 +75,7 @@ app.controller 'controller',[ '$scope','$http',($scope,$http) ->
 		)
 		
 	if series.actors.length == 0
-		url = "#{series.host}/series/seriesId/#{series.id}/actors"
+		url = "/series/seriesId/#{series.id}/actors"
 		$http.get(url).success (data) ->
 			series.actors = data
 			if series.actors.length == 0
@@ -162,13 +162,28 @@ app.directive 'actorDescriptionDirective', ->
 			element.addClass 'nice-scrolled'
 		return
 
-app.directive 'allActorsDirective',[ '$timeout', ($timeout)->
+app.directive 'allActorsDirective',[ '$timeout', ($timeout) ->
 	link: (scope, element, attrs) ->
 		$timeout ->
 			console.log " cast "+ appData.actors
 		if appData.actors.length == 0
 			console.log "no cast details"
 		
+		return
+]
+
+
+app.directive 'seriesSubscriptionDirective',[ '$http', ($http) ->
+	link: (scope, element, attrs) ->
+		$(element).find(">a").on 'click', (e) ->
+			e.preventDefault()
+			console.log "subscribing series ", appData.name
+			
+			$http.get("/subscribe?name=#{appData.name}&id=#{appData.id}&artworkUrl=#{appData.artworkUrl}").success (data) ->
+				console.log "status", data
+				return
+			
+			return
 		return
 ]
 		

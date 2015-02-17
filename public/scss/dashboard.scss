@@ -1,6 +1,24 @@
-body{
-	background: none;
+* {
+	padding: 0;
+	margin: 0;
+	border: 0;
 }
+
+body {
+	width:100%;
+	height:100%;
+	h1, h2, h3, h4, h5, h6 {
+		font-weight: 100;
+	}
+	a {
+		text-decoration: none;
+		color: white;
+	}
+}
+
+
+
+
 
 nav#app-nav-bar {
 	height: 5em;
@@ -62,3 +80,138 @@ nav#app-nav-bar {
 	}
 	
 }
+
+
+.dashboard-content {
+	color: black;
+}
+
+
+
+#dashboard {
+	height: 100%;
+	width: 100%;
+	display: flex;
+	flex-flow: column nowrap;
+	>div {
+		//height: 100%;
+	}
+	background-color: rgba(0, 0, 0, 0.3); 
+
+	#sidebar {
+		width:100%;
+		height: 4em;
+		border-bottom: 1em;
+		border-color: black;
+
+		
+		.option:hover {
+			//background-color: white;
+		}
+
+
+		ul {
+		  font-weight: 100;
+			width: 100%;
+			style: none;
+			display: flex;
+			flow: row nowrap;
+			align-tems: center;
+			align-content: center;
+			justify-content: center;
+			li {
+				list-style: none;
+				padding: 0 1em ;
+			}
+		}
+	}
+
+	#sidebar-content {
+	  color: black;
+		width: auto;
+
+		.sidebar-option-content.not-active {
+			display: none;
+		}
+		>div {
+			width: 100%;
+		}
+
+		div[data-link="account"] {
+			display: flex;
+			flex-flow: column nowrap;
+			>div {
+				width: 100%;
+				display: flex;
+				flex-flow: row wrap;
+				.title{
+					width: 25%;
+				}
+				.data {
+					width: 75%;
+					display: flex;
+					flex-flow: column nowrap;
+				}
+			}
+
+			#profile{
+				height: 10em;
+			}
+
+			#password {
+				height: 5em;
+			}
+
+			#close-account {
+				height: 5em;
+			}
+
+		}
+	}
+
+
+}
+
+body{
+	background-color: rgb(250, 250, 250);
+}
+
+
+#subscriptions-option-content {
+  
+	display: flex;
+	flex-flow: row wrap;
+	align-tems: center;
+	align-content: center;
+	justify-content: center;
+
+	.subscribed-tv-show {
+		padding: 2em 0 0 2em;
+		height: 20em;
+		display: flex;
+		flex-flow: column nowrap;
+		
+		.series-artwork {
+			height: 90%;
+			img {
+				height: 100%;
+				min-height: 100%;
+				max-height: 100%;
+			}
+		}
+		.series-name {
+			height:9%;
+			
+			font-weight: 100;
+			
+		}
+	}
+}
+
+
+
+
+
+
+
+

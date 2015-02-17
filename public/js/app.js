@@ -41,12 +41,12 @@
       this.appBehavior.getCastAvailabilityCurrently = function() {
         return series.actors !== [0];
       };
-      url = "" + series.host + "/series/seriesId/" + series.id + "/seriesOnly";
+      url = "/series/seriesId/" + series.id + "/seriesOnly";
       $http.get(url).success(function(data) {
         return series.data = data;
       });
       if (!series.artworkUrl) {
-        url = "" + series.host + "/series/seriesId/" + series.id + "/banners";
+        url = "/series/seriesId/" + series.id + "/banners";
         $http.get(url).success(function(data) {
           var artworkFound, backgroundFound, banner, _i, _len, _ref;
           series.banners = data;
@@ -72,7 +72,7 @@
         });
       }
       if (series.actors.length === 0) {
-        url = "" + series.host + "/series/seriesId/" + series.id + "/actors";
+        url = "/series/seriesId/" + series.id + "/actors";
         $http.get(url).success(function(data) {
           series.actors = data;
           if (series.actors.length === 0) {
@@ -201,6 +201,22 @@
           if (appData.actors.length === 0) {
             console.log("no cast details");
           }
+        }
+      };
+    }
+  ]);
+
+  app.directive('seriesSubscriptionDirective', [
+    '$http', function($http) {
+      return {
+        link: function(scope, element, attrs) {
+          $(element).find(">a").on('click', function(e) {
+            e.preventDefault();
+            console.log("subscribing series ", appData.name);
+            $http.get("/subscribe?name=" + appData.name + "&id=" + appData.id + "&artworkUrl=" + appData.artworkUrl).success(function(data) {
+              console.log("status", data);
+            });
+          });
         }
       };
     }

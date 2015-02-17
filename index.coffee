@@ -9,7 +9,7 @@ handlebars = require "handlebars"
 
 
 
-
+###
 user = 
   "first-name"     : ""
   "last-name"      : ""
@@ -18,7 +18,7 @@ user =
   "signin-status"  : false
   "sigin-page"     : ""
   "dashboard-page" : ""
-
+###
 
 #app config
 app.set 'port', (process.env.PORT)
@@ -86,13 +86,13 @@ Routs
 ================================================================================================###
 
 
-###
+
 app.use (req, res, next) -> 
   res.header "Access-Control-Allow-Origin", "*"
   res.header "Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept"
   next()
   return
-###
+
 
 
 
@@ -147,7 +147,7 @@ app.get '/', (req, res)  ->
     indexHTML = fs.readFileSync "public/index.html", "utf8"
     indexTemplate = handlebars.compile(indexHTML)
   
-  user = 
+  signinObject = 
     "firstName"     : ""
     "lastName"      : ""
     "username"      : ""
@@ -162,7 +162,7 @@ app.get '/', (req, res)  ->
 
 
   if req.session.username
-    user = 
+    signinObject = 
       "firstName"     : req.session["firstName"]
       "lastName"      : req.session["lastName"]
       "username"      : req.session.username
@@ -174,9 +174,9 @@ app.get '/', (req, res)  ->
       "toggle"        : "dropdown"
 
   
-  result = indexTemplate user
+  result = indexTemplate signinObject
 
-  console.log "account:", user
+  console.log "account:", signinObject
 
   res.writeHead 200, {"Context-Type": "text/html"}
   res.write result
@@ -187,12 +187,12 @@ app.get '/', (req, res)  ->
 
 
 
-app.get '/series.html', (req, res)  ->
-  console.log 'requesting series'
+app.get '/series', (req, res)  ->
+  console.log 'requesting series', req.query
   if !seriesHTML
     indexHTML = fs.readFileSync "public/series.html", "utf8"
   
-  user = 
+  seriesPageData = 
     "firstName"     : ""
     "lastName"      : ""
     "username"      : ""
@@ -202,9 +202,11 @@ app.get '/series.html', (req, res)  ->
     "dashboardPage" : ""
     "status"        : "Sign in"
     "toggle"        : ""
+    "name"          : req.query.name
+    "id"            : req.query.id
 
   if req.session.username
-    user = 
+    seriesPageData = 
       "firstName"     : req.session["firstName"]
       "lastName"      : req.session["lastName"]
       "username"      : req.session.username
@@ -214,9 +216,11 @@ app.get '/series.html', (req, res)  ->
       "dashboardPage" : "/dashboard"
       "status"        : req.session.username
       "toggle"        : "dropdown"
+      "name"          : req.query.name
+      "id"            : req.query.id
 
   template = handlebars.compile seriesHTML
-  result = template user
+  result = template seriesPageData
 
   res.writeHead 200, {"Context-Type": "text/html"}
   res.write result 
@@ -227,7 +231,6 @@ app.get '/series.html', (req, res)  ->
 
 
 app.post '/signup', (req, res)  ->
-  console.log "signing up th user"
 
   req.session["firstName"] = ""
   req.session["lastName"] = ""
@@ -235,7 +238,7 @@ app.post '/signup', (req, res)  ->
   req.session.email    = ""
   req.session["signinStatus"] = false
 
-  mongodbclient.checkIfAlreadyRegistered req.body.email, (alreadyRegistered) ->
+  mongodbclient.checkIfEmailAlreadyRegistered req.body.email, (alreadyRegistered) ->
     if !alreadyRegistered
       mongodbclient.addNewUser
         "firstName" : req.body["firstName"]
@@ -244,11 +247,11 @@ app.post '/signup', (req, res)  ->
         "email"     : req.body["email"]
         "password"  : req.body["password"]   
       ,
-      (user) ->
-        req.session["firstName"]    = user["firstName"]
-        req.session["lastName"]     = user["lastName"]
-        req.session.username        = user.username
-        req.session.email           = user.email
+      (signinObject) ->
+        req.session["firstName"]    = signinObject["firstName"]
+        req.session["lastName"]     = signinObject["lastName"]
+        req.session.username        = signinObject.username
+        req.session.email           = signinObject.email
         req.session["signinStatus"] = true
         res.redirect '/'
         return
@@ -267,8 +270,8 @@ app.get '/signin-status', (req, res) ->
   
   res.end JSON.stringify
     "firstName"    : req.session["firstName"]
-    "email"         : req.session["email"]
-    "username"      : req.session["username"]
+    "email"        : req.session["email"]
+    "username"     : req.session["username"]
     "signinStatus" : req.session["signinStatus"]
   return
 
@@ -282,16 +285,15 @@ app.get '/signout', (req, res) ->
 
 
 app.get '/signin', (req, res) ->
-  console.log "signin get================================================="
   res.writeHead 200, {"Context-Type": "text/html"}
-  user = 
-    "email": ""
-    "errorMessage": ""
+  signinObject = 
+    "email"        : ""
+    "errorMessage" : ""
 
   if !signinTemplate
     signinHTML = fs.readFileSync "public/signin.html", "utf8"
     signinTemplate = handlebars.compile signinHTML
-  result = signinTemplate user
+  result = signinTemplate signinObject
   res.write result
   res.end()
   return
@@ -301,18 +303,17 @@ app.get '/signin', (req, res) ->
 
 
 app.post '/signin', (req, res) ->
-  console.log "signin route+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
-  mongodbclient.authenticateUserCredentials req.body.email, req.body.password, (user) ->
+  mongodbclient.authenticateUserCredentials req.body.email, req.body.password, (signinObject) ->
 
-    req.session.username = user.username
-    req.session["firstName"] = user.firstName
-    req.session["lastName"] = user.lastName
-    req.session["email"] = user.email
-    req.session["username"] = user.username
-    console.log "user", user
+    req.session.username     = signinObject.username
+    req.session["firstName"] = signinObject.firstName
+    req.session["lastName"]  = signinObject.lastName
+    req.session["email"]     = signinObject.email
+    req.session["username"]  = signinObject.username
+    console.log "user", signinObject
 
 
-    req.session["signinStatus"] = user["signinStatus"]
+    req.session["signinStatus"] = signinObject["signinStatus"]
     
     if req.session["signinStatus"]
       res.redirect '/' 
@@ -322,8 +323,8 @@ app.post '/signin', (req, res) ->
         signinHTML = fs.readFileSync "public/account/signin.html", "utf8"
         signinTemplate = handlebars.compile signinHTML
 
-      user["errorMessage"] = "Either the username or password you entered is wrong"
-      result = signinTemplate user
+      signinObject["errorMessage"] = "Either the username or password you entered is wrong"
+      result = signinTemplate signinObject
       res.write result
       res.end()
     return
@@ -334,7 +335,7 @@ app.get '/dashboard', (req, res) ->
   if !req.session["signinStatus"]
     res.redirect '/signin'
   else 
-    user = 
+    signinObject = 
       "firstName"     : req.session["firstName"]
       "lastName"      : req.session["lastName"]
       "username"      : req.session.username
@@ -348,14 +349,47 @@ app.get '/dashboard', (req, res) ->
     if !dashboardTemplate
       dashboardHTML = fs.readFileSync "public/account/dashboard.html", "utf8"
       dashboardTemplate = handlebars.compile dashboardHTML
-    result = dashboardTemplate user
+    result = dashboardTemplate signinObject
     res.write result
     res.end()
+
+app.get '/subscriptions', (req, res) ->
+  if !req.session["signinStatus"]
+    res.redirect '/signin'
+  else 
+    subscribedTvShows = []
+    mongodbclient.getSubscribedTvShows req.session.username, (subscribedTvShows) ->
+      console.log subscribedTvShows
+      res.end JSON.stringify subscribedTvShows
+      return
+  return
+
+
+app.get '/subscribe', (req, res) ->
+  name       = req.query.name 
+  id         = req.query.id
+  artworkUrl = req.query.artworkUrl
+
+  console.log name, id
+  if !req.session["signinStatus"]
+    res.redirect '/signin'
+  else  
+    subscribedSeries = 
+      "subscriber"  : req.session.username
+      "id"          : id
+      "name"        : name
+      "artworkUrl"  : artworkUrl
+    mongodbclient.addSeriesToSubscribedTvShows subscribedSeries, (data) ->
+      console.log data
+      res.end "#{data}"
+  return
+
+app.get '/unSubscribe', (req, res) ->
 
 
 
   
-app.use express.static __dirname + '/public'
+
 
 
 
@@ -385,5 +419,5 @@ server = http.createServer(app).listen app.get('port'), ->
   ##
   return
 
-
+app.use express.static __dirname + '/public'
 

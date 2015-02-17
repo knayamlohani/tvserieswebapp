@@ -10,7 +10,7 @@ exports.setDbConfig = (dbuser, dbpassword) ->
   dbConfig.dbpassword = dbpassword
   return
 
-exports.checkIfAlreadyRegistered = (email, callback) ->
+exports.checkIfEmailAlreadyRegistered = (email, callback) ->
   mongoClient.connect "mongodb://#{dbConfig.dbuser}:#{dbConfig.dbpassword}@ds029640.mongolab.com:29640/tvserieswebappdatabase", (err, db) ->
     if err
      throw err
@@ -104,4 +104,42 @@ exports.authenticateUserCredentials  = (email, password, callback) ->
           
       return
     return  
+
+
+exports.addSeriesToSubscribedTvShows = (subscribedTvSeries, callback) ->
+
+  mongoClient.connect "mongodb://#{dbConfig.dbuser}:#{dbConfig.dbpassword}@ds029640.mongolab.com:29640/tvserieswebappdatabase", (err, db) ->
+    
+    collection = db.collection 'usersubscribedtvshows'
+    collection.insert subscribedTvSeries, (err, docs) ->
+      db.close()
+      if err
+        callback false
+      callback true
+      return
+    return
+  return
+
+
+exports.getSubscribedTvShows = (username, callback) ->
+  mongoClient.connect "mongodb://#{dbConfig.dbuser}:#{dbConfig.dbpassword}@ds029640.mongolab.com:29640/tvserieswebappdatabase", (err, db) ->
+    if err
+      subscribedTvShows = []
+    collection = db.collection 'usersubscribedtvshows'
+    collection.find({"subscriber": username}).toArray (err, results) ->
+      db.close()
+      if !err and results.length > 0 
+        subscribedTvShows = results
+
+      callback subscribedTvShows
+          
+      return
+    return
+  return
+
+
+
+
+
+
 

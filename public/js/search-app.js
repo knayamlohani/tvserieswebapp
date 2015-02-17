@@ -49,25 +49,13 @@
         "username": "",
         "signed-in": ""
       };
-
-      /*
-      	url = "#{$scope.appData.host}/signin-status"
-      	$http.get(url).success (data) ->
-      		console.log "data is"
-      		console.log data
-      		$scope.appData.user =
-      			"first-name"    : data["first-name"]
-      			"email"         : data["email"]
-      			"username"      : data["username"]
-      			"signin-status" : data["signin-status"]
-       */
       $scope.appBehavior.onKeyUp = function(event) {
         var url;
         if (event.keyCode === 13) {
           console.log($scope.appData.searchQuery);
           $scope.appData.progressIndicatorStatus = true;
           searchQuery = encodeURIComponent($scope.appData.searchQuery);
-          url = "" + $scope.appData.host + "/series/seriesName/" + searchQuery;
+          url = "/series/seriesName/" + searchQuery;
           $http.get(url).success(function(data) {
             var currentSearchResultsData, series, _fn, _i, _len, _ref;
             $scope.appData.progressIndicatorStatus = false;
@@ -96,7 +84,7 @@
               };
               for (_i = 0, _len = _ref.length; _i < _len; _i++) {
                 series = _ref[_i];
-                url = "" + $scope.appData.host + "/series/seriesId/" + series.id + "/banners";
+                url = "/series/seriesId/" + series.id + "/banners";
                 _fn(series, currentSearchResultsData);
               }
             }
@@ -126,28 +114,6 @@
       $('#div-blur-layer').css("height", $('#div-search-section').css("height"));
     };
   });
-
-
-  /*
-  searchApp.directive 'signInStatusDirective', ->
-  	scope: false,
-  	transclude: false,
-  	link: (scope,element,attrs) ->
-  		 *if $('#all-search-results .current-search-results').length > 1
-  	  
-  		$(element).on 'click', (event) ->
-  			
-  			console.log scope.appData
-  			if scope.appData.user["signin-status"]
-  				event.preventDefault()
-  				$("#signin-to-app").addClass 'dropdown'
-  				$("#signin-to-app .dropdown-toggle").attr("data-toggle","dropdown")
-  			
-  			return
-  				
-  
-  		return
-   */
 
 }).call(this);
 

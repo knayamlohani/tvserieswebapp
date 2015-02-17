@@ -8,7 +8,7 @@ body {
   color: white;
   font-weight: 200; }
   body h1, body h2, body h3, body h4, body h5, body h6 {
-    font-weight: 300; }
+    font-weight: 100; }
 
 div {
   -moz-box-sizing: content-box;

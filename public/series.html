@@ -38,19 +38,21 @@
     <div id="blur-layer" blur-layer-directive></div>
     <div id="series">
     
-    <nav id="app-nav-bar">
+    <nav id="app-nav-bar" nav-bar-directive>
       <div>
         <div id="back-to-app-home"><a href="/"><i class="fa fa-angle-left fa-2x"></i></a></div>
         <div id="app-info">
           <div id="app-name"><h1>TV Series</h1></div>
           <div id="viewing-series"><i class="fa fa-caret-right fa-2x"></i></div>
+          <div id="series-name" data-series-name={{name}} data-series-id={{id}}><h1>{{name}}</h1></div>
+        </div>
+        
+        <div id="subscribe-series" series-subscription-directive>
           {{{{raw-helper}}}}
-          <div id="series-name"><h1>{{appController.appData.name}}</h1></div>
-          {{{{/raw-helper}}}}
+          <a href="#"><i class="fa fa-rss fa-2x"></i></a> 
+          {{{{/raw-helper}}}} 
         </div>
-        <div id="subscribe-series">
-          <a href="#"><i class="fa fa-rss fa-2x"></i></a>  
-        </div>
+        
         <div class="dropdown" id="signin-to-app" class="dropdown" >
             <div class="dropdown-toggle" data-toggle="{{toggle}}" type="button" id="dropdownMenu1" aria-expanded="true">
               <a href="{{signinPage}}">{{status}}</a>

@@ -101,7 +101,7 @@
         </div>
         
         <div ng-repeat="series in currentSearchResultsData.currentSearchResults" class="search-result">
-          <a ng-include="'templates/search-result-template.html'" ng-click="appBehavior.viewSeries($event)" class="search-result-inner" ng-href="/series.html?series-name={{series.name}}&series-id={{series.id}}"></a>
+          <a ng-include="'templates/search-result-template.html'" ng-click="appBehavior.viewSeries($event)" class="search-result-inner" ng-href="/series?name={{series.name}}&id={{series.id}}"></a>
         </div>
       </div>
       </div>
@@ -109,7 +109,7 @@
     </div>
     {{{{/raw-helper}}}}
 
-    <svg >
+    <svg>
       <filter id="blurFilter" >
         <feGaussianBlur stdDeviation="7" />
       </filter> 

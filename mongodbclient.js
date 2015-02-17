@@ -16,7 +16,7 @@
     dbConfig.dbpassword = dbpassword;
   };
 
-  exports.checkIfAlreadyRegistered = function(email, callback) {
+  exports.checkIfEmailAlreadyRegistered = function(email, callback) {
     return mongoClient.connect("mongodb://" + dbConfig.dbuser + ":" + dbConfig.dbpassword + "@ds029640.mongolab.com:29640/tvserieswebappdatabase", function(err, db) {
       var collection;
       if (err) {
@@ -114,6 +114,39 @@
           };
         }
         callback(user);
+      });
+    });
+  };
+
+  exports.addSeriesToSubscribedTvShows = function(subscribedTvSeries, callback) {
+    mongoClient.connect("mongodb://" + dbConfig.dbuser + ":" + dbConfig.dbpassword + "@ds029640.mongolab.com:29640/tvserieswebappdatabase", function(err, db) {
+      var collection;
+      collection = db.collection('usersubscribedtvshows');
+      collection.insert(subscribedTvSeries, function(err, docs) {
+        db.close();
+        if (err) {
+          callback(false);
+        }
+        callback(true);
+      });
+    });
+  };
+
+  exports.getSubscribedTvShows = function(username, callback) {
+    mongoClient.connect("mongodb://" + dbConfig.dbuser + ":" + dbConfig.dbpassword + "@ds029640.mongolab.com:29640/tvserieswebappdatabase", function(err, db) {
+      var collection, subscribedTvShows;
+      if (err) {
+        subscribedTvShows = [];
+      }
+      collection = db.collection('usersubscribedtvshows');
+      collection.find({
+        "subscriber": username
+      }).toArray(function(err, results) {
+        db.close();
+        if (!err && results.length > 0) {
+          subscribedTvShows = results;
+        }
+        callback(subscribedTvShows);
       });
     });
   };
