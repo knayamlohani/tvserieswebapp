@@ -26,6 +26,7 @@
   if (window.location.href.split('?')[1]) {
     appData.name = decodeURIComponent(((window.location.href.split('?')[1]).split("&")[0]).split('=')[1]);
     appData.id = decodeURIComponent(((window.location.href.split('?')[1]).split("&")[1]).split('=')[1]);
+    appData.artworkUrl = decodeURIComponent(((window.location.href.split('?')[1]).split("&")[2]).split('=')[1]);
   }
 
   app = angular.module('app', []);
@@ -70,6 +71,9 @@
           $('#blur-layer').css("background", "#fafafa url(" + appData.artworkUrl + ") 0 0 / cover");
           return $('body').css("background", "#fafafa url(" + appData.artworkUrl + ") 0 0 / cover");
         });
+      } else {
+        $('#blur-layer').css("background", "#fafafa url(" + appData.artworkUrl + ") 0 0 / cover");
+        $('body').css("background", "#fafafa url(" + appData.artworkUrl + ") 0 0 / cover");
       }
       if (series.actors.length === 0) {
         url = "/series/seriesId/" + series.id + "/actors";
