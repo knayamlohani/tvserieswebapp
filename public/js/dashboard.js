@@ -3,18 +3,18 @@
   var dashboardApp;
 
   $('window').ready(function() {
-    $('#sidebar .option').on('click', function(e) {
-      var allSidebarOptionsContent, selectedSidebarOptionContent, selectedSidebarOptionContentLink;
-      $("#sidebar .option").removeClass("active not-active");
+    $('#options-bar .option').on('click', function(e) {
+      var allOptionsBarOptionsContent, selectedOptionsBarOptionContent, selectedOptionsBarOptionContentLink;
+      $("#options-bar .option").removeClass("active not-active");
       $(this).addClass("active");
-      selectedSidebarOptionContentLink = $(this).data('link');
-      console.log(selectedSidebarOptionContentLink);
-      allSidebarOptionsContent = $('#sidebar-content .sidebar-option-content');
-      allSidebarOptionsContent.removeClass("active not-active");
-      selectedSidebarOptionContent = $("#sidebar-content .sidebar-option-content[data-link='" + selectedSidebarOptionContentLink + "']");
-      selectedSidebarOptionContent.addClass("active");
-      allSidebarOptionsContent.not(selectedSidebarOptionContent).addClass('not-active');
-      console.log(selectedSidebarOptionContent);
+      selectedOptionsBarOptionContentLink = $(this).data('link');
+      console.log(selectedOptionsBarOptionContentLink);
+      allOptionsBarOptionsContent = $('#options-bar-content .options-bar-option-content');
+      allOptionsBarOptionsContent.removeClass("active not-active");
+      selectedOptionsBarOptionContent = $("#options-bar-content .options-bar-option-content[data-link='" + selectedOptionsBarOptionContentLink + "']");
+      selectedOptionsBarOptionContent.addClass("active");
+      allOptionsBarOptionsContent.not(selectedOptionsBarOptionContent).addClass('not-active');
+      console.log(selectedOptionsBarOptionContent);
     });
   });
 
@@ -23,8 +23,10 @@
   dashboardApp.controller('controller', [
     '$http', '$scope', function($http, $scope) {
       console.log("setting controller");
-      this.appData = {};
-      this.appData.subscribedTvShows = [];
+      $scope.appData = {};
+      $scope.appData.subscribedTvShows = [];
+      $scope.appData.requestingSubscribedTvShows = true;
+      $scope.appData.downloadedSubscribedTvShows = false;
     }
   ]);
 
@@ -34,20 +36,25 @@
         link: function(scope, elemement, attrs) {
           console.log("subscriptioons option created");
           $(elemement).on('click', function(e) {
-            $http.get('/subscriptions').success(function(subscribedTvShows) {
-              console.log(subscribedTvShows);
-              $timeout(function() {
-                scope.$apply(function() {
-                  return scope.subscribedTvShows = subscribedTvShows;
-                });
-                return;
-              });
+            $http.get('/subscriptions').success(function(result) {
+              console.log("dashboard result ", result);
+              scope.appData.requestingSubscribedTvShows = false;
+              return scope.appData.subscribedTvShows = result.data;
             });
           });
         }
       };
     }
   ]);
+
+
+  /*
+  $timeout ->
+  					scope.$apply ->
+  			    		scope.subscribedTvShows = subscribedTvShows
+  			    	return
+  			    return
+   */
 
 }).call(this);
 

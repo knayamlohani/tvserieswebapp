@@ -63,40 +63,56 @@
     </nav>
 
     <div id="dashboard">
-      <div id="sidebar">
+      <div id="options-bar">
         <ul>
-          <li data-link="account"  class="option account active"><a href="#"><h3>Account</h3></a></li>
+          <li data-link="account" class="option account active"><a href="#"><h2>Account</h2></a></li>
           <li data-link="subscriptions" class="option subscriptions not-active" subscriptions-directive>
-            <a href="#"><h3>Subscriptions</h3></a>
+            <a href="#"><h2>Subscriptions</h2></a>
           </li>
         </ul>
       </div>
-      <div id="sidebar-content">
-        <div data-link="account"       id="account-option-content" class="sidebar-option-content active">
+      <div id="options-bar-content">
+        <div data-link="account" id="account-option-content" class="options-bar-option-content active">
           <div id="profile">
-             <div class="title">Profile</div>
+             <div class="title"><h3>Profile</h3></div>
               <div class="data">
-                <div>{{email}}</div>
-                <div>{{firstName}}{{lastName}}</div>
+              <div class="data-i">
+                  <div>Username</div>
+                  <div>{{username}}</div>
+                </div>
+                <div class="data-i">
+                  <div>Email Address</div>
+                  <div>{{email}}</div>
+                </div>
+                <div class="data-i">
+                   <div>Name</div>
+                   <div>{{firstName}} {{lastName}}</div>
+                </div>
+               
               </div>
           </div>
 
           <div id="password">
-            <div class="title">Password</div>
+            <div class="title"><h3>Password</h3></div>
             <div class="data">Reset Your PAssword</div>
           </div>
 
           <div id="close-account">
-            <div class="title">Close Account</div>
+            <div class="title">
+              <h3>Close Account</h3>
+              <p>Warning: Closing your account is irreversible</p>
+            </div>
             <div class="data">Close This Account</div>
           </div>
           
          
         </div>
         {{{{raw-helper}}}}
-        <div data-link="subscriptions" id="subscriptions-option-content" class="sidebar-option-content not-active">
-
-          <div ng-repeat="series in subscribedTvShows" class="subscribed-tv-show">
+        <div data-link="subscriptions" id="subscriptions-option-content" class="options-bar-option-content not-active">
+          <div class="" ng-show="appData.requestingSubscribedTvShows">
+            <i class='fa fa-circle-o-notch fa-spin fa-3x'></i>
+          </div>
+          <div ng-repeat="series in appData.subscribedTvShows" class="subscribed-tv-show">
             <div class="series-artwork">
               <img ng-src="{{series.artworkUrl}}">
             </div>

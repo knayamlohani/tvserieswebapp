@@ -217,8 +217,8 @@
           $(element).find(">a").on('click', function(e) {
             e.preventDefault();
             console.log("subscribing series ", appData.name);
-            $http.get("/subscribe?name=" + appData.name + "&id=" + appData.id + "&artworkUrl=" + appData.artworkUrl).success(function(data) {
-              console.log("status", data);
+            $http.get("/subscribe?name=" + appData.name + "&id=" + appData.id + "&artworkUrl=" + appData.artworkUrl).success(function(result) {
+              console.log("result", result);
             });
           });
         }

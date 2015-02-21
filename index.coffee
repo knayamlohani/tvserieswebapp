@@ -8,18 +8,6 @@ http = require 'http'
 handlebars = require "handlebars"
 
 
-
-###
-user = 
-  "first-name"     : ""
-  "last-name"      : ""
-  "username"       : ""
-  "email"          : ""
-  "signin-status"  : false
-  "sigin-page"     : ""
-  "dashboard-page" : ""
-###
-
 #app config
 app.set 'port', (process.env.PORT)
 app.set 'tvdbApiKey', (process.env.TVDB_API_KEY)
@@ -238,8 +226,9 @@ app.post '/signup', (req, res)  ->
   req.session.email    = ""
   req.session["signinStatus"] = false
 
-  mongodbclient.checkIfEmailAlreadyRegistered req.body.email, (alreadyRegistered) ->
-    if !alreadyRegistered
+  mongodbclient.checkIfEmailAlreadyRegistered req.body.email, (mailStausResult) ->
+    console.log "found status", mailStausResult
+    if !mailStausResult.status
       mongodbclient.addNewUser
         "firstName" : req.body["firstName"]
         "lastName"  : req.body["lastName"]
@@ -247,20 +236,20 @@ app.post '/signup', (req, res)  ->
         "email"     : req.body["email"]
         "password"  : req.body["password"]   
       ,
-      (signinObject) ->
-        req.session["firstName"]    = signinObject["firstName"]
-        req.session["lastName"]     = signinObject["lastName"]
-        req.session.username        = signinObject.username
-        req.session.email           = signinObject.email
+      (result) ->
+        req.session["firstName"]    = result.data["firstName"]
+        req.session["lastName"]     = result.data["lastName"]
+        req.session.username        = result.data.username
+        req.session.email           = result.data.email
         req.session["signinStatus"] = true
         res.redirect '/'
         return
     else
-      res.redirect '/signup' 
+      res.redirect '/account/signup.html' 
     return
   return
 
-app.get '/signup', (req, res) ->
+#app.get '/signup', (req, res) ->
 
 
 app.get '/signin-status', (req, res) ->
@@ -303,17 +292,17 @@ app.get '/signin', (req, res) ->
 
 
 app.post '/signin', (req, res) ->
-  mongodbclient.authenticateUserCredentials req.body.email, req.body.password, (signinObject) ->
+  mongodbclient.authenticateUserCredentials req.body.email, req.body.password, (result) ->
 
-    req.session.username     = signinObject.username
-    req.session["firstName"] = signinObject.firstName
-    req.session["lastName"]  = signinObject.lastName
-    req.session["email"]     = signinObject.email
-    req.session["username"]  = signinObject.username
-    console.log "user", signinObject
+    req.session.username     = result.data.username
+    req.session["firstName"] = result.data.firstName
+    req.session["lastName"]  = result.data.lastName
+    req.session["email"]     = result.data.email
+    req.session["username"]  = result.data.username
+    console.log "user", result
 
 
-    req.session["signinStatus"] = signinObject["signinStatus"]
+    req.session["signinStatus"] = result.data["signinStatus"]
     
     if req.session["signinStatus"]
       res.redirect '/' 
@@ -323,8 +312,8 @@ app.post '/signin', (req, res) ->
         signinHTML = fs.readFileSync "public/account/signin.html", "utf8"
         signinTemplate = handlebars.compile signinHTML
 
-      signinObject["errorMessage"] = "Either the username or password you entered is wrong"
-      result = signinTemplate signinObject
+      result.data["errorMessage"] = "Either the username or password you entered is wrong"
+      result = signinTemplate result.data
       res.write result
       res.end()
     return
@@ -353,14 +342,17 @@ app.get '/dashboard', (req, res) ->
     res.write result
     res.end()
 
+
+
+# results the subscribed TV Shows
 app.get '/subscriptions', (req, res) ->
   if !req.session["signinStatus"]
     res.redirect '/signin'
   else 
-    subscribedTvShows = []
-    mongodbclient.getSubscribedTvShows req.session.username, (subscribedTvShows) ->
-      console.log subscribedTvShows
-      res.end JSON.stringify subscribedTvShows
+    mongodbclient.getSubscribedTvShows req.session.username, (result) ->
+      console.log "result is ",result
+      console.log "sending server data to client"
+      res.end JSON.stringify result, null, 4
       return
   return
 
@@ -374,17 +366,27 @@ app.get '/subscribe', (req, res) ->
   if !req.session["signinStatus"]
     res.redirect '/signin'
   else  
-    subscribedSeries = 
+    subscribingTvSeries = 
       "subscriber"  : req.session.username
       "id"          : id
       "name"        : name
       "artworkUrl"  : artworkUrl
-    mongodbclient.addSeriesToSubscribedTvShows subscribedSeries, (data) ->
+    mongodbclient.addSeriesToSubscribedTvShows subscribingTvSeries, (result) ->
+      console.log result
+      res.end JSON.stringify result, null, 4
+  return
+
+app.get '/unsubscribe', (req, res) ->
+  if !req.session["signinStatus"]
+    res.redirect '/signin'
+  else
+    unsubscribingTvSeries = 
+      "subscriber" : req.session.username
+      "id"         : req.query.id
+    mongodbclient.removeSeriesFromSubscribedTvShows unsubscribingTvSeries, (data) ->
       console.log data
       res.end "#{data}"
   return
-
-app.get '/unSubscribe', (req, res) ->
 
 
 

@@ -1,19 +1,19 @@
 $('window').ready ->
 	
-	$('#sidebar .option').on 'click', (e) ->
-		$("#sidebar .option").removeClass "active not-active"
+	$('#options-bar .option').on 'click', (e) ->
+		$("#options-bar .option").removeClass "active not-active"
 		$(this).addClass "active"
-		selectedSidebarOptionContentLink = $(this).data('link')
-		console.log selectedSidebarOptionContentLink
+		selectedOptionsBarOptionContentLink = $(this).data('link')
+		console.log selectedOptionsBarOptionContentLink
 
 
-		allSidebarOptionsContent = $('#sidebar-content .sidebar-option-content')
-		allSidebarOptionsContent.removeClass "active not-active"
+		allOptionsBarOptionsContent = $('#options-bar-content .options-bar-option-content')
+		allOptionsBarOptionsContent.removeClass "active not-active"
 
-		selectedSidebarOptionContent = $("#sidebar-content .sidebar-option-content[data-link='"+selectedSidebarOptionContentLink+"']")
-		selectedSidebarOptionContent.addClass "active"
-		allSidebarOptionsContent.not(selectedSidebarOptionContent).addClass('not-active')
-		console.log selectedSidebarOptionContent
+		selectedOptionsBarOptionContent = $("#options-bar-content .options-bar-option-content[data-link='"+selectedOptionsBarOptionContentLink+"']")
+		selectedOptionsBarOptionContent.addClass "active"
+		allOptionsBarOptionsContent.not(selectedOptionsBarOptionContent).addClass('not-active')
+		console.log selectedOptionsBarOptionContent
 		return
 	
 	return
@@ -23,8 +23,10 @@ $('window').ready ->
 dashboardApp = angular.module 'dashboard-app', []
 dashboardApp.controller 'controller', [ '$http', '$scope', ($http, $scope) ->
 	console.log "setting controller"
-	this.appData = {}
-	this.appData.subscribedTvShows = []
+	$scope.appData = {}
+	$scope.appData.subscribedTvShows = []
+	$scope.appData.requestingSubscribedTvShows = true
+	$scope.appData.downloadedSubscribedTvShows = false
 	return
 ]
 
@@ -34,15 +36,12 @@ dashboardApp.directive 'subscriptionsDirective', ['$timeout', '$http', ($timeout
 		console.log "subscriptioons option created"
 		$(elemement).on 'click', (e) ->
 			#start http request
-			$http.get('/subscriptions').success (subscribedTvShows) ->
-				console.log subscribedTvShows
-				#adding subscribed tv shows to the scope after 1 cycle
-				$timeout ->
-					scope.$apply ->
-			    		scope.subscribedTvShows = subscribedTvShows
-			    	return
-			    return
-				return
+			#already parses to string to json on receiving data
+			$http.get('/subscriptions').success (result) ->
+				console.log "dashboard result ", result
+				
+				scope.appData.requestingSubscribedTvShows = false
+				scope.appData.subscribedTvShows = result.data
 			#end of http request
 
 			return
@@ -50,3 +49,13 @@ dashboardApp.directive 'subscriptionsDirective', ['$timeout', '$http', ($timeout
 
 		return
 ]
+
+
+
+###
+$timeout ->
+					scope.$apply ->
+			    		scope.subscribedTvShows = subscribedTvShows
+			    	return
+			    return
+###

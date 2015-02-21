@@ -10,134 +10,270 @@ exports.setDbConfig = (dbuser, dbpassword) ->
   dbConfig.dbpassword = dbpassword
   return
 
-exports.checkIfEmailAlreadyRegistered = (email, callback) ->
-  mongoClient.connect "mongodb://#{dbConfig.dbuser}:#{dbConfig.dbpassword}@ds029640.mongolab.com:29640/tvserieswebappdatabase", (err, db) ->
-    if err
-     throw err
+_db = ""
 
-    collection = db.collection 'useraccountdetails'
-    collection.find({"email": email}).toArray (err, results) ->
-      db.close()
-      if results.length > 0
-        callback true
-      else callback false
+mongoClient.connect "mongodb://#{dbConfig.dbuser}:#{dbConfig.dbpassword}@ds029640.mongolab.com:29640/tvserieswebappdatabase", (err, db) ->
+  if !err
+    _db = db
+
+
+
+exports.checkIfEmailAlreadyRegistered = (email, callback) ->
+  
+  if _db
+    checkingIfEmailAlreadyRegistered email, _db, callback
+  else
+    mongoClient.connect "mongodb://#{dbConfig.dbuser}:#{dbConfig.dbpassword}@ds029640.mongolab.com:29640/tvserieswebappdatabase", (err, db) ->
+      if err
+       callback
+         "err"    : err
+         "status" : false
+         "data"   : ""
+      else 
+        _db = db
+        checkingIfEmailAlreadyRegistered email, db, callback
+
       return
-    return
+  return
+
+checkingIfEmailAlreadyRegistered = (email, db, callback) ->
+  result = 
+    "err"    : ""
+    "status" : ""
+    "data"   : ""
+  collection = db.collection 'useraccountdetails'
+  collection.find({"email": email}).toArray (err, results) ->
+    console.log results
+    if results.length > 0
+      result.status = true 
+    else 
+      result.status = false
+
+    result.err = err
+    result.data = results
+    callback result
+  return
+
 
 exports.addNewUser = (requestingUser, callback) ->
-  mongoClient.connect "mongodb://#{dbConfig.dbuser}:#{dbConfig.dbpassword}@ds029640.mongolab.com:29640/tvserieswebappdatabase", (err, db) ->
-    user = 
-      "firstName"     : ""
-      "lastName"      : ""
-      "username"       : ""
-      "email"          : ""
-      "signinStatus"  : false
-      "siginPage"     : "/signin"
-      "dashboardPage" : ""
-      "status"         : "Sign in"
-      "toggle"         : ""
-    
+  if _db
+    addingNewUser requestingUser, _db, callback
+  else 
+    mongoClient.connect "mongodb://#{dbConfig.dbuser}:#{dbConfig.dbpassword}@ds029640.mongolab.com:29640/tvserieswebappdatabase", (err, db) ->
+      if err
+        callback
+          "err"    : err
+          "status" : false
+          "data"   :
+            "firstName"     : ""
+            "lastName"      : ""
+            "username"       : ""
+            "email"          : ""
+            "signinStatus"  : false
+            "siginPage"     : "/signin"
+            "dashboardPage" : ""
+            "status"         : "Sign in"
+            "toggle"         : ""
+      else 
+        _db = db
+        addingNewUser requestingUser, db, callback
 
-    if err
-      callback user
-
-    collection = db.collection 'useraccountdetails'
-    
-    collection.insert requestingUser, (err, docs) ->
-      db.close()
-      if !err
-        user = 
-          "firstName"     : docs[0]["firstName"]
-          "lastName"      : docs[0]["lastName"]
-          "username"       : docs[0]["username"]
-          "email"          : docs[0]["email"]
-          "signinStatus"  : true
-          "siginPage"     : ""
-          "dashboardPage" : "/dashboard"
-          "status"         : docs[0]["username"]
-          "toggle"         : "dropdown"
-      
-      console.log user
-      callback user
       return
+  return
+
+addingNewUser = (requestingUser, db, callback) ->
+  result = 
+    "err"    : ""
+    "status" : ""
+    "data"   : ""
+  user = 
+    "firstName"     : ""
+    "lastName"      : ""
+    "username"       : ""
+    "email"          : ""
+    "signinStatus"  : false
+    "siginPage"     : "/signin"
+    "dashboardPage" : ""
+    "status"         : "Sign in"
+    "toggle"         : ""
+  
+  collection = db.collection 'useraccountdetails'    
+  collection.insert requestingUser, (err, docs) ->
+    
+    if err
+      result.status = false
+    else
+      user["firstName"]     = docs[0]["firstName"]
+      user["lastName"]      = docs[0]["lastName"]
+      user["username"]      = docs[0]["username"]
+      user["email"]         = docs[0]["email"]
+      user["signinStatus"]  = true
+      user["siginPage"]     = ""
+      user["dashboardPage"] = "/dashboard"
+      user["status"]        = docs[0]["username"]
+      user["toggle"]        = "dropdown"
+    
+    result.err  = err
+    result.data = user
+    callback result
+
     return
   return
+
 
 exports.authenticateUserCredentials  = (email, password, callback) ->
   console.log "authenticating user+++"
-  mongoClient.connect "mongodb://#{dbConfig.dbuser}:#{dbConfig.dbpassword}@ds029640.mongolab.com:29640/tvserieswebappdatabase", (err, db) ->
-    console.log "authenticating user===="
-    user = 
-      "firstName"     : ""
-      "lastName"      : ""
-      "username"      : ""
-      "email"         : ""
-      "signinStatus"  : false
-      "siginPage"     : "/signin"
-      "dashboardPage" : ""
-      "status"        : "Sign in"
-      "toggle"        : ""
-    
-    if err
-     callback user
-
-    console.log "email", email
-     
-
-    collection = db.collection 'useraccountdetails'
-    
-    collection.find({"email": email}).toArray (err, results) ->
-      db.close()
-      if !err and results.length > 0 and results[0].password == password
-        user = 
-          "firstName"     : results[0]["firstName"]
-          "lastName"      : results[0]["lastName"]
-          "username"      : results[0]["username"]
-          "email"         : results[0]["email"]
-          "signinStatus"  : true
-          "siginPage"     : ""
-          "dashboardPage" : "/dashboard"
-          "status"        : results[0]["username"]
-          "toggle"        : "dropdown"
-
-      callback user
-          
-      return
-    return  
-
-
-exports.addSeriesToSubscribedTvShows = (subscribedTvSeries, callback) ->
-
-  mongoClient.connect "mongodb://#{dbConfig.dbuser}:#{dbConfig.dbpassword}@ds029640.mongolab.com:29640/tvserieswebappdatabase", (err, db) ->
-    
-    collection = db.collection 'usersubscribedtvshows'
-    collection.insert subscribedTvSeries, (err, docs) ->
-      db.close()
+  if _db
+    authenticatingUserCredentials email, password, _db, callback
+  else
+    mongoClient.connect "mongodb://#{dbConfig.dbuser}:#{dbConfig.dbpassword}@ds029640.mongolab.com:29640/tvserieswebappdatabase", (err, db) ->
       if err
-        callback false
-      callback true
-      return
+        callback
+          "err": err
+          "status": false
+          "data":
+            "firstName"     : ""
+            "lastName"      : ""
+            "username"      : ""
+            "email"         : ""
+            "signinStatus"  : false
+            "siginPage"     : "/signin"
+            "dashboardPage" : ""
+            "status"        : "Sign in"
+            "toggle"        : ""
+      else 
+        _db = db
+        authenticatingUserCredentials email, password, db, callback
+      
+      return  
+  return
+
+
+authenticatingUserCredentials = (email, password, db, callback) ->
+  result = 
+    "err"    : ""
+    "status" : ""
+    "data"   : ""
+  
+  user = 
+    "firstName"     : ""
+    "lastName"      : ""
+    "username"      : ""
+    "email"         : ""
+    "signinStatus"  : false
+    "siginPage"     : "/signin"
+    "dashboardPage" : ""
+    "status"        : "Sign in"
+    "toggle"        : ""
+
+  collection = db.collection 'useraccountdetails'
+  collection.find({"email": email}).toArray (err, results) ->
+    
+    if !err and results.length > 0 and results[0].password == password
+      
+      user["firstName"]     = results[0]["firstName"]
+      user["lastName"]      = results[0]["lastName"]
+      user["username"]      = results[0]["username"]
+      user["email"]         = results[0]["email"]
+      user["signinStatus"]  = true
+      user["siginPage"]     = ""
+      user["dashboardPage"] = "/dashboard"
+      user["status"]        = results[0]["username"]
+      user["toggle"]        = "dropdown"
+
+      result.status = true
+    else 
+      result.status = false
+    result.err  = err
+    result.data = user
+    
+    callback result
+
+        
     return
   return
 
+
+
+#returns JSON object
+exports.addSeriesToSubscribedTvShows = (subscribingTvSeries, callback) ->
+
+  if _db
+    addingSeriesToSubscribedTvShows subscribingTvSeries, _db, callback
+  else
+    mongoClient.connect "mongodb://#{dbConfig.dbuser}:#{dbConfig.dbpassword}@ds029640.mongolab.com:29640/tvserieswebappdatabase", (err, db) ->
+      if err
+        callback
+          "err"    : err
+          "status" : false
+          "data"   : ""
+      else
+        _db = db
+        addingSeriesToSubscribedTvShows subscribingTvSeries, db, callback 
+      
+      return
+  return
+
+addingSeriesToSubscribedTvShows = (subscribedTvSeries, db, callback) ->
+  result =
+    "err"    : ""
+    "status" : ""
+    "data"   : ""
+ 
+  
+  collection = db.collection 'usersubscribedtvshows'
+  collection.insert subscribedTvSeries, (err, docs) ->
+    if err
+      result.status = false
+    
+    result.err    = err
+    result.status = true
+    result.data   = docs
+
+    callback result
+    return
+  return
+
+
+exports.removeSeriesFromSubscribedTvShows = (unsubscribingTvSeries, callback) ->
+  return
+
+removingSeriesFromSubscribedTvShows = (unsubscribingTvSeries, db, callback) ->
+  return
 
 exports.getSubscribedTvShows = (username, callback) ->
-  mongoClient.connect "mongodb://#{dbConfig.dbuser}:#{dbConfig.dbpassword}@ds029640.mongolab.com:29640/tvserieswebappdatabase", (err, db) ->
-    if err
-      subscribedTvShows = []
-    collection = db.collection 'usersubscribedtvshows'
-    collection.find({"subscriber": username}).toArray (err, results) ->
-      db.close()
-      if !err and results.length > 0 
-        subscribedTvShows = results
-
-      callback subscribedTvShows
-          
+  if _db
+    gettingSubscribedTvShows username, _db, callback
+  else 
+    mongoClient.connect "mongodb://#{dbConfig.dbuser}:#{dbConfig.dbpassword}@ds029640.mongolab.com:29640/tvserieswebappdatabase", (err, db) ->
+      if err
+        callback 
+          "err"    : err
+          "status" : false
+          "data"   : []
+      else 
+        _db = db 
+        gettingSubscribedTvShows username, db, callback
+      
       return
-    return
   return
 
+gettingSubscribedTvShows = (subscriber, db, callback) ->
+  result = 
+    "err"    : ""
+    "status" : ""
+    "data"   : ""
+  collection = db.collection 'usersubscribedtvshows'
+  collection.find({"subscriber": subscriber}).toArray (err, results) ->
+    if err
+      result.status = false
+    result.err = err
+    result.data = results
 
+    console.log result
+    callback result
+        
+  return
 
 
 

@@ -2,17 +2,27 @@
 	padding: 0;
 	margin: 0;
 	border: 0;
+	color: white;
 }
 
 body {
 	width:100%;
 	height:100%;
+	font-weight: 200;
 	h1, h2, h3, h4, h5, h6 {
 		font-weight: 100;
 	}
 	a {
 		text-decoration: none;
 		color: white;
+		:hover {
+			color: white;
+			text-decoration: none;
+		}
+	}
+	background-color: rgba(0, 0, 0, 0.3); 
+	div, li {
+		box-sizing: content-box;
 	}
 }
 
@@ -96,13 +106,13 @@ nav#app-nav-bar {
 	>div {
 		//height: 100%;
 	}
-	background-color: rgba(0, 0, 0, 0.3); 
 
-	#sidebar {
+	#options-bar {
 		width:100%;
 		height: 4em;
-		border-bottom: 1em;
-		border-color: black;
+		//border-bottom: .13em solid rgba(0,0,0,.3);
+		
+
 
 		
 		.option:hover {
@@ -122,15 +132,23 @@ nav#app-nav-bar {
 			li {
 				list-style: none;
 				padding: 0 1em ;
+				border-bottom: .06em solid transparent;
+				:hover {
+					border-bottom: .06em solid rgba(0,0,0,.3);
+				}
+			}
+			a:hover,focus {
+				color: white;
+				text-decoration: none;
 			}
 		}
 	}
 
-	#sidebar-content {
-	  color: black;
+	#options-bar-content {
+	  color: white;
 		width: auto;
 
-		.sidebar-option-content.not-active {
+		.options-bar-option-content.not-active {
 			display: none;
 		}
 		>div {
@@ -138,6 +156,7 @@ nav#app-nav-bar {
 		}
 
 		div[data-link="account"] {
+		  
 			display: flex;
 			flex-flow: column nowrap;
 			>div {
@@ -153,28 +172,42 @@ nav#app-nav-bar {
 					flex-flow: column nowrap;
 				}
 			}
-
+			>div {
+				padding-top: 3em;
+			}
 			#profile{
-				height: 10em;
+				min-height: 10em;
+				border-top: .13em solid rgba(0,0,0,.15);
+				.data{
+					.data-i {
+						margin: .5em 0;
+					}
+				}
 			}
 
 			#password {
-				height: 5em;
+				min-height: 10em;
+				border-top: .13em solid rgba(0,0,0,.15);
 			}
 
 			#close-account {
-				height: 5em;
+				min-height: 5em;
+				border-top: .13em solid rgba(0,0,0,.15);
+			}
+
+			.title {
+				>h3, p {
+					margin: 0 0 0 2em;
+				}
 			}
 
 		}
+
 	}
 
 
 }
 
-body{
-	background-color: rgb(250, 250, 250);
-}
 
 
 #subscriptions-option-content {
@@ -208,6 +241,12 @@ body{
 	}
 }
 
+h4::before {
+	padding-right: 0;
+	margin-left: 0;
+	content: "";
+	color: #9ddcff;
+}
 
 
 
