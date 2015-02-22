@@ -257,7 +257,7 @@
           callback({
             "err": err,
             "status": false,
-            "data": []
+            "data": ""
           });
         } else {
           _db = db;

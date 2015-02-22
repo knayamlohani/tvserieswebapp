@@ -250,13 +250,13 @@ exports.getSubscribedTvShows = (username, callback) ->
         callback 
           "err"    : err
           "status" : false
-          "data"   : []
+          "data"   : ""
       else 
         _db = db 
         gettingSubscribedTvShows username, db, callback
       
       return
-  return
+  return   
 
 gettingSubscribedTvShows = (subscriber, db, callback) ->
   result = 

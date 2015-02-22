@@ -33,7 +33,6 @@ dashboardApp.controller 'controller', [ '$http', '$scope', ($http, $scope) ->
 # angular directive to handle user subscribed tv shows
 dashboardApp.directive 'subscriptionsDirective', ['$timeout', '$http', ($timeout, $http) ->
 	link: (scope, elemement, attrs) ->
-		console.log "subscriptioons option created"
 		$(elemement).on 'click', (e) ->
 			#start http request
 			#already parses to string to json on receiving data
