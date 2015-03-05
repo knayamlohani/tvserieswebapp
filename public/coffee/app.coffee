@@ -183,7 +183,7 @@ app.directive 'seriesSubscriptionDirective',[ '$http', ($http) ->
 			e.preventDefault()
 			console.log "subscribing series ", appData.name
 			
-			$http.get("/subscribe?name=#{appData.name}&id=#{appData.id}&artworkUrl=#{appData.artworkUrl}").success (result) ->
+			$http.get("/subscribe?name=#{appData.name}&id=#{appData.id}&artworkUrl=#{appData.artworkUrl}&airsOnDayOfWeek=#{appData.data.airsOnDayOfWeek}").success (result) ->
 				console.log "result", result
 				return
 			

@@ -20,8 +20,7 @@
     <script type="text/javascript" src="../includes/modernizr/83855/custom/modernizr.js"></script>
     <script type="text/javascript" src="../includes/angular-js/1.3.9/angular.js"></script>
     -->
-    <script type="text/javascript" src="includes/angular-js/1.3.13/angular.min.js"></script>
-    <script type="text/javascript" src="../js/search-app.js"></script>
+    <script type="text/javascript" src="/includes/angular-js/1.3.13/angular.min.js"></script>
     <script type="text/javascript" src="../includes/nicescroll/3.6.0/nicescroll.js"></script>
 
 
@@ -40,14 +39,15 @@
     <link rel="stylesheet" type="text/css" href="../css/sign-up.css">
 
     
-    <title>Tvserieswebapp by mayanklohani</title>
+    <title>Create your TV Series Account</title>
   </head>
 
   <body ng-app="">
   <!-- http://tvserieswebapp.herokuapp.com/signup-->
   <!-- http://localhost:8080/signup-->
   <!--  -->
-    <form class="form-horizontal" role="form" action="/signup" method="POST">
+    <h1 id="page-title">Create your TV Series Account</h1>
+    <form class="form-horizontal" role="form" action="/signup" method="POST" id="signup-form">
       <div class="form-group">
         <label for="firstName" class="col-sm-2 control-label">First Name</label>
         <div class="col-sm-5">
@@ -79,14 +79,14 @@
       </div>
 
       <div class="form-group">
-        <label for="password" class="col-sm-2 control-label">Password</label>
+        <label for="password" class="col-sm-2 control-label">Create a Password</label>
         <div class="col-sm-5">
           <input type="password" class="form-control" id="inputPassword" placeholder="Password" name="password">
         </div>
       </div>
 
       <div class="form-group">
-        <label for="confirm-password" class="col-sm-2 control-label">Confirm Password</label>
+        <label for="confirm-password" class="col-sm-2 control-label">Confirm your Password</label>
         <div class="col-sm-5">
           <input type="password" class="form-control" id="inputConfirmPassword" placeholder="Confirm Password" name="confirm-password">
         </div>

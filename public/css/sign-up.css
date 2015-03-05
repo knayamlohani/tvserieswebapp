@@ -1,5 +1,19 @@
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  text-decoration: none;
+  -moz-box-sizing: content-box;
+       box-sizing: content-box; }
+
 body {
-  background-color: white;
-  background: none; }
+  background: #f2f2f2;
+  height: 100%;
+  width: 100%; }
+
+#page-title {
+  text-align: center;
+  width: 100%;
+  padding: .5em 0; }
 
 /*# sourceMappingURL=sign-up.css.map */

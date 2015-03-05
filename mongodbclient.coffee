@@ -264,7 +264,44 @@ gettingSubscribedTvShows = (subscriber, db, callback) ->
     "status" : ""
     "data"   : ""
   collection = db.collection 'usersubscribedtvshows'
-  collection.find({"subscriber": subscriber}).toArray (err, results) ->
+  collection.find({"subscribersUsername": subscriber}).toArray (err, results) ->
+    if err
+      result.status = false
+    result.err = err
+    result.data = results
+
+    console.log result
+    callback result
+        
+  return
+
+
+exports.getTvShowsAiringOn = (dayOfWeek, callback) ->
+  if _db
+    gettingSubscribedTvShows dayOfWeek, _db, callback
+  else 
+    mongoClient.connect "mongodb://#{dbConfig.dbuser}:#{dbConfig.dbpassword}@ds029640.mongolab.com:29640/tvserieswebappdatabase", (err, db) ->
+      if err
+        callback 
+          "err"    : err
+          "status" : false
+          "data"   : ""
+      else 
+        _db = db 
+        gettingTvShowsAiringOn dayOfWeek, db, callback
+      
+      return
+  return   
+
+
+gettingTvShowsAiringOn = (dayOfWeek, db, callback) ->
+  result = 
+    "err"    : ""
+    "status" : ""
+    "data"   : ""
+  collection = db.collection 'usersubscribedtvshows'
+  console.log "day of week", dayOfWeek
+  collection.find({"airsOnDayOfWeek": dayOfWeek}).toArray (err, results) ->
     if err
       result.status = false
     result.err = err

@@ -39,9 +39,9 @@ app.use session
   "secret" : '67gvgchgch987jbcfgxdfmhye435jvgxzdzf'
   "store"  : new MongoStore
     "url" : "mongodb://#{process.env["DB_USER"]}:#{process.env["DB_PASSWORD"]}@ds029640.mongolab.com:29640/tvserieswebappdatabase"
-    "ttl" : 7*24*60*60*1000
+    "ttl" : 1*24*60*60*1000
   "cookie" : 
-    "maxAge" : 7*24*60*60*1000
+    "maxAge" : 1*24*60*60*1000
 
 
 bodyParser = require('body-parser');
@@ -120,6 +120,12 @@ app.get '/series/seriesId/:id/banners/', (req, res) ->
   tvdbWebService.getBannersForSeriesWithId req.params.id, (data) ->
   	res.end data
   	return
+  return
+
+app.get '/series?id=:id/episode?airDate=:airDate', (req, res) ->
+  tvdbwebservice.getEpisodeAiredOnDateForSeriesWithId req.params.airDate, req.params.id, (data) ->
+    res.end data
+    return
   return
 
 
@@ -358,19 +364,27 @@ app.get '/subscriptions', (req, res) ->
 
 
 app.get '/subscribe', (req, res) ->
-  name       = req.query.name 
-  id         = req.query.id
-  artworkUrl = req.query.artworkUrl
-
-  console.log name, id
+  ###
+  name            = req.query.name 
+  id              = req.query.id
+  artworkUrl      = req.query.artworkUrl
+  airsOnDayOfWeek = req.query.airsOnDayOfWeek
+  ###
+  console.log req.query.name, req.query.id
   if !req.session["signinStatus"]
     res.redirect '/signin'
   else  
     subscribingTvSeries = 
-      "subscriber"  : req.session.username
-      "id"          : id
-      "name"        : name
-      "artworkUrl"  : artworkUrl
+      "subscribersUsername"  : req.session.username
+      "subscribersFirstName" : req.session.firstName
+      "subscribersLastName"  : req.session.lastName
+      "subscribersEmail"     : req.session.email
+      "id"                   : req.query.id
+      "name"                 : req.query.name 
+      "artworkUrl"           : req.query.artworkUrl
+      "airsOnDayOfWeek"      : req.query.airsOnDayOfWeek
+
+
     mongodbclient.addSeriesToSubscribedTvShows subscribingTvSeries, (result) ->
       console.log result
       res.end JSON.stringify result, null, 4
@@ -422,4 +436,49 @@ server = http.createServer(app).listen app.get('port'), ->
   return
 
 app.use express.static __dirname + '/public'
+
+(() ->
+  days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+  currentDay = days[(new Date()).getDay()]
+  subscribers = {}
+  mongodbclient.getTvShowsAiringOn currentDay, (result) ->
+    console.log "TV Shows Airing on #{currentDay} -\n", result
+
+    for tvShow in result.data
+      console.log "show -", tvShow.subscribersUsername
+      if !subscribers[tvShow.subscribersUsername]
+        subscribers[tvShow.subscribersUsername] = []
+      subscribers[tvShow.subscribersUsername].push tvShow
+
+    console.log "subscribers today -\n", subscribers
+    return
+  return
+)()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
