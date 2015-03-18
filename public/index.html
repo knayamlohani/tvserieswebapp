@@ -108,7 +108,7 @@
         </div>
         
         <div ng-repeat="series in currentSearchResultsData.currentSearchResults" class="search-result">
-          <a ng-include="'templates/search-result-template.html'" ng-click="appBehavior.viewSeries($event)" class="search-result-inner" ng-href="/series?name={{series.name}}&id={{series.id}}&bannerUrl={{series.bannerUrl}}"></a>
+          <a ng-include="'templates/search-result-template.html'" ng-click="appBehavior.viewSeries($event)" class="search-result-inner" ng-href="/series?name={{series.name}}&id={{series.id}}&bannerUrl={{series.bannerUrl}}&altBannerUrl={{series.altBannerUrl}}"></a>
         </div>
       </div>
       </div>

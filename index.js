@@ -46,7 +46,9 @@
     }),
     "cookie": {
       "maxAge": 1 * 24 * 60 * 60 * 1000
-    }
+    },
+    "resave": false,
+    "saveUninitialized": true
   }));
 
   bodyParser = require('body-parser');
@@ -384,13 +386,28 @@
       res.redirect('/signin');
     } else {
       unsubscribingTvSeries = {
-        "subscriber": req.session.username,
+        "subscribersUsername": req.session.username,
         "id": req.query.id
       };
-      mongodbclient.removeSeriesFromSubscribedTvShows(unsubscribingTvSeries, function(data) {
-        console.log(data);
-        return res.end("" + data);
+      mongodbclient.removeSeriesFromSubscribedTvShows(unsubscribingTvSeries, function(result) {
+        console.log(result);
+        return res.end(JSON.stringify(result, null, 4));
       });
+    }
+  });
+
+  app.get('/subscriptions/getSeries', function(req, res) {
+    if (req.session.username) {
+      console.log("checking subscription status for series with id", req.query.id);
+      mongodbclient.getSubscriptionStatusForSeriesWidth(req.query.id, req.session.username, function(result) {
+        return res.end(JSON.stringify(result, null, 4));
+      });
+    } else {
+      res.end(JSON.stringify({
+        "err": null,
+        "status": false,
+        "data": ""
+      }));
     }
   });
 

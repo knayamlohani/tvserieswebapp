@@ -19,9 +19,11 @@ else if Modernizr.sessionstorage
 	appData.id      = sessionStorage.getItem "series-id"
 	appData.banners = JSON.parse sessionStorage.getItem "series-banners"
 if window.location.href.split('?')[1]
-	appData.name 			 = decodeURIComponent ((window.location.href.split('?')[1]).split("&")[0]).split('=')[1]
-	appData.id   			 = decodeURIComponent ((window.location.href.split('?')[1]).split("&")[1]).split('=')[1]
-	appData.artworkUrl = decodeURIComponent ((window.location.href.split('?')[1]).split("&")[2]).split('=')[1]
+	appData.name 			    = decodeURIComponent ((window.location.href.split('?')[1]).split("&")[0]).split('=')[1]
+	appData.id   			    = decodeURIComponent ((window.location.href.split('?')[1]).split("&")[1]).split('=')[1]
+	appData.artworkUrl    = decodeURIComponent ((window.location.href.split('?')[1]).split("&")[2]).split('=')[1]
+	appData.altArtworkUrl = decodeURIComponent ((window.location.href.split('?')[1]).split("&")[3]).split('=')[1]
+	appData.currentArtworkUrl = appData.artworkUrl
 
 app = angular.module 'app', []
 
@@ -30,6 +32,9 @@ app.controller 'controller',[ '$scope','$http',($scope,$http) ->
 	this.appData = appData
 	this.appData.actorsNotDownloaded = true
 	this.appBehavior = {}
+	this.appData.seriesDataNotDownloaded = true
+	this.appData.seriesSubscriptionStatus = false
+	this.appData.seriesSubscriptionStatusDownloaded = false
 	series = this.appData
 	series.castAvailable = true
 
@@ -46,8 +51,14 @@ app.controller 'controller',[ '$scope','$http',($scope,$http) ->
 		#gets json
 	$http.get(url).success((data) ->
 		series.data = data
-		#console.log series
+		series.seriesDataNotDownloaded = false
+		console.log "series data downloaded"
 		#localstorage.setItem "series-data", data
+		if !appData.actorsNotDownloaded && appData.seriesSubscriptionStatusDownloaded
+			progressBar = $("#request-progress-bar .progress-bar")
+			progressBar.removeClass "progress-bar-striped progress-bar-success progress-bar-danger"
+			progressBar.addClass "progress-bar-success"
+			
 	)
 	#else series.data = localstorage.getItem "series-data"
 
@@ -85,6 +96,16 @@ app.controller 'controller',[ '$scope','$http',($scope,$http) ->
 			if series.actors.length == 0
 				appData.castAvailable = false
 			appData.actorsNotDownloaded = false
+
+			if !appData.seriesDataNotDownloaded && appData.seriesSubscriptionStatusDownloaded
+				console.log "appdata is", appData.data
+				progressBar = $("#request-progress-bar .progress-bar")
+				progressBar.removeClass "progress-bar-striped progress-bar-success progress-bar-danger"
+				progressBar.addClass "progress-bar-success"
+
+
+
+
   $scope.globalClick = false
 ]
 
@@ -146,8 +167,12 @@ app.directive 'blurLayerDirective', ->
 
 app.directive 'allSeasonsDirective', ->
 	(scope, element, attrs) ->
-		height = +$('#series').css('height').split('px')[0]  +  +$('#seasons-container').css('height').split('px')[0]
-		$('#blur-layer').css "height", height
+		window.setTimeout () ->
+			height = +$('#series').css('height').split('px')[0] # +  +$('#seasons-container').css('height').split('px')[0]
+			console.log height
+			$('#blur-layer').css("height", height)
+		,
+		10000
 
 
 app.directive 'seriesOverviewBodyDirective', ['$timeout', ($timeout)->
@@ -178,27 +203,120 @@ app.directive 'allActorsDirective',[ '$timeout', ($timeout) ->
 
 
 app.directive 'seriesSubscriptionDirective',[ '$http', ($http) ->
+	#resetting the request-ptogress-bar
+			
 	link: (scope, element, attrs) ->
+
+		#getting series subscription status
+		$http.get("/subscriptions/getSeries?id=#{appData.id}").success (result) ->
+			appData.seriesSubscriptionStatusDownloaded = true
+			console.log "series subscription status is", result
+			appData.seriesSubscriptionStatus = result.status
+			console.log "status", appData.seriesSubscriptionStatus
+			#if result.status == false 
+			#$(element).find("i").removeClass "visibility-hidden"
+
+			$("#subscribe,#unsubscribe").addClass "visibility-hidden"
+			
+			
+			if appData.seriesSubscriptionStatus
+				$("#unsubscribe").removeClass "visibility-hidden"
+			else
+				$("#subscribe").removeClass "visibility-hidden"
+
+			
+			#else $(element).find("i").addClass "visibility-hidden"
+
+
+
+			if !appData.seriesDataNotDownloaded && !appData.actorsNotDownloaded
+				progressBar = $("#request-progress-bar .progress-bar")
+				progressBar.removeClass "progress-bar-striped progress-bar-success progress-bar-danger"
+				progressBar.addClass "progress-bar-success"
+			###
+			progressBar = $("#request-progress-bar .progress-bar")
+			if result.err
+				progressBar.removeClass "progress-bar-striped progress-bar-success progress-bar-danger"
+				progressBar.addClass "progress-bar-danger"
+			else
+				progressBar.removeClass "progress-bar-striped progress-bar-success progress-bar-danger"
+				progressBar.addClass "progress-bar-success"
+			###
+			return
+
+
+
 		$(element).find(">a").on 'click', (e) ->
 			e.preventDefault()
-			console.log "subscribing series ", appData.name
 			
-			$http.get("/subscribe?name=#{appData.name}&id=#{appData.id}&artworkUrl=#{appData.artworkUrl}&airsOnDayOfWeek=#{appData.data.airsOnDayOfWeek}").success (result) ->
-				console.log "result", result
-				return
 			
+			console.log "clicking", appData.seriesSubscriptionStatus
+			
+			#resetting the request-ptogress-bar
+			$("#request-progress-bar").removeClass "display-none"
+			$("#request-progress-bar .progress-bar").removeClass "progress-bar-striped progress-bar-success progress-bar-danger"
+			$("#request-progress-bar .progress-bar").addClass "progress-bar-striped"
+			
+			progressBar = $("#request-progress-bar .progress-bar")
+			if !appData.seriesSubscriptionStatus
+				console.log "subscribing series ", appData.name
+				$http.get("/subscribe?name=#{appData.name}&id=#{appData.id}&artworkUrl=#{appData.artworkUrl}&airsOnDayOfWeek=#{appData.data.airsOnDayOfWeek}").success (result) ->
+					console.log "result", result
+					
+					if result.err
+						progressBar.removeClass "progress-bar-striped progress-bar-success progress-bar-danger"
+						progressBar.addClass "progress-bar-danger"
+					else
+						appData.seriesSubscriptionStatus = true
+						progressBar.removeClass "progress-bar-striped progress-bar-success progress-bar-danger"
+						progressBar.addClass "progress-bar-success"
+
+						$("#subscribe,#unsubscribe").addClass "visibility-hidden"
+						$("#unsubscribe").removeClass "visibility-hidden"
+					return
+			else
+				console.log "unsubscribing the series"
+				$http.get("/unsubscribe?id=#{appData.id}").success (result) ->
+					console.log "result", result
+					if result.err
+						progressBar.removeClass "progress-bar-striped progress-bar-success progress-bar-danger"
+						progressBar.addClass "progress-bar-danger"
+					else
+						appData.seriesSubscriptionStatus = false
+						progressBar.removeClass "progress-bar-striped progress-bar-success progress-bar-danger"
+						progressBar.addClass "progress-bar-success"
+
+						$("#subscribe,#unsubscribe").addClass "visibility-hidden"
+						$("#subscribe").removeClass "visibility-hidden"
+					return
+
+
+
 			return
 		return
 ]
 		
 
-$('window').ready ->
+$(window).ready ->
 	if navigator.platform != "MacIntel"
 	  $("html").niceScroll()
 
 	height = screen.height
 	width  = screen.width
 	$('body').css "font-size", "#{15/1280*width}px"
+	return
+
+$(window).resize ->
+	scope = angular.element('body').scope()
+	if window.innerWidth > 504 and window.innerWidth < 1101
+		scope.$apply ->
+			scope.appController.appData.currentArtworkUrl = appData.altArtworkUrl
+			return
+	else 
+		scope.$apply ->
+			scope.appController.appData.currentArtworkUrl = appData.artworkUrl
+			return
+	return
 
 
 

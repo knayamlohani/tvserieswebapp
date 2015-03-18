@@ -42,6 +42,8 @@ app.use session
     "ttl" : 1*24*60*60*1000
   "cookie" : 
     "maxAge" : 1*24*60*60*1000
+  "resave": false
+  "saveUninitialized": true
 
 
 bodyParser = require('body-parser');
@@ -395,11 +397,24 @@ app.get '/unsubscribe', (req, res) ->
     res.redirect '/signin'
   else
     unsubscribingTvSeries = 
-      "subscriber" : req.session.username
-      "id"         : req.query.id
-    mongodbclient.removeSeriesFromSubscribedTvShows unsubscribingTvSeries, (data) ->
-      console.log data
-      res.end "#{data}"
+      "subscribersUsername" : req.session.username
+      "id"                  : req.query.id
+    mongodbclient.removeSeriesFromSubscribedTvShows unsubscribingTvSeries, (result) ->
+      console.log result
+      res.end JSON.stringify result, null, 4
+  return
+
+
+app.get '/subscriptions/getSeries',  (req, res) ->
+  if req.session.username
+    console.log "checking subscription status for series with id", req.query.id
+    mongodbclient.getSubscriptionStatusForSeriesWidth req.query.id, req.session.username, (result) ->
+      res.end JSON.stringify result, null, 4
+  else
+    res.end JSON.stringify 
+      "err"    : null
+      "status" : false
+      "data"   : ""
   return
 
 

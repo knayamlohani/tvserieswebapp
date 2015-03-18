@@ -236,9 +236,38 @@ addingSeriesToSubscribedTvShows = (subscribedTvSeries, db, callback) ->
 
 
 exports.removeSeriesFromSubscribedTvShows = (unsubscribingTvSeries, callback) ->
-  return
+  if _db
+    removingSeriesFromSubscribedTvShows unsubscribingTvSeries, _db, callback
+  else 
+    mongoClient.connect "mongodb://#{dbConfig.dbuser}:#{dbConfig.dbpassword}@ds029640.mongolab.com:29640/tvserieswebappdatabase", (err, db) ->
+      if err
+        callback 
+          "err"    : err
+          "status" : false
+          "data"   : ""
+      else 
+        _db = db 
+        removingSeriesFromSubscribedTvShows unsubscribingTvSeries, db, callback
+      
+      return
+  return   
 
 removingSeriesFromSubscribedTvShows = (unsubscribingTvSeries, db, callback) ->
+  result = 
+    "err"    : ""
+    "status" : ""
+    "data"   : ""
+  collection = db.collection 'usersubscribedtvshows'
+
+  collection.remove unsubscribingTvSeries, (err, results) ->
+    if err
+      result.status = false
+    else result.status = true
+    result.err = err
+    result.data = results
+    console.log result
+    callback result
+    return
   return
 
 exports.getSubscribedTvShows = (username, callback) ->
@@ -275,6 +304,43 @@ gettingSubscribedTvShows = (subscriber, db, callback) ->
         
   return
 
+
+exports.getSubscriptionStatusForSeriesWidth = (id, username, callback) ->
+  if _db
+    gettingSubscriptionStatusForSeriesWidth id, username, _db, callback
+  else 
+    mongoClient.connect "mongodb://#{dbConfig.dbuser}:#{dbConfig.dbpassword}@ds029640.mongolab.com:29640/tvserieswebappdatabase", (err, db) ->
+      if err
+        callback 
+          "err"    : err
+          "status" : false
+          "data"   : ""
+      else 
+        _db = db 
+        gettingSubscriptionStatusForSeriesWidth id, username, _db, callback
+      
+      return
+  return 
+
+gettingSubscriptionStatusForSeriesWidth = (id, username, db, callback) ->
+  #callback "returning subscription status for series with id #{id}"
+  collection = db.collection 'usersubscribedtvshows'
+  result = 
+    "err"    : ""
+    "status" : ""
+    "data"   : ""
+  collection.find({"subscribersUsername": username, "id": id}).toArray (err, results) ->
+    if err
+      result.status = false
+    else if results.length > 0
+      result.status = true
+    else result.status = false
+    result.err = err
+    result.data = results
+
+    console.log result
+    callback result
+  return
 
 exports.getTvShowsAiringOn = (dayOfWeek, callback) ->
   if _db

@@ -78,9 +78,10 @@ searchApp.controller 'controller', [ '$scope','$http', ($scope, $http) ->
 			  				for banner in data
 			  					if banner.type == "poster"
 			  						currentSearchResultsData.currentSearchResults.push 
-			  						 "name"      : series.name,
-			  						 "id"        : series.id,
-			  						 "bannerUrl" : banner.url
+			  						 "name"         : series.name,
+			  						 "id"           : series.id,
+			  						 "bannerUrl"    : banner.url,
+			  						 "altBannerUrl" : series.banner
 			  						break
 			  				return
 			  			return

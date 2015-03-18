@@ -42,22 +42,42 @@
     
     <nav id="app-nav-bar" nav-bar-directive>
       <div>
-        <div id="back-to-app-home"><a href="/"><i class="fa fa-angle-left fa-2x"></i></a></div>
-        <div id="app-info">
-          <div id="app-name"><h1>TV Series</h1></div>
-          <div id="viewing-series"><i class="fa fa-caret-right fa-2x"></i></div>
-          <div id="series-name" data-series-name={{name}} data-series-id={{id}}><h1>{{name}}</h1></div>
+        <div id="section-one">
+          <div id="back-to-app-home"><a href="/"><i class="fa fa-angle-left fa-2x"></i></a></div>
+          <div id="page-title">
+            <div id="app-name"><h1>TV Series</h1></div>
+            <div id="viewing-series"><i class="fa fa-caret-right fa-2x"></i></div>
+            <div id="series-name" data-series-name={{name}} data-series-id={{id}}><h1>{{name}}</h1></div>
+          </div>
         </div>
         
-        <div id="subscribe-series" series-subscription-directive>
-          {{{{raw-helper}}}}
-          <a href="#"><i class="fa fa-rss fa-2x"></i></a> 
-          {{{{/raw-helper}}}} 
-        </div>
-        
-        <div class="dropdown" id="signin-to-app" class="dropdown" >
+        <div id="section-two">
+          <div class="progress" id="request-progress-bar">
+            <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+            </div>
+          </div>
+          <div id="subscription-status" series-subscription-directive>
+            {{{{raw-helper}}}}
+            <a href="#">
+             <span id="subscribe" class="visibility-hidden">
+                <!--<i class="fa fa-rss fa-2x visibility-hidden"></i>-->
+                Subscribe
+             </span>
+              
+              <span id="unsubscribe" class="visibility-hidden" >
+              <!--
+                <i class="fa fa-minus fa-stack-1x visibility-hidden"></i>
+                <i class="fa fa-rss fa-stack-1x visibility-hidden"></i>
+                -->
+                Unsubscribe
+              </span>
+              
+            </a> 
+            {{{{/raw-helper}}}} 
+          </div>
+          <div class="dropdown" id="signin-to-app" class="dropdown" >
             <div class="dropdown-toggle" data-toggle="{{toggle}}" type="button" id="dropdownMenu1" aria-expanded="true">
-              <a href="{{signinPage}}">{{status}}</a>
+              <a id="signin" href="{{signinPage}}">{{status}}</a>
               <span class="caret"></span>
             </div>
             <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
@@ -66,6 +86,7 @@
               <li role="presentation"><a role="menuitem" tabindex="-1" href="{{dashboardPage}}">Dashboard</a></li>
               <li role="presentation"><a role="menuitem" tabindex="-1" href="/signout">Sign out</a></li>
             </ul>
+          </div>
         </div>
       </div> 
     </nav>
@@ -77,7 +98,7 @@
         <div id="series-info">
           
           <div id="series-artwork">
-            <img ng-src="{{appController.appData.artworkUrl}}" series-artwork-directive></img>
+            <img ng-src="{{appController.appData.currentArtworkUrl}}" series-artwork-directive></img>
           </div>
           
           <div id="series-details">
@@ -97,7 +118,7 @@
               <div id="overview">
                 <div id="overview-title"><h3>Overview</h3></div>
                 <div id="overview-body" series-overview-body-directive>
-                  <p>{{appController.appData.data.overview ? appController.appData.data.overview : "Getting Overview" }}<p>
+                  <p>{{appController.appData.seriesDataNotDownloaded ? "Getting Overview" : appController.appData.data.overview}}<p>
                 </div>
               </div>
 
