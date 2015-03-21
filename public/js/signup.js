@@ -1,2 +1,2 @@
-(function(){$("window").ready(function(){})}).call(this);
+(function(){var n,e;$(window).ready(function(){$("#time-zone").val(-(new Date).getTimezoneOffset()/60)}),e=function(){},n=angular.module("signupapp",[]),n.controller("controller",["$scope","$http",function(n){}])}).call(this);
 //# sourceMappingURL=./signup.js.map

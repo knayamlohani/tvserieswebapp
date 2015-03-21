@@ -44,6 +44,7 @@ searchApp.controller 'controller', [ '$scope','$http', ($scope, $http) ->
 	$scope.appData.allSearchResultsData = []
 	$scope.appData.host = "http://tvserieswebapp.herokuapp.com" 
 	$scope.appData.progressIndicatorStatus = false
+	$scope.appData.currentArtworkUrl = ""
 
 	$scope.appData.user =
 		"first-name" : ""
@@ -78,10 +79,11 @@ searchApp.controller 'controller', [ '$scope','$http', ($scope, $http) ->
 			  				for banner in data
 			  					if banner.type == "poster"
 			  						currentSearchResultsData.currentSearchResults.push 
-			  						 "name"         : series.name,
-			  						 "id"           : series.id,
-			  						 "bannerUrl"    : banner.url,
-			  						 "altBannerUrl" : series.banner
+			  						 "name"             : series.name,
+			  						 "id"               : series.id,
+			  						 "bannerUrl"        : banner.url,
+			  						 "altBannerUrl"     : series.banner
+			  						 "currentBannerUrl" : if window.availWidth<=800 then series.banner else banner.url
 			  						break
 			  				return
 			  			return
@@ -118,3 +120,25 @@ searchApp.directive 'currentSearchResultsDirective', ->
 		$('#div-blur-layer').css "height", $('#div-search-section').css "height"
 
 		return
+
+
+
+$(window).resize ->
+	scope = angular.element('#div-search-section').scope()
+	console.log "old scope", scope
+	
+	
+	if window.innerWidth <= 800
+		scope.$apply ->
+			for allSearchResults in scope.appData.allSearchResultsData
+				for searchResult in allSearchResults.currentSearchResults
+					searchResult.currentBannerUrl = searchResult.altBannerUrl
+			return
+	else 
+		scope.$apply ->
+			for allSearchResults in scope.appData.allSearchResultsData
+				for searchResult in allSearchResults.currentSearchResults
+					searchResult.currentBannerUrl = searchResult.bannerUrl
+			return
+
+	return

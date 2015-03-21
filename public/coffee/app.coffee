@@ -19,11 +19,11 @@ else if Modernizr.sessionstorage
 	appData.id      = sessionStorage.getItem "series-id"
 	appData.banners = JSON.parse sessionStorage.getItem "series-banners"
 if window.location.href.split('?')[1]
-	appData.name 			    = decodeURIComponent ((window.location.href.split('?')[1]).split("&")[0]).split('=')[1]
-	appData.id   			    = decodeURIComponent ((window.location.href.split('?')[1]).split("&")[1]).split('=')[1]
-	appData.artworkUrl    = decodeURIComponent ((window.location.href.split('?')[1]).split("&")[2]).split('=')[1]
-	appData.altArtworkUrl = decodeURIComponent ((window.location.href.split('?')[1]).split("&")[3]).split('=')[1]
-	appData.currentArtworkUrl = appData.artworkUrl
+	appData.name 			    		 = decodeURIComponent ((window.location.href.split('?')[1]).split("&")[0]).split('=')[1]
+	appData.id   			         = decodeURIComponent ((window.location.href.split('?')[1]).split("&")[1]).split('=')[1]
+	appData.artworkUrl         = decodeURIComponent ((window.location.href.split('?')[1]).split("&")[2]).split('=')[1]
+	appData.altArtworkUrl      = decodeURIComponent ((window.location.href.split('?')[1]).split("&")[3]).split('=')[1]
+	appData.currentArtworkUrl  = appData.artworkUrl
 
 app = angular.module 'app', []
 

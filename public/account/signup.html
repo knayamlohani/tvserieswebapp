@@ -30,35 +30,37 @@
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-    <!-- Latest compiled and minified CSS -->
+    
     <link rel="stylesheet" href="../includes/bootstrap/3.3.2/css/bootstrap.min.css">
-    <!-- Optional theme -->
     <link rel="stylesheet" href="../includes/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-    <!-- Latest compiled and minified JavaScript -->
-    <script  scr="../includes/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../includes/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/sign-up.css">
+    <script type="text/javascript" src="../js/signup.js"></script>
 
     
     <title>Create your TV Series Account</title>
   </head>
 
-  <body ng-app="">
-  <!-- http://tvserieswebapp.herokuapp.com/signup-->
-  <!-- http://localhost:8080/signup-->
-  <!--  -->
+  <body ng-app="signupapp" ng-controller="controller as signupAppController">
+
     <h1 id="page-title">Create your TV Series Account</h1>
-    <form class="form-horizontal" role="form" action="/signup" method="POST" id="signup-form">
+
+
+
+    <!-- Signup Form-->
+    <form class="form-horizontal" role="form" action="/signup" method="POST" id="signup-form" name="signupForm" novalidate>
+      
       <div class="form-group">
         <label for="firstName" class="col-sm-2 control-label">First Name</label>
         <div class="col-sm-5">
-          <input type="text" class="form-control" id="inputFirstName" placeholder="First Name" name="firstName">
+          <input type="text" class="form-control" id="inputFirstName" placeholder="First Name" name="firstName" required ng-model="formData.firstName"/> 
         </div>
       </div>
 
       <div class="form-group">
         <label for="lastName" class="col-sm-2 control-label">Last Name</label>
         <div class="col-sm-5">
-          <input type="text" class="form-control" id="inputLastName" placeholder="Last Name" name="lastName">
+          <input type="text" class="form-control" id="inputLastName" placeholder="Last Name" name="lastName" required ng-model="formData.lastName"/>
         </div>
       </div>
 
@@ -67,35 +69,82 @@
       <div class="form-group">
         <label for="email" class="col-sm-2 control-label">Email</label>
         <div class="col-sm-5">
-          <input type="email" class="form-control" id="inputEmail" placeholder="Email" name="email" required>
+          <input type="email" class="form-control" id="inputEmail" placeholder="Email" name="email" required ng-model="formData.email">
         </div>
       </div>
 
       <div class="form-group">
         <label for="username" class="col-sm-2 control-label">Username</label>
         <div class="col-sm-5">
-          <input type="text" class="form-control" id="inputUsername" placeholder="Username" name="username">
+          <input type="text" class="form-control" id="inputUsername" placeholder="Username" name="username" ng-model="formData.username"  ng-minlength="5" ng-maxlength="15" required>
         </div>
       </div>
 
       <div class="form-group">
+        <label for="username" class="col-sm-2 control-label">Time Zone</label>
+        <div class="col-sm-5">
+          <select id="time-zone" class="form-control" name="timeZone" ng-model="formData.timeZone">
+            <option value=""   >Select you Time Zone</option>
+            <option value="-11" >Midway GMT -11:00</option>
+            <option value="-10" >Honolulu GMT -10:00</option>
+            <option value="-9"  >Anchorage GMT -09:00</option>
+            <option value="-8"  >Los Angeles, Tijuana GMT -08:00</option>
+            <option value="-7"  >Phoenix, Chihuahua, Denver GMT -07:00</option>
+            <option value="-6"  >Costa Rica, Chicago, Regina GMT -06:00</option>
+            <option value="-5"  >Bogota, New York GMT -05:00</option>
+            <option value="-4.5">Caracas GMT -04:30</option>
+            <option value="-4"  >Barbados, Halifax, Manaus, Santiago GMT -04:00</option>
+            <option value="-3.5">St. John GMT -03:30</option>
+            <option value="-3"  >Buenos Aires, Nuuk, Montivideo GMT -03:00</option>
+            <option value="-2"  >Soth Georgia GMT -02:00</option>
+            <option value="-1"  >Azores, Cape Verde  GMT -01:00</option>
+            <option value="0"   >Casablance, London GMT +00:00</option>
+            <option value="1"   >Amsterdam, Belgrade, Brussels, Sarajevo, Windhoek, Brazzaville GMT +01:00</option>
+            <option value="2"   >Amman, Athens, Beirut, Cairo, Helsinki, Jerusalem, Harare GMT +02:00</option>
+            <option value="3"   >Minsk, Baghdad, Kuwait, Nairobi GMT +03:00</option>
+            <option value="3.5" >Tehran GMT +03:30</option>
+            <option value="4"   >Baku, Tbilisi, Yerevan, Dubai GMT +04:00</option>
+            <option value="4.5" >Kabul GMT +04:30</option>
+            <option value="5"   >Karachi, Oral, Yekaterinburg GMT +05:00</option>
+            <option value="5.5" >Kolkata, Colombo GMT +05:30</option>
+            <option value="5.75">Kathmandu GMT +05:45</option>
+            <option value="6"   >Almaty GMT +06:00</option>
+            <option value="6.5" >Rangoon GMT +06:30</option>
+            <option value="7"   >Krasnoyarsk, Bankok, Jakarta GMT +07:00</option>
+            <option value="8"   >Shangai, Hong Kong, Irkutsk, Kuala Lumpur, Perth, Taipei GMT +08:00</option>
+            <option value="9"   >Seoul, Tokyo, Yakutsk GMT +09:00 </option>
+            <option value="9.5" >Adelaide, Darwin GMT +09:30</option>
+            <option value="10" >Brisbane, Hobart, Sydney, Vladivostok, Guam, Magadan GMT +10:00</option>
+            <option value="12" >Auckland, Fiji GMT +12:00</option>
+            <option value="13" >Tongatapu GMT +13:00</option>
+          </select>
+        </div>
+      </div>
+
+
+       
+
+      <div class="form-group">
         <label for="password" class="col-sm-2 control-label">Create a Password</label>
         <div class="col-sm-5">
-          <input type="password" class="form-control" id="inputPassword" placeholder="Password" name="password">
+          <input type="password" class="form-control" id="inputPassword" placeholder="Password" name="password" ng-model="formData.password" required ng-pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/"
+>
         </div>
       </div>
 
       <div class="form-group">
         <label for="confirm-password" class="col-sm-2 control-label">Confirm your Password</label>
         <div class="col-sm-5">
-          <input type="password" class="form-control" id="inputConfirmPassword" placeholder="Confirm Password" name="confirm-password">
+          <input type="password" class="form-control" id="inputConfirmPassword" placeholder="Confirm Password" name="confirm-password" ng-model="formData.confirmPassword" required>
         </div>
       </div>
 
+      <p> validation state  - {{signupForm.$valid}}</p>
+      <p> {{formData.password}} {{formData.confirmPassword}}</p>
       
       <div class="form-group">
         <div class="col-sm-offset-2 col-sm-5">
-          <button type="submit" class="btn btn-default">Sign up</button>
+          <button type="submit" class="btn btn-default" ng-disabled="!signupForm.$valid">Sign up</button>
         </div>
       </div>
     </form>

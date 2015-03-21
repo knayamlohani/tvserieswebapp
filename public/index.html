@@ -4,14 +4,7 @@
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <!--
-    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
-    -->
     <link rel="stylesheet" type="text/css" href="css/stylesheet.css" media="screen">
-    <!--
-    <link rel="stylesheet" type="text/css" href="css/pygment_trac.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="css/print.css" media="print">
-    -->
     
     <link rel="stylesheet" type="text/css" href="includes/font-awesome/4.2.0/css/font-awesome.min.css">
 
@@ -29,20 +22,9 @@
     <script type="text/javascript"  src="includes/nicescroll/3.6.0/nicescroll.js"></script>
     <script type="text/javascript"  src="includes/handlebars/2.0.0/handlebars.js"></script>
 
-
-   
-
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
-    <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="includes/bootstrap/3.3.2/css/bootstrap.min.css">
-    <!-- Optional theme -->
     <link rel="stylesheet" href="includes/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-    <!-- Latest compiled and minified JavaScript -->
     <script  type="text/javascript" src="includes/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-
     <link rel="stylesheet" type="text/css" href="css/home.css">
 
    
@@ -51,12 +33,12 @@
 
 
     
-    <title>Tvserieswebapp by mayanklohani</title>
+    <title>TV Series Web App</title>
   </head>
 
   <body ng-app="search-app">
       <nav id="app-nav-bar">
-        <div>
+        
           <div id="app-info">
             <div id="app-name"><h1>TV Series</h1></div>
             <div id="app-for-mac"><a href="http://mac.tvseries.cf"><i class="fa fa-apple fa-2x"></i></a></div>
@@ -70,14 +52,15 @@
               <a href="{{signinPage}}">{{status}}</a>
               <span class="caret"></span>
             </div>
+            
             <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
               <li role="presentation"><a role="menuitem" tabindex="-1" href="#">{{firstName}}</a></li>
               <li role="presentation"><a role="menuitem" tabindex="-1" href="#">{{email}}</a></li>
               <li role="presentation"><a role="menuitem" tabindex="-1" href="{{dashboardPage}}">Dashboard</a></li>
-              <li role="presentation"><a role="menuitem" tabindex="-1" href="/signout">Sign out</a></li>
+              <li role="presentation"><a role="menuitem" tabindex="-1" href="{{signout}}">Sign out</a></li>
             </ul>
-          </div>
-        </div>   
+          
+          </div>   
           
       </nav>
      
@@ -108,7 +91,10 @@
         </div>
         
         <div ng-repeat="series in currentSearchResultsData.currentSearchResults" class="search-result">
-          <a ng-include="'templates/search-result-template.html'" ng-click="appBehavior.viewSeries($event)" class="search-result-inner" ng-href="/series?name={{series.name}}&id={{series.id}}&bannerUrl={{series.bannerUrl}}&altBannerUrl={{series.altBannerUrl}}"></a>
+          <a ng-click="appBehavior.viewSeries($event)" class="search-result-inner" ng-href="/series?name={{series.name}}&id={{series.id}}&bannerUrl={{series.bannerUrl}}&altBannerUrl={{series.altBannerUrl}}">
+            <img ng-src="{{series.currentBannerUrl}}" class="series-artwork"></img>
+            <div class="series-tag">{{series.name}}</div>
+          </a>
         </div>
       </div>
       </div>

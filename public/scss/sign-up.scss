@@ -21,7 +21,14 @@ body {
 
 #signup-form {
 	>div {
-		//width: 80%;
-		//padding-left: 20%;
 	}
+}
+
+
+.ng-invalid.ng-dirty {
+	border-color: #FA787E;
+}
+
+.ng-valid.ng-dirty {
+	//border-color: #78FA89;
 }

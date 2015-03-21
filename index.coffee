@@ -70,6 +70,8 @@ signupTemplate    = handlebars.compile signupHTML
 signinTemplate    = handlebars.compile signinHTML
 dashboardTemplate = handlebars.compile dashboardHTML
 
+redirect = ""
+
 
 ###================================================================================================
 Routs
@@ -149,10 +151,11 @@ app.get '/', (req, res)  ->
     "username"      : ""
     "email"         : ""
     "signinStatus"  : false
-    "signinPage"    : "/signin"
+    "signinPage"    : "/signin?redirect=/"
     "dashboardPage" : ""
     "status"        : "Sign in"
     "toggle"        : ""
+    "signout"       : ""
 
 
 
@@ -168,6 +171,7 @@ app.get '/', (req, res)  ->
       "dashboardPage" : "/dashboard"
       "status"        : req.session.username
       "toggle"        : "dropdown"
+      "signout"       : "/signout?redirect=/"
 
   
   result = indexTemplate signinObject
@@ -194,12 +198,13 @@ app.get '/series', (req, res)  ->
     "username"      : ""
     "email"         : ""
     "signinStatus"  : false
-    "signinPage"    : "/signin"
+    "signinPage"    : "/signin?redirect=/series"
     "dashboardPage" : ""
     "status"        : "Sign in"
     "toggle"        : ""
     "name"          : req.query.name
     "id"            : req.query.id
+    "signout"       : ""
 
   if req.session.username
     seriesPageData = 
@@ -208,12 +213,13 @@ app.get '/series', (req, res)  ->
       "username"      : req.session.username
       "email"         : req.session.email
       "signinStatus"  : true
-      "signinPage"     : ""
+      "signinPage"    : ""
       "dashboardPage" : "/dashboard"
       "status"        : req.session.username
       "toggle"        : "dropdown"
       "name"          : req.query.name
       "id"            : req.query.id
+      "signout"       : "/signout?redirect=/series"
 
   template = handlebars.compile seriesHTML
   result = template seriesPageData
@@ -274,7 +280,7 @@ app.get '/signin-status', (req, res) ->
 
 app.get '/signout', (req, res) ->
   req.session.destroy (err) ->
-    res.redirect '/' 
+    res.redirect req.query.redirect
     return
   return
 
@@ -282,6 +288,8 @@ app.get '/signout', (req, res) ->
 
 
 app.get '/signin', (req, res) ->
+  console.log "redirect", req.query.redirect
+  redirect = req.query.redirect
   res.writeHead 200, {"Context-Type": "text/html"}
   signinObject = 
     "email"        : ""
@@ -290,9 +298,13 @@ app.get '/signin', (req, res) ->
   if !signinTemplate
     signinHTML = fs.readFileSync "public/signin.html", "utf8"
     signinTemplate = handlebars.compile signinHTML
+  
   result = signinTemplate signinObject
   res.write result
+
+
   res.end()
+  
   return
 
 
@@ -307,13 +319,12 @@ app.post '/signin', (req, res) ->
     req.session["lastName"]  = result.data.lastName
     req.session["email"]     = result.data.email
     req.session["username"]  = result.data.username
-    console.log "user", result
-
+    
 
     req.session["signinStatus"] = result.data["signinStatus"]
     
     if req.session["signinStatus"]
-      res.redirect '/' 
+      res.redirect redirect
     else 
       res.writeHead 200, {"Context-Type": "text/html"}
       if !signinTemplate
@@ -342,7 +353,10 @@ app.get '/dashboard', (req, res) ->
       "dashboardPage" : "/dashboard"
       "status"        : req.session.username
       "toggle"        : "dropdown"
+      "signout"       : "/signout?redirect=/"
+    
     res.writeHead 200, {"Context-Type": "text/html"}
+    
     if !dashboardTemplate
       dashboardHTML = fs.readFileSync "public/account/dashboard.html", "utf8"
       dashboardTemplate = handlebars.compile dashboardHTML
@@ -365,16 +379,9 @@ app.get '/subscriptions', (req, res) ->
   return
 
 
-app.get '/subscribe', (req, res) ->
-  ###
-  name            = req.query.name 
-  id              = req.query.id
-  artworkUrl      = req.query.artworkUrl
-  airsOnDayOfWeek = req.query.airsOnDayOfWeek
-  ###
-  console.log req.query.name, req.query.id
+app.get '/subscribe', (req, res) ->  
   if !req.session["signinStatus"]
-    res.redirect '/signin'
+    res.redirect '/signin?redirect=/series'
   else  
     subscribingTvSeries = 
       "subscribersUsername"  : req.session.username
@@ -385,16 +392,13 @@ app.get '/subscribe', (req, res) ->
       "name"                 : req.query.name 
       "artworkUrl"           : req.query.artworkUrl
       "airsOnDayOfWeek"      : req.query.airsOnDayOfWeek
-
-
     mongodbclient.addSeriesToSubscribedTvShows subscribingTvSeries, (result) ->
-      console.log result
       res.end JSON.stringify result, null, 4
   return
 
 app.get '/unsubscribe', (req, res) ->
   if !req.session["signinStatus"]
-    res.redirect '/signin'
+    res.redirect '/signin?redirect=/series'
   else
     unsubscribingTvSeries = 
       "subscribersUsername" : req.session.username
@@ -406,7 +410,7 @@ app.get '/unsubscribe', (req, res) ->
 
 
 app.get '/subscriptions/getSeries',  (req, res) ->
-  if req.session.username
+  if req.session.signinStatus
     console.log "checking subscription status for series with id", req.query.id
     mongodbclient.getSubscriptionStatusForSeriesWidth req.query.id, req.session.username, (result) ->
       res.end JSON.stringify result, null, 4
