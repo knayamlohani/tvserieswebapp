@@ -10,13 +10,64 @@ body {
   background: #f2f2f2;
   height: 100%;
   width: 100%; }
+  body a {
+    color: white; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 100; }
+
+nav#app-nav-bar {
+  height: auto;
+  width: 100%;
+  color: white;
+  background: rgba(0, 0, 0, 0.7); }
+  nav#app-nav-bar > div {
+    display: inline-block; }
+  nav#app-nav-bar #app-info {
+    width: 90%; }
+    nav#app-nav-bar #app-info > div {
+      display: inline-block; }
+    nav#app-nav-bar #app-info #app-name {
+      padding: 0em 2em 0 3em;
+      vertical-align: center; }
+    nav#app-nav-bar #app-info #app-for-mac {
+      padding: 0em 1em; }
+      nav#app-nav-bar #app-info #app-for-mac a {
+        color: white; }
+    nav#app-nav-bar #app-info #app-for-windows {
+      padding: 0em 1em; }
+      nav#app-nav-bar #app-info #app-for-windows a {
+        color: white; }
 
 #page-title {
   text-align: center;
   width: 100%;
-  padding: .5em 0; }
+  padding: .5em 0;
+  color: rgba(0, 0, 0, 0.7); }
+
+#signup-form {
+  color: rgba(0, 0, 0, 0.7); }
 
 .ng-invalid.ng-dirty {
   border-color: #FA787E; }
+
+.error-message {
+  min-height: .5em;
+  height: auto;
+  text-align: center; }
+  .error-message p {
+    margin: 0;
+    padding: 0;
+    color: #FA787E; }
+
+#check-username-availability {
+  padding: .7em 2em; }
+  #check-username-availability .progress {
+    font-size: 1.3em; }
+  #check-username-availability .fa-search {
+    color: rgba(0, 0, 0, 0.7);
+    font-size: 1.4em; }
+  #check-username-availability .hidden {
+    display: none; }
 
 /*# sourceMappingURL=sign-up.css.map */

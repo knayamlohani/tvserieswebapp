@@ -1,61 +1,24 @@
 * {
   padding: 0;
   margin: 0;
-  border: 0;
-  color: white; }
+  border: 0; }
 
 body {
   width: 100%;
   height: 100%;
-  font-weight: 200;
-  background-color: rgba(0, 0, 0, 0.3); }
+  background: #f2f2f2;
+  font-weight: 200; }
   body h1, body h2, body h3, body h4, body h5, body h6 {
     font-weight: 100; }
   body a {
     text-decoration: none;
-    color: white; }
+    color: rgba(0, 0, 0, 0.5); }
     body a :hover {
-      color: white;
+      color: rgba(0, 0, 0, 0.5);
       text-decoration: none; }
   body div, body li {
     -moz-box-sizing: content-box;
          box-sizing: content-box; }
-
-nav#app-nav-bar {
-  height: 5em;
-  width: 100%;
-  background: rgba(255, 255, 255, 0); }
-  nav#app-nav-bar > div {
-    background: rgba(0, 0, 0, 0.8);
-    color: white;
-    height: 100%; }
-    nav#app-nav-bar > div > div {
-      display: inline-block; }
-    nav#app-nav-bar > div #back-to-app-home {
-      width: 7%;
-      text-align: center; }
-      nav#app-nav-bar > div #back-to-app-home a {
-        color: white; }
-    nav#app-nav-bar > div #app-info {
-      width: 83%; }
-      nav#app-nav-bar > div #app-info > div {
-        display: inline-block; }
-      nav#app-nav-bar > div #app-info #app-name {
-        padding-right: .5em;
-        vertical-align: center; }
-        nav#app-nav-bar > div #app-info #app-name h1 {
-          font-weight: 100; }
-      nav#app-nav-bar > div #app-info #viewing-series {
-        padding: 0em 1em; }
-      nav#app-nav-bar > div #app-info #series-name h1 {
-        font-weight: 100; }
-      nav#app-nav-bar > div #app-info #app-for-windows {
-        padding: 0em 1em; }
-    nav#app-nav-bar > div #signin-to-app {
-      vertical-align: center; }
-      nav#app-nav-bar > div #signin-to-app button {
-        padding: 0;
-        margin: 0; }
 
 .dashboard-content {
   color: black; }
@@ -70,79 +33,19 @@ nav#app-nav-bar {
       -ms-flex-flow: column nowrap;
           flex-flow: column nowrap; }
   #dashboard #options-bar {
-    width: 100%;
-    height: 4em; }
-    #dashboard #options-bar ul {
-      font-weight: 100;
-      width: 100%;
-      style: none;
-      display: -webkit-flex;
-      display: -ms-flexbox;
-      display: flex;
-      flow: row nowrap;
-      align-tems: center;
-      -webkit-align-content: center;
-          -ms-flex-line-pack: center;
-              align-content: center;
-      -webkit-justify-content: center;
-          -ms-flex-pack: center;
-              justify-content: center; }
-      #dashboard #options-bar ul li {
-        list-style: none;
-        padding: 0 1em;
-        border-bottom: .06em solid transparent; }
-        #dashboard #options-bar ul li :hover {
-          border-bottom: 0.06em solid rgba(0, 0, 0, 0.3); }
-      #dashboard #options-bar ul a:hover, #dashboard #options-bar ul focus {
-        color: white;
-        text-decoration: none; }
+    width: 50%;
+    margin: 2em 25%; }
+    #dashboard #options-bar .option a {
+      text-decoration: none; }
+    #dashboard #options-bar .option a:hover {
+      color: rgba(0, 0, 0, 0.5); }
   #dashboard #options-bar-content {
-    color: white;
+    color: rgba(0, 0, 0, 0.5);
     width: auto; }
     #dashboard #options-bar-content .options-bar-option-content.not-active {
       display: none; }
     #dashboard #options-bar-content > div {
       width: 100%; }
-    #dashboard #options-bar-content div[data-link="account"] {
-      display: -webkit-flex;
-      display: -ms-flexbox;
-      display: flex;
-      -webkit-flex-flow: column nowrap;
-          -ms-flex-flow: column nowrap;
-              flex-flow: column nowrap; }
-      #dashboard #options-bar-content div[data-link="account"] > div {
-        width: 100%;
-        display: -webkit-flex;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-flex-flow: row wrap;
-            -ms-flex-flow: row wrap;
-                flex-flow: row wrap; }
-        #dashboard #options-bar-content div[data-link="account"] > div .title {
-          width: 25%; }
-        #dashboard #options-bar-content div[data-link="account"] > div .data {
-          width: 75%;
-          display: -webkit-flex;
-          display: -ms-flexbox;
-          display: flex;
-          -webkit-flex-flow: column nowrap;
-              -ms-flex-flow: column nowrap;
-                  flex-flow: column nowrap; }
-      #dashboard #options-bar-content div[data-link="account"] > div {
-        padding-top: 3em; }
-      #dashboard #options-bar-content div[data-link="account"] #profile {
-        min-height: 10em;
-        border-top: 0.13em solid rgba(0, 0, 0, 0.15); }
-        #dashboard #options-bar-content div[data-link="account"] #profile .data .data-i {
-          margin: .5em 0; }
-      #dashboard #options-bar-content div[data-link="account"] #password {
-        min-height: 10em;
-        border-top: 0.13em solid rgba(0, 0, 0, 0.15); }
-      #dashboard #options-bar-content div[data-link="account"] #close-account {
-        min-height: 5em;
-        border-top: 0.13em solid rgba(0, 0, 0, 0.15); }
-      #dashboard #options-bar-content div[data-link="account"] .title > h3, #dashboard #options-bar-content div[data-link="account"] .title p {
-        margin: 0 0 0 2em; }
 
 #subscriptions-option-content {
   display: -webkit-flex;
@@ -158,29 +61,254 @@ nav#app-nav-bar {
   -webkit-justify-content: center;
       -ms-flex-pack: center;
           justify-content: center; }
+  #subscriptions-option-content #getting-subscribed-tvshow-progress {
+    margin-top: 4em; }
+    #subscriptions-option-content #getting-subscribed-tvshow-progress .progress {
+      margin: 0 auto;
+      padding: 1em;
+      box-shadow: none;
+      text-align: center; }
   #subscriptions-option-content .subscribed-tv-show {
-    padding: 2em 0 0 2em;
+    margin: 2em 0 0 2em;
     height: 20em;
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
     -webkit-flex-flow: column nowrap;
         -ms-flex-flow: column nowrap;
-            flex-flow: column nowrap; }
+            flex-flow: column nowrap;
+    position: relative; }
+    #subscriptions-option-content .subscribed-tv-show .remove-series-indicator {
+      display: none;
+      position: absolute;
+      right: 10%;
+      top: 6%;
+      color: white;
+      font-size: 1.4em; }
+    #subscriptions-option-content .subscribed-tv-show .remove-series-indicator.display {
+      display: block; }
     #subscriptions-option-content .subscribed-tv-show .series-artwork {
       height: 90%; }
       #subscriptions-option-content .subscribed-tv-show .series-artwork img {
         height: 100%;
-        min-height: 100%;
-        max-height: 100%; }
+        border: .1em solid transparent;
+        border-radius: .5em;
+        padding: 0.1em; }
+      #subscriptions-option-content .subscribed-tv-show .series-artwork img:hover {
+        border-color: #adadad;
+        -webkit-filter: blur(0.005em);
+                filter: blur(0.005em); }
     #subscriptions-option-content .subscribed-tv-show .series-name {
       height: 9%;
-      font-weight: 100; }
+      text-align: center;
+      font-weight: normal;
+      border-bottom: .1em solid transparent; }
+  #subscriptions-option-content .subscribed-tv-show.unsubscribe img {
+    border-color: #adadad;
+    -webkit-filter: blur(0.005em);
+            filter: blur(0.005em); }
 
 h4::before {
   padding-right: 0;
   margin-left: 0;
   content: "";
   color: #9ddcff; }
+
+.form-group {
+  width: 50%;
+  margin: 1em 25%; }
+
+#reset-password, #close-account {
+  width: 25%;
+  margin: 1em 37.5%; }
+  #reset-password a, #close-account a {
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.5); }
+
+#confirm-delete a {
+  color: white;
+  text-decoration: none; }
+
+#unsubscribe-tv-shows {
+  width: 100%;
+  position: relative;
+  height: 1.5em;
+  visibility: hidden; }
+  #unsubscribe-tv-shows button {
+    width: 7em;
+    position: absolute;
+    top: 0;
+    right: 2.7em; }
+
+#unsubscribe-tv-shows.visible {
+  visibility: visible; }
+
+#modal-tv-shows-to-be-unsubscribed {
+  font-weight: normal; }
+  #modal-tv-shows-to-be-unsubscribed .modal-title {
+    font-weight: normal; }
+  #modal-tv-shows-to-be-unsubscribed .series-name {
+    font-weight: 500;
+    margin-left: 2em; }
+  #modal-tv-shows-to-be-unsubscribed #confirm-unsubscribe {
+    color: #fff;
+    background-color: #286090;
+    border-color: #204d74; }
+    #modal-tv-shows-to-be-unsubscribed #confirm-unsubscribe a {
+      color: white;
+      text-decoration: none; }
+    #modal-tv-shows-to-be-unsubscribed #confirm-unsubscribe a:hover {
+      color: white; }
+
+nav#app-nav-bar {
+  height: auto;
+  width: 100%;
+  background: rgba(255, 255, 255, 0); }
+  nav#app-nav-bar > div {
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    height: 100%; }
+    nav#app-nav-bar > div #section-one {
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-flex-flow: row nowrap;
+          -ms-flex-flow: row nowrap;
+              flex-flow: row nowrap;
+      width: 100%; }
+      nav#app-nav-bar > div #section-one #back-to-app-home {
+        width: 6em;
+        text-align: center;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-flex-flow: column;
+            -ms-flex-flow: column;
+                flex-flow: column; }
+        nav#app-nav-bar > div #section-one #back-to-app-home a {
+          color: white;
+          display: block;
+          margin: 1.7em 0 auto 0; }
+      nav#app-nav-bar > div #section-one #page-title {
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-flex-flow: row nowrap;
+            -ms-flex-flow: row nowrap;
+                flex-flow: row nowrap;
+        width: 85%; }
+        nav#app-nav-bar > div #section-one #page-title #app-name {
+          padding-right: .5em;
+          vertical-align: center;
+          width: 32%;
+          display: none; }
+        nav#app-nav-bar > div #section-one #page-title #viewing-series {
+          padding: 0em 1em;
+          display: -webkit-flex;
+          display: -ms-flexbox;
+          display: flex;
+          -webkit-flex-flow: column;
+              -ms-flex-flow: column;
+                  flex-flow: column;
+          display: none; }
+          nav#app-nav-bar > div #section-one #page-title #viewing-series i {
+            display: block;
+            margin: auto 0 .5em 0; }
+        nav#app-nav-bar > div #section-one #page-title #series-name {
+          width: 100%;
+          overflow-x: auto; }
+          nav#app-nav-bar > div #section-one #page-title #series-name h1 {
+            min-width: 100%; }
+    nav#app-nav-bar > div #section-two {
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-flex-flow: row nowrap;
+          -ms-flex-flow: row nowrap;
+              flex-flow: row nowrap;
+      -webkit-justify-content: flex-end;
+          -ms-flex-pack: end;
+              justify-content: flex-end;
+      background-color: rgba(255, 255, 255, 0.2); }
+      nav#app-nav-bar > div #section-two #request-progress-bar {
+        width: 5em;
+        height: .5em;
+        padding: 0;
+        margin: 0;
+        border-radius: 0;
+        margin-top: .5em;
+        margin-right: 1.5em; }
+      nav#app-nav-bar > div #section-two #request-progress-bar.display-none {
+        display: none; }
+      nav#app-nav-bar > div #section-two #subscription-status {
+        text-align: center;
+        padding-right: 0 3%;
+        width: 8em;
+        margin: 0; }
+        nav#app-nav-bar > div #section-two #subscription-status a {
+          color: rgba(255, 255, 255, 0.75); }
+        nav#app-nav-bar > div #section-two #subscription-status i {
+          font-size: 1em; }
+        nav#app-nav-bar > div #section-two #subscription-status .visibility-hidden {
+          display: none; }
+        nav#app-nav-bar > div #section-two #subscription-status span {
+          width: auto;
+          height: auto;
+          line-height: 1.3;
+          display: inline; }
+      nav#app-nav-bar > div #section-two #signin-to-app {
+        margin-right: 1.5em; }
+        nav#app-nav-bar > div #section-two #signin-to-app button {
+          padding: 0;
+          margin: 0; }
+        nav#app-nav-bar > div #section-two #signin-to-app #signin {
+          color: rgba(255, 255, 255, 0.75); }
+        nav#app-nav-bar > div #section-two #signin-to-app #signin-status-username a {
+          color: white; }
+        nav#app-nav-bar > div #section-two #signin-to-app #user-account-options #user-account {
+          border-bottom: 0.0715em solid rgba(0, 0, 0, 0.15);
+          padding-bottom: .5em; }
+        nav#app-nav-bar > div #section-two #signin-to-app #user-account-options li {
+          list-style: none;
+          padding: .2em 1.2em;
+          color: rgba(0, 0, 0, 0.7);
+          font-weight: 400; }
+          nav#app-nav-bar > div #section-two #signin-to-app #user-account-options li a {
+            color: rgba(0, 0, 0, 0.7);
+            text-decoration: none; }
+
+.subscribed-tvshows-by-airday {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: column nowrap;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
+  width: 100%; }
+  .subscribed-tvshows-by-airday .airday {
+    color: rgba(0, 0, 0, 0.7); }
+    .subscribed-tvshows-by-airday .airday h3 {
+      background-color: rgba(0, 0, 0, 0.1);
+      margin: 1em 3em;
+      padding: .3em;
+      border-radius: .5em;
+      text-align: center;
+      color: rgba(0, 0, 0, 0.35);
+      font-weight: 100; }
+  .subscribed-tvshows-by-airday .tvshows {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-flow: row wrap;
+        -ms-flex-flow: row wrap;
+            flex-flow: row wrap;
+    width: 100%;
+    align-tems: center;
+    -webkit-align-content: center;
+        -ms-flex-line-pack: center;
+            align-content: center;
+    -webkit-justify-content: center;
+        -ms-flex-pack: center;
+            justify-content: center; }
 
 /*# sourceMappingURL=dashboard.css.map */

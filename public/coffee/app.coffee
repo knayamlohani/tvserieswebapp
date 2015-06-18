@@ -24,6 +24,8 @@ if window.location.href.split('?')[1]
 	appData.artworkUrl         = decodeURIComponent ((window.location.href.split('?')[1]).split("&")[2]).split('=')[1]
 	appData.altArtworkUrl      = decodeURIComponent ((window.location.href.split('?')[1]).split("&")[3]).split('=')[1]
 	appData.currentArtworkUrl  = appData.artworkUrl
+	if window.innerWidth > 504 and window.innerWidth < 1101
+		appData.currentArtworkUrl  = appData.altArtworkUrl
 
 app = angular.module 'app', []
 
@@ -53,16 +55,21 @@ app.controller 'controller',[ '$scope','$http',($scope,$http) ->
 		series.data = data
 		series.seriesDataNotDownloaded = false
 		console.log "series data downloaded"
-		#localstorage.setItem "series-data", data
+
+		#finding the coming up
+		series.data.comingUp = {}
+		for season in series.data.seasons
+			for episode in season.episodes
+				if (new Date()).setHours(0,0,0,0) <= (new Date(episode.airDate)).setHours(0,0,0,0)
+				  series.data.comingUp = episode
+				  break
+
 		if !appData.actorsNotDownloaded && appData.seriesSubscriptionStatusDownloaded
 			progressBar = $("#request-progress-bar .progress-bar")
 			progressBar.removeClass "progress-bar-striped progress-bar-success progress-bar-danger"
 			progressBar.addClass "progress-bar-success"
 			
 	)
-	#else series.data = localstorage.getItem "series-data"
-
-
 
 	if !series.artworkUrl
 		url = "/series/seriesId/#{series.id}/banners"
@@ -76,11 +83,15 @@ app.controller 'controller',[ '$scope','$http',($scope,$http) ->
 					break
 				if banner.type == "poster" and !artworkFound
 					series.artworkUrl = banner.url
+					if window.innerWidth < 505 or window.innerWidth > 1100
+						series.currentArtworkUrl = series.artworkUrl
 					artworkFound = true
 					
 				if banner.type == "fanart" and !backgroundFound
 					series.backgroundImageUrl = banner.url
 					backgroundFound = true
+
+
 			$('#blur-layer').css "background", "#fafafa url(#{appData.artworkUrl}) 0 0 / cover"
 			$('body').css "background", "#fafafa url(#{appData.artworkUrl}) 0 0 / cover"
 
@@ -266,6 +277,7 @@ app.directive 'seriesSubscriptionDirective',[ '$http', ($http) ->
 					if result.err
 						progressBar.removeClass "progress-bar-striped progress-bar-success progress-bar-danger"
 						progressBar.addClass "progress-bar-danger"
+						$("#not-signedin-error").modal()
 					else
 						appData.seriesSubscriptionStatus = true
 						progressBar.removeClass "progress-bar-striped progress-bar-success progress-bar-danger"
@@ -281,6 +293,7 @@ app.directive 'seriesSubscriptionDirective',[ '$http', ($http) ->
 					if result.err
 						progressBar.removeClass "progress-bar-striped progress-bar-success progress-bar-danger"
 						progressBar.addClass "progress-bar-danger"
+						$("#not-signedin-error").modal()
 					else
 						appData.seriesSubscriptionStatus = false
 						progressBar.removeClass "progress-bar-striped progress-bar-success progress-bar-danger"
@@ -296,6 +309,25 @@ app.directive 'seriesSubscriptionDirective',[ '$http', ($http) ->
 		return
 ]
 		
+app.directive 'searchMoreSeriesDirective', [ '$http', '$timeout', ($http, $timeout) ->
+	link: (scope, element, attrs ) ->
+		scope.search = 
+			"query"     : ""
+			"results"   : []
+			"makeQuery" : () ->
+				
+				query = encodeURIComponent scope.search.query
+				url = "/series/seriesName/#{query}"
+
+				console.log "url", url
+				$http.get(url).success (data) ->
+					console.log "results", data
+					scope.search.results = data.seriesArray;
+					return
+
+				return
+		return 
+]
 
 $(window).ready ->
 	if navigator.platform != "MacIntel"
@@ -304,6 +336,15 @@ $(window).ready ->
 	height = screen.height
 	width  = screen.width
 	$('body').css "font-size", "#{15/1280*width}px"
+
+
+	$("#search-more-series").on 'click', (e) ->
+		$("#search-more-series #search-section").toggleClass 'hidden'
+
+	$("#search-more-series input").on 'click', (e) ->
+		e.stopPropagation()
+		return
+
 	return
 
 $(window).resize ->

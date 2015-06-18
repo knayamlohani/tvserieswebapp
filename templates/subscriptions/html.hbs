@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link rel="stylesheet" type="text/css" href="public/includes/font-awesome/4.2.0/css/font-awesome.min.css">
+    <title>TV Shows</title>
+    
+  </head>
+
+  <body ng-app="search-app">
+    <!--
+    <nav id="nav-bar">
+        <h1 id="app-name">TV Series</h1>
+        <div id="user-details">
+            {{name}}
+            {{username}}
+            {{email}}
+        </div>
+    </nav>
+    -->
+
+    <!--
+    <nav id="app-nav-bar">
+      <div id="app-info">
+        <div id="app-name"><h1><a href="http://webapp.tvseries.cf">TV Series</a></h1></div>
+
+      </div>
+    </nav>
+
+    -->
+
+
+    <div id="mail-content">
+      <h1 id="title">Airing Today</h1>
+      <div id="body">
+
+        {{#each tvShows}}
+          <div class="series">
+            <img class="artwork" src="{{artworkUrl}}"/>
+            <h3 class="tag">{{name}}</h3>
+          </div>
+        {{/each}}
+        
+      </div>
+    </div>
+
+
+
+    <script>
+      //runScript()
+    </script>
+  </body>
+</html>

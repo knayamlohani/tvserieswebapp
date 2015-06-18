@@ -15,9 +15,8 @@ body{
 
 body {
 	color: white;
-	
-	h1, h2, h3, h4, h5, h6 {
-		font-weight: 200;
+	a{
+		color: #f2f2f2;
 	}
 }
 
@@ -25,7 +24,7 @@ nav#app-nav-bar {
 	height: 5em;
 	width: 100%;
 	background: rgba(0,0,0,0.7);
-	color: white;
+	color: #f2f2f2;
 }
 
 
@@ -33,6 +32,7 @@ nav#app-nav-bar {
 	position:absolute;
 	z-index:5;
 	width:100%;
+
 }
 
 #search-field-container {
@@ -56,7 +56,7 @@ nav#app-nav-bar {
 		position: absolute;
 		right: 1em;
 		top: 1em;
-		color: white;
+		color: #f2f2f2;
 		opacity: .9;
 	}
 
@@ -73,7 +73,7 @@ nav#app-nav-bar {
 	height: 25.6em;
 	
 	i.fa-spin {
-		color: white;
+		color: #f2f2f2;
 		opacity: .9;
 		display: block;
 		margin: auto;
@@ -108,13 +108,15 @@ svg{
 }
 
 #div-blur-layer.animate-blur-layer {
-	transition: all .4s ease-in-out;
-	transition: all 0s ease-in-out;
-	transform: scale(1.5);
-	
 	filter: url(#blurFilter);
 	filter: blur(.7em);
-	background: #fafafa url(../img/backgroundWall.jpg) 0 0 repeat;
+	background: url(../img/backgroundWall.jpg) 0 0 repeat;
+	transform: scale(1.5);
+	transition: all .4s ease-in-out;
+	//transition: all 0s ease-in-out;
+	
+	
+	
 }
 
 #div-search-section.animate-search-section {
@@ -127,7 +129,7 @@ svg{
 #search-field.animate-search-field {
 	background: transparent;
 	border-color: rgba(255,255,255,.7);
-	color: white;
+	color: #f2f2f2;
 	opacity: 1;
 	width: 40em;
 	height: 3em;
@@ -151,7 +153,7 @@ svg{
 	transition: all .4s;
 	background: #2e7bcf url(../img/body-bg.jpg) 0 0 repeat-x;
 
-	border-color: white;
+	border-color: #f2f2f2;
 	opacity: .9;
 	width: 35em;
 	height: 3em;
@@ -169,7 +171,14 @@ svg{
 	background: transparent;
 }
 
-
+#app-info {
+	#app-name {
+		.link {
+			text-decoration: none;
+			color: white;
+		}
+	}
+}
 
 @media screen and (max-width: 800px) {
 
@@ -177,53 +186,14 @@ svg{
 		background-size: auto;
 	}
 
-	nav#app-nav-bar {
-		height: auto;
-		display: flex;
-		flex-flow: column wrap;
-		
-		#app-info {
-			>div {
-				display: inline-block;
-			}
-			a {
-
-			}
-			#app-name {
-				padding: 0em 2em 0 3em;
-				vertical-align: center;
-			}
-			#app-for-mac {
-				padding: 0em 1em;
-			}
-			#app-for-windows {
-				padding: 0em 1em;
-			}
-
-		}
-		
-		#signin-to-app{
-			display: flex;
-			flex-flow: column nowrap;
-			justify-content: flex-end;
-			background-color: rgba(255,255,255,.2);
-			vertical-align: center;
-			button {
-				padding: 0;
-				margin: 0;
-			}
-			a{
-				color: rgba(255,255,255,.8);
-			}
-		}
-	}
+	
 
 	#search-field {
 		display:block;
 		width: 80%;
 		height: 3em;
 		border-radius: .8em;
-		border-color: white;
+		border-color: #f2f2f2;
 		border-style: double;
 		background: #2e7bcf url(../img/body-bg.jpg) 0 0 repeat-x;
 		opacity: .9;
@@ -235,7 +205,7 @@ svg{
 	#search-field.animate-search-field {
 		background: transparent;
 		border-color: rgba(255,255,255,.7);
-		color: white;
+		color: #f2f2f2;
 		opacity: 1;
 		width: 95%;
 		height: 3em;
@@ -276,34 +246,38 @@ svg{
 			height: 25.6em;
 			
 			i.fa-spin {
-				color: white;
+				color: #f2f2f2;
 				opacity: .9;
 				display: block;
 				margin: auto;
 			}
 		}
+		
 
 		.search-result {
 			display: block;
 			width: 95%;
-			margin: 1em;
-			margin: 0em;
+			margin: 1em auto;
 			border: .07em solid grey;
 			border-radius: .5em;
 			margin-bottom: 1em;
-			//border-color: rgba(0,0,0,.8);
+			border: .1em solid rgba(255,255,255,.1);
+			
+
 
 			.search-result-inner {
 				display: block;
 				width: 100%;
 				height: 100%;
-				color: white;
+				color: #f2f2f2;
 				position: relative;
 				img.series-artwork {
 					width:100%;
 					height: 100%;
 					border: none;
 					border-radius: .5em;
+					background-color: rgba(255,255,255,.3);
+					max-height: 6em;
 				}
 
 				.series-tag {
@@ -313,7 +287,7 @@ svg{
 					width: 97.5%; 
 					background-color: rgba(0,0,0,.5);
 					padding: .2em;
-					color: white;
+					color: #f2f2f2;
 					display: none;
 				}
 			}
@@ -324,41 +298,7 @@ svg{
 
 
 @media screen and (min-width: 801px) {
-	nav#app-nav-bar {
-		>div{
-			display: inline-block;
-		}
-		#app-info {
-			width: 90%;
-			>div {
-				display: inline-block;
-			}
-			a {
-
-			}
-			#app-name {
-				padding: 0em 2em 0 3em;
-				vertical-align: center;
-			}
-			#app-for-mac {
-				padding: 0em 1em;
-			}
-			#app-for-windows {
-				padding: 0em 1em;
-			}
-
-		}
-		
-		#signin-to-app{
-			vertical-align: center;
-			button {
-				padding: 0;
-				margin: 0;
-			}
-		}
-
-	}
-
+	
 	#search-field {
 		display:block;
 		width: 35em;
@@ -376,7 +316,7 @@ svg{
 	#search-field.animate-search-field {
 		background: transparent;
 		border-color: rgba(255,255,255,.7);
-		color: white;
+		color: #f2f2f2;
 		opacity: 1;
 		width: 40em;
 		height: 3em;
@@ -427,7 +367,8 @@ svg{
 			width: 14.7em;
 			height: 21.6em;
 			margin: 1em;
-			border: .1em solid grey;
+			border: .1em solid rgba(255,255,255,.1);
+			border-radius: .3em;
 
 			.search-result-inner {
 				display: block;
@@ -439,13 +380,16 @@ svg{
 					width:100%;
 					height: 100%;
 					border: none;
+					border-radius: .3em;
+					background-color: rgba(255,255,255,.3);
 				}
 
 				.series-tag {
 					text-align: center;
 					position: absolute;
 					bottom: 0em;
-					width: 97.5%; 
+					width: 100%; 
+					border-radius:0 0 .3em .3em;
 					background-color: rgba(0,0,0,.5);
 					padding: .2em;
 					color: white;
@@ -456,6 +400,319 @@ svg{
 
 }
 
+
+.search-query {
+	text-align: center;
+	font-size: 2em;
+	font-weight: 100;
+	width: 96%;
+	margin: 0 2%;
+	background-color: rgba(0, 0, 0, 0.45);
+	margin-bottom: .6em;
+	border-radius: .3em
+
+}
+
+
+div.current-search-results.ng-scope {
+	//background-color: rgba(0,0,0,.25);
+	padding-bottom: 1.5em;
+}
+
+
+nav#app-nav-bar {
+	height: auto;
+	width: 100%;
+	background: rgba(255,255,255,0);
+	>div{
+		background: rgba(0,0,0,0.8);
+		color: white;
+		height: 100%;
+		width:100%;
+		
+		display: flex;
+		flex-flow: row nowrap;
+		
+		#section-one {
+			display: flex;
+			
+
+			#back-to-app-home {
+				width: 6em;
+				text-align: center;
+				display: flex;
+				flex-flow: column;
+				a {
+					color: white;
+					display: block;
+					margin: 1.7em 0 auto 0 ;
+
+				}
+			}
+
+			#page-title {
+				display: flex;
+				flex-flow: row nowrap;
+
+				width: 85%;
+				
+
+
+				#app-name {
+					padding-right: .5em;
+					vertical-align: center;
+					width: 32%;
+					display: none;
+					
+				}
+
+				#viewing-series {
+
+					padding: 0em 1em;
+					display: flex;
+					flex-flow: column;
+					i {
+						display: block;
+						margin: auto 0 .5em 0;
+					}
+					display: none;
+				}
+
+				#series-name {
+					width: 100%;
+					overflow-x: auto;
+
+					h1 { 
+						min-width: 100%;
+					}
+				}
+				
+
+			}
+		}
+
+		#section-two {
+			display: flex;
+			flex-flow: row nowrap;
+			justify-content: flex-end;
+			
+			li {
+				padding-left: 0;
+			}
+
+			ul {
+				padding-left: 0;
+			}
+
+			
+
+			#request-progress-bar {
+				width: 5em;
+				height: .5em;
+				padding: 0;
+				margin: 0;
+				border-radius: 0;
+				margin-top: .5em;
+				margin-right: 1.5em;
+			}
+
+			#request-progress-bar.display-none {
+        display:none;
+      }
+
+			#subscription-status{
+				a {
+						color: rgba(255,255,255,.75);
+				}
+				
+				text-align: center;
+				padding-right: 0 3%;
+				width: 8em;
+				margin: 0;
+				i {
+					font-size: 1em;
+				}
+
+				.visibility-hidden {
+					display: none;
+				}
+				span {
+					width: auto;
+					height: auto;
+					line-height: 1.3;
+					display:inline;
+				}
+
+			}
+			
+
+			#signin-to-app{
+				margin-right: 1.5em;
+				button {
+					padding: 0;
+					margin: 0;
+				}
+				#signin {
+					color: rgba(255,255,255,.75);
+
+				}
+
+				#signin-status-username {
+					a {
+						color: white;
+					}
+				}
+
+				#user-account-options {
+					#user-account {
+						border-bottom: .0715em solid rgba(0,0,0,0.15);
+						padding-bottom: .5em;
+					}
+					
+					li {
+						list-style: none;
+						padding: .2em 1.2em;
+						color: rgba(0,0,0,.7);
+						font-weight: 400;
+
+						a{
+							color: rgba(0,0,0,.7);
+							text-decoration: none;
+						}
+					}
+				}
+
+			}
+		}
+	}
+	
+}
+
+
+@media screen and (min-width: 801px) {
+	nav#app-nav-bar {
+		>div {
+			#section-one {
+				flex-flow: row nowrap;
+				width: 80%;
+				#app-info {
+					width: 90%;
+					>div {
+						display: inline-block;
+					}
+					a {
+
+					}
+					#app-name {
+						padding: 0em 2em 0 3em;
+						vertical-align: center;
+					}
+					#app-for-mac {
+						padding: 0em 1em;
+						a {
+							color: #f2f2f2;
+						}
+					}
+					#app-for-windows {
+						padding: 0em 1em;
+						a {
+							color: #f2f2f2;
+						}
+					}
+
+				}
+			}
+
+			#section-two {
+				width: 20%;
+				#signin-to-app{
+					padding-top: 2.5em;
+					button {
+						padding: 0;
+						margin: 0;
+					}
+				}
+				
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 800px) {
+	nav#app-nav-bar {
+		width: 100%;
+		height: auto;
+		>div {
+			width: 100%;
+			display: flex;
+			flex-flow: column wrap;
+			
+			#section-one {
+				display: flex;
+				flex-flow: row nowrap;
+				#app-name {
+					padding: 0em 2em 0 3em;
+					vertical-align: center;
+
+				}
+				#app-for-mac {
+					padding: 0em 1em;
+					a {
+						color: #f2f2f2;
+					}
+				}
+				#app-for-windows {
+					padding: 0em 1em;
+					a {
+						color: #f2f2f2;
+					}
+				}
+
+			}
+
+			#section-two {
+				background-color : rgba(255,255,255,.2);
+				#signin-to-app{
+					display: flex;
+					flex-flow: column nowrap;
+					justify-content: flex-end;
+					
+					vertical-align: center;
+					button {
+						padding: 0;
+						margin: 0;
+					}
+					a{
+						color: #f2f2f2;
+					}
+					text-align: right;
+					padding-right: 1em;
+				}
+			
+			}
+
+		}
+	}
+}
+
+
+nav#app-nav-bar {
+		
+		
+		
+		#app-info {
+			>div {
+				display: inline-block;
+			}
+			a {
+
+			}
+			
+
+		}
+		
+		
+	}
 
 
 

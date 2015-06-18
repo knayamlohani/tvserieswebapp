@@ -35,7 +35,7 @@ nav#app-nav-bar {
 				width: 100%;
 
 				#back-to-app-home {
-					width: 7%;
+					width: 6em;
 					text-align: center;
 					display: flex;
 					flex-flow: column;
@@ -95,7 +95,11 @@ nav#app-nav-bar {
 				
 				background-color : rgba(255,255,255,.2);
 
-				
+				#search-more-series {
+					.icon {
+						padding-right: 1.5em;
+					}
+				}
 
 				#request-progress-bar {
 					width: 5em;
@@ -112,7 +116,7 @@ nav#app-nav-bar {
 
 				#subscription-status{
 					a {
-							color: rgba(255,255,255,.75);
+							color: white;
 					}
 					
 					text-align: center;
@@ -144,7 +148,36 @@ nav#app-nav-bar {
 					}
 					#signin {
 						color: rgba(255,255,255,.75);
+
 					}
+
+					#signin-status-username {
+						a {
+							color: white;
+						}
+					}
+
+					#user-account-options {
+						#user-account {
+							border-bottom: .0715em solid rgba(0,0,0,0.15);
+							padding-bottom: .5em;
+						}
+						ul {
+							padding: 0;
+						}
+						li {
+							list-style: none;
+							padding: .2em 1.2em;
+							color: rgba(0,0,0,.7);
+							font-weight: 400;
+
+							a{
+								color: rgba(0,0,0,.7);
+								text-decoration: none;
+							}
+						}
+					}
+
 				}
 			}
 		}
@@ -242,6 +275,7 @@ nav#app-nav-bar {
 									min-height: 9.6em;
 									width:100%;
 									border-radius: 15em;
+									background-color: rgba(255,255,255, .25);
 								}
 
 								.actor-description {
@@ -349,7 +383,7 @@ nav#app-nav-bar {
 		            vertical-align: top;
 		          }
 		          .episode-name-inner {
-		            width: 94%;
+		            width: 93%;
 		            display: inline-block;
 		          }
 		        }
@@ -360,10 +394,10 @@ nav#app-nav-bar {
 		      }
 
 		      .episode-title:hover {
-		        background-color: rgba(0,0,0,.4);
+		        background-color: rgba(255,255,255,.25);
 		      }
 		      .episode-title.selected {
-		        background-color: rgba(0,0,0,.4);
+		        background-color: rgba(255,255,255,.25);
 		      }
 
 		      .episode-body {
@@ -614,10 +648,10 @@ nav#app-nav-bar {
 		      }
 
 		      .episode-title:hover {
-		        background-color: rgba(0,0,0,.4);
+		        background-color: rgba(255,255,255,.25);
 		      }
 		      .episode-title.selected {
-		        background-color: rgba(0,0,0,.4);
+		        background-color: rgba(255,255,255,.25);
 		      }
 
 		      .episode-body {
@@ -897,11 +931,116 @@ nav#app-nav-bar {
 
 }
 
+#not-signedin-error {
+	color: rgba(0,0,0,.8);
+	font-weight: normal;
+	.modal-title {
+		font-weight: normal;
+	}
+	a {
+		color: white;
+	}
+}
+
+h4::before {
+	padding-right: 0;
+	margin-left: 0;
+	content: "";
+	color: #9ddcff;
+}
+
+#search-more-series-modal {
+	color: rgba(0,0,0,.7);
+	font-weight: normal
+	a {
+		color: white;
+		text-decoration: none;
+	}
+	a:hover {
+		color: white;
+	}
+
+	
+}
 
 
+#search-more-series {
+	position: relative;
+	#search-section {
+		width: 22em;
+		position: absolute;
+		top: 100%;
+		right: 0;
+		z-index: 2;
 
+		#search-query, #search-results {
+			color: rgba(0,0,0,.5);
+			font-weight: 400;
+			width: 100%;
+			background-color: rgba(255,255,255,.25);
+		}
 
+		#search-query {
 
+			input {
+				width: 95%;
+				margin:2% 2.5% .5% 2.5% ;
+				border-radius: .2em;
+				background-color: rgba(255,255,255,.45);
+				text-align: center;
+			}
+			input:focus {
+				outline: none;
+
+			}
+		}
+
+		#search-results {
+			border-radius: .2em;
+			padding-bottom: .65em;
+			.search-result{
+				width: 95%;
+				padding:2.5% 3% 0 2.5%;
+				border-radius: 0 0 .2em .2em;
+				a {
+					
+					text-decoration: none;
+					color: white;
+					img {
+						width: 100%;
+						height: 3.5em;
+						background: rgba(255,255,255,.45);
+						border-radius: .2em;
+						border-color: transparent;
+					}
+				}
+				
+			}
+			#search-progress {
+				color: rgba(255,255,255,.45);
+				display: flex;
+				width: 95%;
+				padding:2.5% 3% 0 2.5%;
+				>div {
+					margin: 0 auto;
+				}
+			}
+		}
+
+	}
+	#search-section.hidden {
+		display: none;
+	}
+	#search-section-background {
+	  filter: blur(5em);
+		width: 22em;
+		height: 22em;
+		background: rgba(255, 255, 255, 0.5); 
+		position: absolute;
+		right: 0;
+		z-index: 0
+	}
+}
 
 
 

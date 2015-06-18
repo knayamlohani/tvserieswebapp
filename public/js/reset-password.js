@@ -1,0 +1,2 @@
+(function(){var o;$(window).ready(function(){}),o=angular.module("resetpasswordapp",["ui.utils"]),o.controller("controller",["$scope",function(o){}])}).call(this);
+//# sourceMappingURL=./reset-password.js.map

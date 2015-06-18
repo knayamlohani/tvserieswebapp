@@ -5,10 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="../css/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="../css/pygment_trac.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="../css/print.css" media="print">
-    <link rel="stylesheet" type="text/css" href="../css/home.css">
     <link rel="stylesheet" type="text/css" href="../includes/font-awesome/4.2.0/css/font-awesome.min.css">
 
     <!--[if lt IE 9]>
@@ -20,7 +16,9 @@
     <script type="text/javascript" src="../includes/modernizr/83855/custom/modernizr.js"></script>
     <script type="text/javascript" src="../includes/angular-js/1.3.9/angular.js"></script>
     -->
-    <script type="text/javascript" src="/includes/angular-js/1.3.13/angular.min.js"></script>
+    <script type="text/javascript" src="../includes/angular-js/1.3.13/angular.min.js"></script>
+    <script type="text/javascript" src="../includes/angular-ui-utils/0.2.2/angular-ui-utils.min.js"></script>
+    
     <script type="text/javascript" src="../includes/nicescroll/3.6.0/nicescroll.js"></script>
 
 
@@ -32,35 +30,61 @@
 
     
     <link rel="stylesheet" href="../includes/bootstrap/3.3.2/css/bootstrap.min.css">
+    <!--
     <link rel="stylesheet" href="../includes/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    -->
     <script type="text/javascript" src="../includes/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
     <link rel="stylesheet" type="text/css" href="../css/sign-up.css">
     <script type="text/javascript" src="../js/signup.js"></script>
 
     
-    <title>Create your TV Series Account</title>
+
+
+    
+    <title>TV Series: Signup</title>
   </head>
 
-  <body ng-app="signupapp" ng-controller="controller as signupAppController">
+  <body ng-app="signupapp" ng-controller="signupAppController">
 
-    <h1 id="page-title">Create your TV Series Account</h1>
+    <nav id="app-nav-bar">
+      <div id="app-info">
+        <div id="app-name"><h1>TV Series</h1></div>
+        <div id="app-for-mac"><a href="http://mac.tvseries.cf"><i class="fa fa-apple fa-2x"></i></a></div>
+        <div id="app-for-windows"><a href="http://windows.tvseries.cf"><i class="fa fa-windows fa-2x"></i></a></div>
+      </div>
+    </nav>
+
+    
+    <h3 id="page-title">Create your TV Series Account</h3>
 
 
 
     <!-- Signup Form-->
-    <form class="form-horizontal" role="form" action="/signup" method="POST" id="signup-form" name="signupForm" novalidate>
+    <form class="form-horizontal" role="form" action="/signup" method="POST" id="signup-form" name="signupForm" novalidate signup-form-directive>
       
       <div class="form-group">
         <label for="firstName" class="col-sm-2 control-label">First Name</label>
         <div class="col-sm-5">
-          <input type="text" class="form-control" id="inputFirstName" placeholder="First Name" name="firstName" required ng-model="formData.firstName"/> 
+          <input type="text" class="form-control" id="inputFirstName" placeholder="First Name" name="firstName" required ng-model="formData.firstName" ng-pattern="/^[a-zA-Z]+$/" /> 
+        </div>
+        <div class="error-message col-sm-offset-3 col-sm-4">
+          <p ng-show="signupForm.firstName.$invalid && signupForm.firstName.$dirty" class="help-block">
+            Your name should contains only alphabets with a minimum length of 1
+          </p>
         </div>
       </div>
+
 
       <div class="form-group">
         <label for="lastName" class="col-sm-2 control-label">Last Name</label>
         <div class="col-sm-5">
-          <input type="text" class="form-control" id="inputLastName" placeholder="Last Name" name="lastName" required ng-model="formData.lastName"/>
+          <input type="text" class="form-control" id="inputLastName" placeholder="Last Name" name="lastName" required ng-model="formData.lastName" ng-pattern="/^[a-zA-Z]+$/" />
+        </div>
+       <div class="error-message col-sm-offset-3 col-sm-4">
+          <p ng-show="signupForm.lastName.$invalid && signupForm.lastName.$dirty" class="help-block">
+            Your name should contains only alphabets with a minimum length of 1
+          </p>
         </div>
       </div>
 
@@ -71,20 +95,44 @@
         <div class="col-sm-5">
           <input type="email" class="form-control" id="inputEmail" placeholder="Email" name="email" required ng-model="formData.email">
         </div>
+        <div class="error-message col-sm-offset-3 col-sm-4">
+          <p ng-show="signupForm.email.$invalid && signupForm.email.$dirty" class="help-block">
+            Valid email required
+          </p>
+          {{#if error.email}}
+            <p class="error-message">The Email you provided is already registered</p>
+          {{/if}}
+        </div>
       </div>
 
       <div class="form-group">
         <label for="username" class="col-sm-2 control-label">Username</label>
         <div class="col-sm-5">
-          <input type="text" class="form-control" id="inputUsername" placeholder="Username" name="username" ng-model="formData.username"  ng-minlength="5" ng-maxlength="15" required>
+          <input type="text" class="form-control" id="inputUsername" placeholder="Username" name="username" ng-model="formData.username" required ng-change="signupForm.username.updateUsernameAvailabilitystatus()" ng-pattern="/^[a-zA-z0-9\.]{5,20}$/"></i>
+        </div>
+        <div id="check-username-availability" class="col-sm-1">
+          <a ng-show="signupForm.username.$valid && signupForm.username.checkAvailabilityReminder" href="#"><i class="fa fa-search search"></i></a>
+          <i class="fa fa-circle-o-notch fa-spin progress hidden"></i>
+        </div>
+        <div class="error-message col-sm-offset-3 col-sm-4">
+          <p ng-show="signupForm.username.$invalid && signupForm.username.$dirty" class="help-block">
+            Your username should contain only lowercase and uppercase characters, numbers and special character . with a minimum length of 5 and a maximum length of of 20
+          </p>
+  
+          <p ng-show="signupForm.username.$valid && signupForm.username.checkAvailabilityReminder" class="help-block">
+            Check Username availability
+          </p>
+
+          <p ng-show="!signupForm.username.available && !signupForm.username.checkAvailabilityReminder" class="help-block">
+            Username not Available, try another one 
+          </p>
         </div>
       </div>
 
       <div class="form-group">
-        <label for="username" class="col-sm-2 control-label">Time Zone</label>
+        <label for="timeZone" class="col-sm-2 control-label">Time Zone</label>
         <div class="col-sm-5">
           <select id="time-zone" class="form-control" name="timeZone" ng-model="formData.timeZone">
-            <option value=""   >Select you Time Zone</option>
             <option value="-11" >Midway GMT -11:00</option>
             <option value="-10" >Honolulu GMT -10:00</option>
             <option value="-9"  >Anchorage GMT -09:00</option>
@@ -127,24 +175,47 @@
       <div class="form-group">
         <label for="password" class="col-sm-2 control-label">Create a Password</label>
         <div class="col-sm-5">
-          <input type="password" class="form-control" id="inputPassword" placeholder="Password" name="password" ng-model="formData.password" required ng-pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/"
->
+          <input type="password" class="form-control" id="inputPassword" placeholder="Password" name="password" ng-model="formData.password" required ng-pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/" ng-minlength="8">
+        </div>
+        <div class="error-message col-sm-offset-3 col-sm-4">
+          <p ng-show="signupForm.password.$invalid && signupForm.password.$dirty" class="help-block">
+            Your password should contain atleast 1 lowercase character, 1 uppercase character, 1 number and a special charcter with a minimum length of 8
+          </p>
         </div>
       </div>
 
       <div class="form-group">
         <label for="confirm-password" class="col-sm-2 control-label">Confirm your Password</label>
         <div class="col-sm-5">
-          <input type="password" class="form-control" id="inputConfirmPassword" placeholder="Confirm Password" name="confirm-password" ng-model="formData.confirmPassword" required>
+          <input type="password" class="form-control" id="inputConfirmPassword" placeholder="Confirm Password" name="confirmPassword" ng-model="formData.confirmPassword" required ui-validate=" '$value==formData.password' " ui-validate-watch=" 'formData.password' ">
+        </div>
+        <div class="error-message col-sm-offset-3 col-sm-4">
+          <p ng-show="signupForm.confirmPassword.$invalid && signupForm.confirmPassword.$dirty" class="help-block">
+            Passwords do not match
+          </p>
         </div>
       </div>
-
-      <p> validation state  - {{signupForm.$valid}}</p>
-      <p> {{formData.password}} {{formData.confirmPassword}}</p>
-      
+      <!--
+      <input type="hidden" name="redirect" value="{{redirect}}">
+      -->
       <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-5">
-          <button type="submit" class="btn btn-default" ng-disabled="!signupForm.$valid">Sign up</button>
+        <div class="col-sm-offset-4 col-sm-5">
+          <button type="submit" class="btn btn-default" ng-disabled="signupForm.$invalid || !signupForm.username.available || signupForm.username.checkAvailabilityReminder">Sign up</button>
+        </div>
+        <div class="error-message col-sm-offset-2 col-sm-5">
+          <p ng-show="signupForm.$invalid && signupForm.$dirty || !signupForm.username.available || signupForm.username.checkAvailabilityReminder" class="help-block">
+            Some of the fields are missing or invalid
+          </p>
+          <!-- ng show condition working
+            form is invalid 
+            or
+            username not available
+            
+            extra use of checkAvailabilityReminder 
+            checks for changes to username
+            if username was validated and avilabile also and just before signing up, username was changed ie not valid but not checked for availability then 
+            checkAvailabilityReminder will tell to check if username was check
+          -->
         </div>
       </div>
     </form>

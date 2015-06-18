@@ -4,15 +4,6 @@
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-    <!--
-    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
-    -->
-    <link rel="stylesheet" type="text/css" href="css/stylesheet.css" media="screen">
-    <!--
-    <link rel="stylesheet" type="text/css" href="css/pygment_trac.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="css/print.css" media="print">
-    -->
     <link rel="stylesheet" type="text/css" href="includes/font-awesome/4.2.0/css/font-awesome.min.css">
     
 
@@ -20,118 +11,211 @@
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-    <script type="text/javascript" src="includes/jquery/1.11.0/jquery.min.js"></script>
-    <!--
-    <script type="text/javascript" src="includes/modernizr/83855/custom/modernizr.js"></script>
-    -->
-    <!--
-    <script type="text/javascript" src="includes/angular-js/1.3.9/angular.js"></script>
-    -->
-    <script type="text/javascript" src="includes/angular-js/1.3.13/angular.min.js"></script>
-   
-    <script type="text/javascript" src="js/dashboard.js"></script>
+    <script type="text/javascript" src="../includes/jquery/1.11.0/jquery.min.js"></script>
+    <script type="text/javascript" src="../includes/angular-js/1.3.13/angular.min.js"></script>
+    <script type="text/javascript" src="../js/dashboard.js"></script>
     <!--
     <script type="text/javascript" src="includes/nicescroll/3.6.0/nicescroll.js"></script>
     -->
 
-    <link rel="stylesheet" href="includes/bootstrap/3.3.2/css/bootstrap.min.css">
-    <!--
-    <link rel="stylesheet" href="includes/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-    -->
-    <script  type="text/javascript" src="includes/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../includes/bootstrap/3.3.2/css/bootstrap.min.css">
+   
+    <script  type="text/javascript" src="../includes/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
     
-    <link rel="stylesheet" type="text/css" href="css/dashboard.css">
+    <link rel="stylesheet" type="text/css" href="../css/dashboard.css">
 
 
 
-    <title>Dashboard</title>
+    <title>TV Series: Dashboard</title>
   </head>
 
-  <body ng-app="dashboard-app" ng-controller="controller as appController">
-    
-    <nav id="app-nav-bar">
-      <div>
-        <div id="back-to-app-home"><a href="/"><i class="fa fa-angle-left fa-2x"></i></a></div>
-        <div id="app-info">
-          <div id="app-page"><h1>Dashboard</h1></div>
+  <body ng-app="dashboard-app" ng-controller="dashboard-controller">
+    <nav id="app-nav-bar" nav-bar-directive>
+      <div>  
+        <div id="section-one">
+          <div id="back-to-app-home"><a href="/"><i class="fa fa-angle-left fa-2x"></i></a></div>
+          <div id="app-info">
+            <div id="app-page"><h1>Dashboard</h1></div>
+          </div>
         </div>
-        <div class="dropdown" id="signin-to-app" class="dropdown" >
-            <div class="dropdown-toggle" data-toggle="{{toggle}}" type="button" id="dropdownMenu1" aria-expanded="true">
-              <a href="{{signinPage}}">{{status}}</a>
-              <span class="caret"></span>
+        
+        <div id="section-two">
+          <div class="progress" id="request-progress-bar">
+            <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
             </div>
-            <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
-              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">{{firstName}}</a></li>
-              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">{{email}}</a></li>
-              <li role="presentation"><a role="menuitem" tabindex="-1" href="{{dashboardPage}}">Dashboard</a></li>
-              <li role="presentation"><a role="menuitem" tabindex="-1" href="{{signout}}">Sign out</a></li>
+          </div>
+          <div class="dropdown" id="signin-to-app" class="dropdown" >
+            <div class="dropdown-toggle" data-toggle="{{toggle}}" type="button" id="signin-status-username" aria-expanded="true">
+              <a href="{{signinPage}}">
+                {{status}}
+                {{#if signinStatus}}
+                  <span class="caret"></span>
+                {{/if}}
+              </a>
+              
+            </div>
+            <ul id="user-account-options" class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
+              <ul id="user-account">
+                <li id="user-fullname">{{firstName}} {{lastName}}</li>
+                <li id="user-email">{{email}}</li>
+              </ul>
+              <ul id="user-options">
+                <li id="dashboard-link"><a role="menuitem" tabindex="-1" href="{{dashboardPage}}">Dashboard</a></li>
+                <li id="signout-link"><a role="menuitem" tabindex="-1" href="{{signout}}">Sign out</a></li>
+              </ul>
             </ul>
-          </ul>
+          </div>
         </div>
-      </div> 
+      </div>
     </nav>
 
     <div id="dashboard">
-      <div id="options-bar">
-        <ul>
-          <li data-link="account" class="option account active"><a href="#"><h2>Account</h2></a></li>
-          <li data-link="subscriptions" class="option subscriptions not-active" subscriptions-directive>
-            <a href="#"><h2>Subscriptions</h2></a>
-          </li>
-        </ul>
+      
+      <div class="btn-group" role="group" aria-label="..." id="options-bar">
+        <button type="button" id="account-trigger" class="btn btn-default option account not-active col-sm-6" data-link="account">
+          <a href="#" class="text-center new-account">Account </a>
+        </button>
+
+        <button type="button" id="subscriptions-trigger" class="btn btn-default option subscriptions active col-sm-6" data-link="subscriptions" subscriptions-directive>
+          <a href="#" class="text-center">Subscriptions</a>
+        </button>
       </div>
+      
+
+
+
       <div id="options-bar-content">
-        <div data-link="account" id="account-option-content" class="options-bar-option-content active">
-          <div id="profile">
-             <div class="title"><h3>Profile</h3></div>
-              <div class="data">
-              <div class="data-i">
-                  <div>Username</div>
-                  <div>{{username}}</div>
-                </div>
-                <div class="data-i">
-                  <div>Email Address</div>
-                  <div>{{email}}</div>
-                </div>
-                <div class="data-i">
-                   <div>Name</div>
-                   <div>{{firstName}} {{lastName}}</div>
-                </div>
-               
-              </div>
-          </div>
-
-          <div id="password">
-            <div class="title"><h3>Password</h3></div>
-            <div class="data">Reset Your PAssword</div>
-          </div>
-
-          <div id="close-account">
-            <div class="title">
-              <h3>Close Account</h3>
-              <p>Warning: Closing your account is irreversible</p>
+        <div data-link="account" id="account-option-content" class="options-bar-option-content not-active">
+          
+          <div class="form-group" id="username">
+            <div class="input-group col-sm-12">
+              <div class="input-group-addon"><span>@</span></div>
+              <input type="text" class="form-control" value="{{username}}" disabled>
             </div>
-            <div class="data">Close This Account</div>
+          </div>
+
+          <div class="form-group" id="name">
+            <div class="input-group col-sm-12">
+            
+              <div class="input-group-addon"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></div>
+            
+              <input type="text" class="form-control" value="{{firstName}} {{lastName}}" disabled>
+            </div>
+          </div>
+
+          <div class="form-group" id="email">
+            <div class="input-group col-sm-12">
+              <div class="input-group-addon"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></div>
+              <input type="email" class="form-control" value="{{email}}" disabled>
+            </div>
+          </div>
+
+          <div class="btn-group" role="group" aria-label="..." id="reset-password">
+            <button type="button" class="btn btn-default option account col-sm-12">
+              <a href="#" class="text-center new-account">Reset Password</a>
+            </button>
+          </div>
+
+          <!-- Button trigger modal -->
+          <div class="btn-group" role="group" aria-label="..." id="close-account">
+            <button type="button" class="btn btn-default option subscriptions col-sm-12" data-toggle="modal" data-target="#myModal">
+              <a href="#" class="text-center">Close Account</a>
+            </button>
+          
+          </div>
+
+
+          
+          
+
+          <!-- Modal -->
+          <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                  <h4 class="modal-title" id="myModalLabel">Close Account</h4>
+                </div>
+                <div class="modal-body">
+                  Closing the account will permanantly delete the account along with your subscriptions
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary" id="confirm-delete">
+                    <a href="/deleteAccount">Save changes</a>
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
           
-         
+
         </div>
+
         {{{{raw-helper}}}}
-        <div data-link="subscriptions" id="subscriptions-option-content" class="options-bar-option-content not-active">
-          <div class="" ng-show="appData.requestingSubscribedTvShows">
-            <i class='fa fa-circle-o-notch fa-spin fa-3x'></i>
-          </div>
-          <div ng-repeat="series in appData.subscribedTvShows" class="subscribed-tv-show">
-            <div class="series-artwork">
-              <img ng-src="{{series.artworkUrl}}">
-            </div>
-            <div class="series-name">
-              {{series.name}}
+        <!-- modal to confirm the tv shows to be unsubscribed-->
+        <div class="modal fade" id="modal-tv-shows-to-be-unsubscribed" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">Unsubscribe TV Shows</h4>
+              </div>
+              <div class="modal-body">
+                The following TV Shows will be unsubscribed. You will not be able to receive regular updates about the following TV Shows.
+                <ul>
+                  <li ng-repeat="series in appData.tvShowsToBeUnsubscribed" class="series-name">
+                    {{series.name}}
+                  </li>
+                <ul>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="confirm-unsubscribe" data-dismiss="modal" confirm-unsubscribe-directive>
+                  <a href="#">Unsubscribe</a>
+                </button>
+              </div>
             </div>
           </div>
         </div>
-        {{{{/raw-helper}}}}
+        
+
+        <div data-link="subscriptions" id="subscriptions-option-content" class="options-bar-option-content active">
+          <div class="btn-group" role="group" aria-label="..." id="unsubscribe-tv-shows" unsubscribe-selected-tv-shows-directive>
+            <button type="button" class="btn btn-default">
+              <a href="#" class="text-center new-account"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+            </button>
+          </div>
+          <div id="getting-subscribed-tvshow-progress" ng-show="appData.requestingSubscribedTvShows">
+            <h2>Getting your subscribed TV Shows</h2>
+            <div class="progress">
+              <i class='fa fa-circle-o-notch fa-spin fa-2x'></i>
+            </div>
+          </div>
+          
+          <div ng-show="appData.subscribedTvShows.length > 0" ng-repeat="airDay in appData.days" class="subscribed-tvshows-by-airday">
+            <div class="airday" ng-show="appData.ifTvShowsAiringToday(airDay)"><h3>{{airDay}}s</h3></div>
+            <div class="tvshows">
+              <div ng-repeat="series in appData.subscribedTvShows | filterTvShowsByAirDay: airDay" class="subscribed-tv-show" data-series-id="{{series.id}}" data-series-name="{{series.name}}" data-airs-on-day-of-week="{{series.airsOnDayOfWeek}}" subscribed-tv-show-directive>
+                <div class="series-artwork">
+                  <img ng-src="{{series.artworkUrl}}">
+                </div>
+                <div class="series-name">
+                  {{series.name}}
+                </div>
+                <span class="glyphicon glyphicon-ok remove-series-indicator" aria-hidden="true"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+
+      </div>
+      {{{{/raw-helper}}}}
+        
+
+        
       </div>
         
     </div>

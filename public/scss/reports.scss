@@ -1,0 +1,62 @@
+body {
+    background: #f2f2f2;
+}
+
+
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 100;
+}
+
+nav#app-nav-bar {
+  height: auto;
+  width: 100%;
+  color: white;
+  background: rgba(0,0,0,0.7);
+  >div{
+      display: inline-block;
+  }
+  #app-info {
+    width: 90%;
+    >div {
+        display: inline-block;
+    }
+    a {
+      color: white;
+      text-decoration: none;
+    }
+    #app-name {
+      padding: 0em 2em 0 3em;
+      vertical-align: center;
+    }
+    #app-for-mac {
+      padding: 0em 1em;
+      a {
+        color: white;
+      }
+    }
+    #app-for-windows {
+      padding: 0em 1em;
+      a {
+        color: white;
+      }
+    }
+  }
+}
+
+#message {
+  margin: 0;
+  margin-top: 15em;
+  
+  text-align: center;
+  color: rgba(0,0,0,.5);
+
+  #main-message {
+    font-size: 2.5em;
+    font-weight: 100;
+  }
+  #other-message {
+    font-size: 1.5em;
+    font-weight: 100;
+  }
+}

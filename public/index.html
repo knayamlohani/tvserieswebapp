@@ -37,10 +37,11 @@
   </head>
 
   <body ng-app="search-app">
+      <!--
       <nav id="app-nav-bar">
         
           <div id="app-info">
-            <div id="app-name"><h1>TV Series</h1></div>
+            <div id="app-name"><h1><a href="/" class="link">TV Series</a></h1></div>
             <div id="app-for-mac"><a href="http://mac.tvseries.cf"><i class="fa fa-apple fa-2x"></i></a></div>
             <div id="app-for-windows"><a href="http://windows.tvseries.cf"><i class="fa fa-windows fa-2x"></i></a></div>
           </div>
@@ -50,7 +51,8 @@
           <div class="dropdown" id="signin-to-app" class="dropdown" >
             <div class="dropdown-toggle" data-toggle="{{toggle}}" type="button" id="dropdownMenu1" aria-expanded="true">
               <a href="{{signinPage}}">{{status}}</a>
-              <span class="caret"></span>
+             
+
             </div>
             
             <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
@@ -63,6 +65,42 @@
           </div>   
           
       </nav>
+      -->
+      <nav id="app-nav-bar" nav-bar-directive>
+        <div>  
+          <div id="section-one">
+            <div id="app-info">
+              <div id="app-name"><h1><a href="/" class="link">TV Series</a></h1></div>
+              <div id="app-for-mac"><a href="http://mac.tvseries.cf"><i class="fa fa-apple fa-2x"></i></a></div>
+              <div id="app-for-windows"><a href="http://windows.tvseries.cf"><i class="fa fa-windows fa-2x"></i></a></div>
+            </div>
+          </div>
+          
+          <div id="section-two">
+            <div class="dropdown" id="signin-to-app" class="dropdown" >
+              <div class="dropdown-toggle" data-toggle="{{toggle}}" type="button" id="signin-status-username" aria-expanded="true">
+                <a href="{{signinPage}}">
+                {{status}}
+                {{#if signinStatus}}
+                  <span class="caret"></span>
+                {{/if}}
+                </a>
+                
+              </div>
+              <ul id="user-account-options" class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
+                <ul id="user-account">
+                  <li id="user-fullname">{{firstName}} {{lastName}}</li>
+                  <li id="user-email">{{email}}</li>
+                </ul>
+                <ul id="user-options">
+                  <li id="dashboard-link"><a role="menuitem" tabindex="-1" href="{{dashboardPage}}">Dashboard</a></li>
+                  <li id="signout-link"><a role="menuitem" tabindex="-1" href="{{signout}}">Sign out</a></li>
+                </ul>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
      
     {{{{raw-helper}}}}
     <div id="div-blur-layer"></div>
@@ -72,7 +110,7 @@
         <div id="close-distraction-free-search-mode">
           <i class="fa fa-times fa-2x display-none" ng-click="appData.allSearchResultsData = []"></i>
         </div>
-        <input id="search-field" type ="search" name="search-series" placeholder= "Search" ng-model="appData.searchQuery" ng-keyup="appBehavior.onKeyUp($event)"></input>
+        <input id="search-field" type ="search" name="search-series" placeholder= "Search" ng-model="appData.searchQuery" ng-keyup="appBehavior.onKeyUp($event)" autocomplete="off"></input>
       </div>
       
 
@@ -84,7 +122,7 @@
 
         <div class="current-search-results" ng-repeat="currentSearchResultsData in appData.allSearchResultsData.slice().reverse()" current-search-results-directive>
         <!-- displayed the time b/w data download completion and linking it to the view-->
-        <div class="current-query">{{currentSearchResultsData.currentSearchQuery}}</div>
+        <div class="current-query search-query">{{currentSearchResultsData.currentSearchQuery}}</div>
         
         <div ng-hide="currentSearchResultsData.currentSearchResults[0]" class="progress-indicator">
           <i class='fa fa-circle-o-notch fa-spin fa-5x'></i>
@@ -92,7 +130,7 @@
         
         <div ng-repeat="series in currentSearchResultsData.currentSearchResults" class="search-result">
           <a ng-click="appBehavior.viewSeries($event)" class="search-result-inner" ng-href="/series?name={{series.name}}&id={{series.id}}&bannerUrl={{series.bannerUrl}}&altBannerUrl={{series.altBannerUrl}}">
-            <img ng-src="{{series.currentBannerUrl}}" class="series-artwork"></img>
+            <img ng-src="{{series.currentBannerUrl}}" class="series-artwork" alt="{{series.name}}"></img>
             <div class="series-tag">{{series.name}}</div>
           </a>
         </div>

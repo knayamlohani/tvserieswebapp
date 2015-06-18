@@ -33,7 +33,7 @@
 
 
 
-    <title>Series</title>
+    <title>TV Series: {{name}}</title>
   </head>
 
   <body ng-app="app" ng-controller="controller as appController">
@@ -76,17 +76,49 @@
             {{{{/raw-helper}}}} 
           </div>
           <div class="dropdown" id="signin-to-app" class="dropdown" >
-            <div class="dropdown-toggle" data-toggle="{{toggle}}" type="button" id="dropdownMenu1" aria-expanded="true">
-              <a id="signin" href="{{signinPage}}">{{status}}</a>
-              <span class="caret"></span>
+            <div class="dropdown-toggle" data-toggle="{{toggle}}" type="button" id="signin-status-username" aria-expanded="true">
+              <a href="{{signinPage}}">
+                {{status}}
+                {{#if signinStatus}}
+                  <span class="caret"></span>
+                {{/if}}
+              </a>
+              
             </div>
-            <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
-              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">{{firstName}}</a></li>
-              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">{{email}}</a></li>
-              <li role="presentation"><a role="menuitem" tabindex="-1" href="{{dashboardPage}}">Dashboard</a></li>
-              <li role="presentation"><a role="menuitem" tabindex="-1" href="{{signout}}">Sign out</a></li>
+            <ul id="user-account-options" class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
+              <ul id="user-account">
+                <li id="user-fullname">{{firstName}} {{lastName}}</li>
+                <li id="user-email">{{email}}</li>
+              </ul>
+              <ul id="user-options">
+                <li id="dashboard-link"><a role="menuitem" tabindex="-1" href="{{dashboardPage}}">Dashboard</a></li>
+                <li id="signout-link"><a role="menuitem" tabindex="-1" href="{{signout}}">Sign out</a></li>
+              </ul>
             </ul>
           </div>
+          {{{{raw-helper}}}}
+          <div id="search-more-series" search-more-series-directive>
+            <div class="icon"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></div>
+            <div id="search-section" class="hidden">
+              <div id="search-query">
+                <input ng-model="search.query" ng-change="search.makeQuery()" autofocus/>
+              </div>
+              <div id="search-results">
+                <div id="search-progress" ng-show="search.results.length == 0 && search.query"><div><i class="fa fa-circle-o-notch fa-spin"></i></div></div>
+                <div class="search-result" ng-repeat="series in search.results">
+                  <a href="/series?name={{series.name}}&id={{series.id}}&bannerUrl={{series.bannerUrl}}&altBannerUrl={{series.banner}}">
+                    <img ng-src="{{series.banner}}" alt="{{series.name}}"/>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <!-- end of search-section -->
+            <!--
+            <div id="search-section-background"></div>
+            -->
+          </div>
+          {{{{/raw-helper}}}}
+
         </div>
       </div> 
     </nav>
@@ -152,7 +184,11 @@
                 
                 <div id="coming-up" ng-hide="appController.appData.data.runningStatus != 'Continuing'" class="ng-cloak">
                   <div>Coming Up</div> :
-                  <div>{{appController.appData.data.comingUp}}</div>
+                  <div>
+                    <span class=""> S<span ng-show="appController.appData.data.comingUp.season<=9">{{0}}</span>{{appController.appData.data.comingUp.season}}E<span ng-show="appController.appData.data.comingUp.number<=9">{{0}}</span>{{appController.appData.data.comingUp.number}} </span>
+                    <span>{{appController.appData.data.comingUp.name}} - </span>
+                    <span>{{appController.appData.data.comingUp.airDate | date: 'mediumDate'}}</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -222,5 +258,56 @@
 
     </div>
     {{{{/raw-helper}}}}
+
+    <!-- Button trigger modal -->
+
+    <!-- Modal -->
+    
+    <div class="modal fade" id="not-signedin-error" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title" id="myModalLabel">Unable to Subscribe</h4>
+          </div>
+          <div class="modal-body">
+            You are not signed in. Sign in now to subscribe to {{name}}
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="confirm-delete">
+              <a href="/signin?redirect=/series&&name={{name}}&id={{id}}&bannerUrl={{bannerUrl}}&altBannerUrl={{altBannerUrl}}">Sign in</a>
+
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Search more series modal -->
+    <div class="modal fade" id="search-more-series-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" search-more-series-directive>
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title" id="myModalLabel">Search More Series</h4>
+          </div>
+          <div class="modal-body">
+            
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="#">
+              <a href="#">Sign in</a>
+
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end of search more series modal -->
+
+
+
   </body>
 </html>

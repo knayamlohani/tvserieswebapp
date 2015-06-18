@@ -31,7 +31,7 @@ nav#app-nav-bar {
               flex-flow: row nowrap;
       width: 100%; }
       nav#app-nav-bar > div #section-one #back-to-app-home {
-        width: 7%;
+        width: 6em;
         text-align: center;
         display: -webkit-flex;
         display: -ms-flexbox;
@@ -84,6 +84,8 @@ nav#app-nav-bar {
           -ms-flex-pack: end;
               justify-content: flex-end;
       background-color: rgba(255, 255, 255, 0.2); }
+      nav#app-nav-bar > div #section-two #search-more-series .icon {
+        padding-right: 1.5em; }
       nav#app-nav-bar > div #section-two #request-progress-bar {
         width: 5em;
         height: .5em;
@@ -99,7 +101,7 @@ nav#app-nav-bar {
         width: 8em;
         margin: 0; }
         nav#app-nav-bar > div #section-two #subscription-status a {
-          color: rgba(255, 255, 255, 0.75); }
+          color: white; }
         nav#app-nav-bar > div #section-two #subscription-status i {
           font-size: 1em; }
         nav#app-nav-bar > div #section-two #subscription-status .visibility-hidden {
@@ -116,6 +118,21 @@ nav#app-nav-bar {
           margin: 0; }
         nav#app-nav-bar > div #section-two #signin-to-app #signin {
           color: rgba(255, 255, 255, 0.75); }
+        nav#app-nav-bar > div #section-two #signin-to-app #signin-status-username a {
+          color: white; }
+        nav#app-nav-bar > div #section-two #signin-to-app #user-account-options #user-account {
+          border-bottom: 0.0715em solid rgba(0, 0, 0, 0.15);
+          padding-bottom: .5em; }
+        nav#app-nav-bar > div #section-two #signin-to-app #user-account-options ul {
+          padding: 0; }
+        nav#app-nav-bar > div #section-two #signin-to-app #user-account-options li {
+          list-style: none;
+          padding: .2em 1.2em;
+          color: rgba(0, 0, 0, 0.7);
+          font-weight: 400; }
+          nav#app-nav-bar > div #section-two #signin-to-app #user-account-options li a {
+            color: rgba(0, 0, 0, 0.7);
+            text-decoration: none; }
 
 @media screen and (min-width: 1101px) {
   #blur-layer {
@@ -183,7 +200,8 @@ nav#app-nav-bar {
                 #series-section #series-info #series-details #cast #actors .actor .actor-inner img {
                   min-height: 9.6em;
                   width: 100%;
-                  border-radius: 15em; }
+                  border-radius: 15em;
+                  background-color: rgba(255, 255, 255, 0.25); }
                 #series-section #series-info #series-details #cast #actors .actor .actor-inner .actor-description {
                   height: 6em;
                   overflow: auto;
@@ -268,15 +286,15 @@ nav#app-nav-bar {
               display: inline-block;
               vertical-align: top; }
             .season-body .season-body-half .episode .episode-title .episode-name .episode-name-inner {
-              width: 94%;
+              width: 93%;
               display: inline-block; }
           .season-body .season-body-half .episode .episode-title .episode-air-date {
             width: 25%;
             text-align: right; }
         .season-body .season-body-half .episode .episode-title:hover {
-          background-color: rgba(0, 0, 0, 0.4); }
+          background-color: rgba(255, 255, 255, 0.25); }
         .season-body .season-body-half .episode .episode-title.selected {
-          background-color: rgba(0, 0, 0, 0.4); }
+          background-color: rgba(255, 255, 255, 0.25); }
         .season-body .season-body-half .episode .episode-body {
           font-size: .9em;
           width: 95%;
@@ -446,9 +464,9 @@ nav#app-nav-bar {
             width: 25%;
             text-align: right; }
         .season-body .season-body-half .episode .episode-title:hover {
-          background-color: rgba(0, 0, 0, 0.4); }
+          background-color: rgba(255, 255, 255, 0.25); }
         .season-body .season-body-half .episode .episode-title.selected {
-          background-color: rgba(0, 0, 0, 0.4); }
+          background-color: rgba(255, 255, 255, 0.25); }
         .season-body .season-body-half .episode .episode-body {
           font-size: .9em;
           width: 95%;
@@ -636,5 +654,84 @@ nav#app-nav-bar {
       .season-body .season-body-half .episode {
         width: 98.75%;
         padding-right: 1.25%; } }
+#not-signedin-error {
+  color: rgba(0, 0, 0, 0.8);
+  font-weight: normal; }
+  #not-signedin-error .modal-title {
+    font-weight: normal; }
+  #not-signedin-error a {
+    color: white; }
+
+h4::before {
+  padding-right: 0;
+  margin-left: 0;
+  content: "";
+  color: #9ddcff; }
+
+#search-more-series-modal {
+  color: rgba(0, 0, 0, 0.7);
+  font-weight: normal a;
+    font-weight-color: white;
+    font-weight-text-decoration: none; }
+  #search-more-series-modal a:hover {
+    color: white; }
+
+#search-more-series {
+  position: relative; }
+  #search-more-series #search-section {
+    width: 22em;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    z-index: 2; }
+    #search-more-series #search-section #search-query, #search-more-series #search-section #search-results {
+      color: rgba(0, 0, 0, 0.5);
+      font-weight: 400;
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.25); }
+    #search-more-series #search-section #search-query input {
+      width: 95%;
+      margin: 2% 2.5% 0.5% 2.5%;
+      border-radius: .2em;
+      background-color: rgba(255, 255, 255, 0.45);
+      text-align: center; }
+    #search-more-series #search-section #search-query input:focus {
+      outline: none; }
+    #search-more-series #search-section #search-results {
+      border-radius: .2em;
+      padding-bottom: .65em; }
+      #search-more-series #search-section #search-results .search-result {
+        width: 95%;
+        padding: 2.5% 3% 0 2.5%;
+        border-radius: 0 0 .2em .2em; }
+        #search-more-series #search-section #search-results .search-result a {
+          text-decoration: none;
+          color: white; }
+          #search-more-series #search-section #search-results .search-result a img {
+            width: 100%;
+            height: 3.5em;
+            background: rgba(255, 255, 255, 0.45);
+            border-radius: .2em;
+            border-color: transparent; }
+      #search-more-series #search-section #search-results #search-progress {
+        color: rgba(255, 255, 255, 0.45);
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        width: 95%;
+        padding: 2.5% 3% 0 2.5%; }
+        #search-more-series #search-section #search-results #search-progress > div {
+          margin: 0 auto; }
+  #search-more-series #search-section.hidden {
+    display: none; }
+  #search-more-series #search-section-background {
+    -webkit-filter: blur(5em);
+            filter: blur(5em);
+    width: 22em;
+    height: 22em;
+    background: rgba(255, 255, 255, 0.5);
+    position: absolute;
+    right: 0;
+    z-index: 0; }
 
 /*# sourceMappingURL=series.css.map */

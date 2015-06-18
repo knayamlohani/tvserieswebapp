@@ -5,10 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="../css/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="../css/pygment_trac.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="../css/print.css" media="print">
-    <link rel="stylesheet" type="text/css" href="../css/home.css">
+    
     <link rel="stylesheet" type="text/css" href="../includes/font-awesome/4.2.0/css/font-awesome.min.css">
 
     <!--[if lt IE 9]>
@@ -20,8 +17,8 @@
     <!--
     <script type="text/javascript" src="../includes/angular-js/1.3.9/angular.js"></script>
     -->
-    <script type="text/javascript" src="includes/angular-js/1.3.13/angular.min.js"></script>
-    <script type="text/javascript" src="../js/search-app.js"></script>
+    <script type="text/javascript" src="../includes/angular-js/1.3.13/angular.min.js"></script>
+    <script type="text/javascript" src="../js/signin.js"></script>
     <script type="text/javascript" src="../includes/nicescroll/3.6.0/nicescroll.js"></script>
 
 
@@ -31,48 +28,80 @@
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-    <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="../includes/bootstrap/3.3.2/css/bootstrap.min.css">
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="../includes/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-    <!-- Latest compiled and minified JavaScript -->
     <script  scr="../includes/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-
-
-
-
-
-     <link rel="stylesheet" type="text/css" href="../css/sign-in.css">
+    <link rel="stylesheet" type="text/css" href="../css/sign-in.css">
     
     
-    <title>Tvserieswebapp by mayanklohani</title>
+    <title>TV Series: Signin</title>
   </head>
 
-  <body ng-app="">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-6 col-md-4 col-md-offset-4">
-                <h1 class="text-center login-title">Sign in to Subscribe to TV Series</h1>
-                <div class="account-wall">
-                    <img class="profile-img" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120"
-                        alt="">
-                    <form class="form-signin" action="/signin" method="POST">
-                      <input type="text" class="form-control" placeholder="Email" name="email" required autofocus>
-                      <input type="password" class="form-control" placeholder="Password" name="password" required>
-                      {{errorMessage}}
-                      <button class="btn btn-lg btn-primary btn-block" type="submit">
-                        Sign in</button>
-                      <label class="checkbox pull-left">
-                        <input type="checkbox" value="remember-me">
-                        Remember me
-                      </label>
-                      <a href="#" class="pull-right need-help">Need help? </a><span class="clearfix"></span>
-                    </form>
-                </div>
-                <a href="/account/signup.html" class="text-center new-account">Create an account </a>
-            </div>
+  <body ng-app="signinapp">
+    <nav id="app-nav-bar">
+      <div id="app-info">
+        <div id="app-name"><h1><a href="/">TV Series</a></h1></div>
+        <div id="app-for-mac"><a href="http://mac.tvseries.cf"><i class="fa fa-apple fa-2x"></i></a></div>
+        <div id="app-for-windows"><a href="http://windows.tvseries.cf"><i class="fa fa-windows fa-2x"></i></a></div>
+      </div>
+    </nav>
+
+    <h3 id="title">Sign in to continue to TV Series</h3>
+    <form class="form-signin" action="/signin" method="POST" novalidate>
+      <div class="form-group">
+        <div class="input-group">
+          <div class="input-group-addon"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></div>
+          <input type="email" class="form-control" placeholder="Email" name="email" ng-model="signinForm.email" required autofocus>
         </div>
-    </div>
+      </div>
+
+      <div class="form-group">
+        <div class="input-group">
+          <div class="input-group-addon"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></div>
+          <input type="password" class="form-control" placeholder="Password" name="password" required>
+        </div>
+        <div class="error-message">
+          {{errorMessage}}
+        </div>
+      </div>
+
+      <input type="hidden" name="redirect" value="{{redirect}}">
+
+
+      <div class="form-group">
+        <button id="submit-form" class="btn btn-default navbar-btn" type="submit">Sign in</button>
+      </div>
+
+      
+      
+      
+
+      <div class="btn-group" role="group" aria-label="..." id="options">
+        <button type="button" class="btn btn-default">
+          <a href="/signup" class="text-center new-account">Create an account </a>
+        </button>
+
+        <button type="button" class="btn btn-default">
+          <a href="/forgotPassword" class="text-center">Forgot Password</a>
+        </button>
+      </div>
+
+    </form>
+
+    {{#if authenticationStatus}}
+      <div id="account-authentication">
+        <div>
+          <p>{{authenticationStatus}}</p>
+        </div>
+        <div class="btn-group" role="group" aria-label="..." id="send-link">
+          <button type="button" class="btn btn-default">
+            <a href="/mailAccountAuthenticationLink" class="text-center new-account">Resend Authentication Link</a>
+          </button>
+        </div>
+      </div>
+    {{/if}}
+    
+    
+
 
     <script>
 
