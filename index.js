@@ -55,7 +55,7 @@
 
   mongodbclient = require('./mongodbclient.js');
 
-  mongodbclient.setDbConfig(process.env["dbuser"], process.env["dbpassword"], process.env["databaseuri"]);
+  mongodbclient.setDbConfig(process.env["dbuser"], process.env["dbpassword"], process.env["dburi"]);
 
   cookieParser = require('cookie-parser');
 
