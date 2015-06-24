@@ -164,12 +164,12 @@ exports.performJobs = ->
           jobs.push job
 
         console.log "jobs entries", jobs
+        if jobs.length > 0
+          mongodbclient.addNewJob options =
+            "object" : job
+          , 
+          callback
         
-        mongodbclient.addNewJob options =
-          "object" : job
-        , 
-        callback
-
       return
     return
   

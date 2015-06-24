@@ -141,9 +141,11 @@
             jobs.push(job);
           }
           console.log("jobs entries", jobs);
-          mongodbclient.addNewJob(options = {
-            "object": job
-          }, callback);
+          if (jobs.length > 0) {
+            mongodbclient.addNewJob(options = {
+              "object": job
+            }, callback);
+          }
         }
       });
     };
