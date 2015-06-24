@@ -9,38 +9,34 @@
   </head>
 
   <body ng-app="search-app">
-    <!--
-    <nav id="nav-bar">
-        <h1 id="app-name">TV Series</h1>
-        <div id="user-details">
-            {{name}}
-            {{username}}
-            {{email}}
-        </div>
-    </nav>
-    -->
-
-    <!--
     <nav id="app-nav-bar">
       <div id="app-info">
-        <div id="app-name"><h1><a href="http://webapp.tvseries.cf">TV Series</a></h1></div>
-
+        <div id="app-name"><h1>TV Series</h1></div>
+        <!--
+        <div id="app-for-mac"><a href="http://mac.tvseries.cf"><i class="fa fa-apple fa-2x"></i></a></div>
+        <div id="app-for-windows"><a href="http://windows.tvseries.cf"><i class="fa fa-windows fa-2x"></i></a></div>
+        -->
       </div>
     </nav>
 
-    -->
-
-
     <div id="mail-content">
-      <h1 id="title">Airing Today</h1>
+      <div id="mail-title">
+        <h1 id="title">{{airDay}}s</h1>
+        <h3 id="sub-title">Airing Today</h3>
+      </div>
       <div id="body">
 
-        {{#each tvShows}}
-          <div class="series">
-            <img class="artwork" src="{{artworkUrl}}"/>
-            <h3 class="tag">{{name}}</h3>
-          </div>
-        {{/each}}
+        {{#if tvShows}}
+          {{#each tvShows}}
+            <div class="series">
+              <img class="artwork" src="{{artworkUrl}}"/>
+              <h3 class="tag">{{name}}</h3>
+              <h3 class="episode-name">{{episodeName}}</h3>
+            </div>
+          {{/each}}
+        {{else}}
+          <h2 id="no-tvshows">No Episodes for Today</h2>
+        {{/if}}
         
       </div>
     </div>

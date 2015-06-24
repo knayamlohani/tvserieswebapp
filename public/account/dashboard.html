@@ -193,6 +193,11 @@
               <i class='fa fa-circle-o-notch fa-spin fa-2x'></i>
             </div>
           </div>
+
+          <div id="no-subscribed-tvshows" ng-show="appData.downloadedSubscribedTvShows && appData.subscribedTvShows.length == 0">
+            <h2 class="title">You are not subscribed to any TV Show</h2>
+            <p class="msg">Subscribe now to get regular updates about upcoming episodes<p>
+          </div>
           
           <div ng-show="appData.subscribedTvShows.length > 0" ng-repeat="airDay in appData.days" class="subscribed-tvshows-by-airday">
             <div class="airday" ng-show="appData.ifTvShowsAiringToday(airDay)"><h3>{{airDay}}s</h3></div>

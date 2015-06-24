@@ -55,6 +55,7 @@
               var progressBar;
               console.log("dashboard result ", result);
               scope.appData.requestingSubscribedTvShows = false;
+              scope.appData.downloadedSubscribedTvShows = true;
               scope.appData.subscribedTvShows = result.data;
               progressBar = $("#request-progress-bar .progress-bar");
               progressBar.removeClass("progress-bar-striped progress-bar-success progress-bar-danger");
@@ -138,17 +139,16 @@
               console.log("success unsubscribing", data);
               progressBar.removeClass("progress-bar-striped progress-bar-success progress-bar-danger");
               progressBar.addClass("progress-bar-success");
+              console.log("tv shows all", scope.appData.subscribedTvShows);
               if (!data.err) {
-                $timeout(function() {});
-                scope.$apply(function() {
+                $timeout(function() {
                   var remove, _j, _len1, _ref1;
-                  _ref1 = $scope.appData.tvShowsToBeUnsubscribed;
+                  _ref1 = scope.appData.tvShowsToBeUnsubscribed;
                   for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
                     remove = _ref1[_j];
-                    $scope.appData.subscribedTvShows.splice(remove);
+                    scope.appData.subscribedTvShows.splice(remove, 1);
                   }
                 });
-                return;
               }
             }).error(function(data, status, headers, config) {});
           });
@@ -160,7 +160,6 @@
   dashboardApp.filter('filterTvShowsByAirDay', function() {
     return function(seriesArray, airDay) {
       var series, seriesAiringOnDay, _i, _len;
-      console.log("airDay", airDay);
       seriesAiringOnDay = [];
       for (_i = 0, _len = seriesArray.length; _i < _len; _i++) {
         series = seriesArray[_i];
@@ -171,15 +170,6 @@
       return seriesAiringOnDay;
     };
   });
-
-
-  /*
-  $timeout ->
-  					scope.$apply ->
-  			    		scope.subscribedTvShows = subscribedTvShows
-  			    	return
-  			    return
-   */
 
 }).call(this);
 

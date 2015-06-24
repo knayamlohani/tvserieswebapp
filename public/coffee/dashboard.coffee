@@ -52,6 +52,7 @@ dashboardApp.directive 'subscriptionsDirective', ['$timeout', '$http', ($timeout
 				console.log "dashboard result ", result
 				
 				scope.appData.requestingSubscribedTvShows = false
+				scope.appData.downloadedSubscribedTvShows = true
 				scope.appData.subscribedTvShows = result.data
 
 				progressBar = $("#request-progress-bar .progress-bar")
@@ -137,17 +138,15 @@ dashboardApp.directive 'confirmUnsubscribeDirective', ['$timeout','$http', ($tim
 		  	progressBar.removeClass "progress-bar-striped progress-bar-success progress-bar-danger"
 		  	progressBar.addClass "progress-bar-success"
 
+		  	console.log "tv shows all", scope.appData.subscribedTvShows
 		  	if !data.err
 		  		$timeout ->
-						scope.$apply ->
-				    	#scope.appData.tvShowsToBeUnsubscribed
-
-				    	for remove in $scope.appData.tvShowsToBeUnsubscribed
-				    		$scope.appData.subscribedTvShows.splice remove
-				    	return
+			    	for remove in scope.appData.tvShowsToBeUnsubscribed
+			    		scope.appData.subscribedTvShows.splice remove, 1
 				    return
 				
 		  	return  
+
 		  .error (data, status, headers, config) ->
 		  	return
 			return
@@ -159,22 +158,10 @@ dashboardApp.directive 'confirmUnsubscribeDirective', ['$timeout','$http', ($tim
 
 dashboardApp.filter 'filterTvShowsByAirDay', () ->
 	return (seriesArray, airDay)->
-		console.log "airDay", airDay
+		#console.log "airDay", airDay
 		seriesAiringOnDay = []
 		for series in seriesArray
 			if series.airsOnDayOfWeek == airDay
 				seriesAiringOnDay.push series
 		return seriesAiringOnDay
 	return
-
-
-
-
-
-###
-$timeout ->
-					scope.$apply ->
-			    		scope.subscribedTvShows = subscribedTvShows
-			    	return
-			    return
-###

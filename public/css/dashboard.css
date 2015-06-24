@@ -68,6 +68,14 @@ body {
       padding: 1em;
       box-shadow: none;
       text-align: center; }
+  #subscriptions-option-content #no-subscribed-tvshows {
+    margin-top: 4em;
+    text-align: center; }
+    #subscriptions-option-content #no-subscribed-tvshows .title {
+      font-size: 2.5em; }
+    #subscriptions-option-content #no-subscribed-tvshows .msg {
+      font-size: 1.5em;
+      font-weight: 100; }
   #subscriptions-option-content .subscribed-tv-show {
     margin: 2em 0 0 2em;
     height: 20em;

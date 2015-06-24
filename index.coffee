@@ -1,4 +1,5 @@
 tvdbWebService = require 'tvdbwebservice'
+#tvdbWebService = require './js/tvdbwebservice.js'
 express = require 'express'
 app = express()
 
@@ -10,6 +11,8 @@ crypto = require 'crypto'
 mailer = require('./mailer.js')
 
 jobs = require './jobs.js'
+mongodbclient = require './mongodbclient.js'
+request = sys = require 'request' 
 
 
 
@@ -17,9 +20,16 @@ jobs = require './jobs.js'
 
 #app config
 app.set 'port', (process.env.PORT)
-app.set 'tvdbApiKey', (process.env.TVDB_API_KEY)
+app.set 'tvdbApiKey', (process.env["tvdbapikey"])
 app.set 'emailusername', (process.env.emailusername)
 app.set 'emailpassword', (process.env.emailpassword)
+app.set 'host', (process.env.host)
+
+console.log "HOST", app.get 'host'
+
+jobs.setHost app.get('host')
+mongodbclient.setHost app.get('host')
+mailer.setHost app.get('host')
 
 
 #tvdbwebservice config
@@ -32,8 +42,12 @@ mailer.setEmailAccount
 
 
 # mongo db config
+
+console.log process.env["databaseuri"]
 mongodbclient = require('./mongodbclient.js')
-mongodbclient.setDbConfig process.env["DB_USER"], process.env["DB_PASSWORD"]
+
+
+mongodbclient.setDbConfig process.env["dbuser"], process.env["dbpassword"], process.env["dburi"]
 cookieParser = require('cookie-parser')
 app.use(cookieParser());
 
@@ -104,12 +118,65 @@ app.use (req, res, next) ->
   return
 
 
-
+###
+tvdbWebService.getEpisodeAiredOnDateForSeriesWithId "22-06-2015", "281536", (data) ->
+  console.log "episode details", data
+  return
+###
 
 #routs to access TVDB
+app.get '/episode', (req, res) ->
+  console.log "getting episode details"
+  tvdbWebService.getEpisodeAiredOnDateForSeriesWithId req.query.airDate, req.query.id, (data) ->
+    console.log "episode details", data
+    res.end data
+    return
+  return
+#"/series?id=281536/episode?airDate=22-06-2015"
+app.get '/seriesWithId=:id/episodeWithAirDate=:airDate', (req, res) ->
+  console.log "getting episode details"
+  tvdbWebService.getEpisodeAiredOnDateForSeriesWithId req.params.airDate, req.params.id, (data) ->
+    console.log "episode details", data
+    res.end data
+    return
+  return
 
 
+makeHttpRequest = (url, callback) ->
+  console.log "making http request", url
+  (() ->
+    data = ""
+    http.get url, (res) ->
+      
+      res.on 'error', (err) ->
+        console.log "error", err
+        return
+      res.on 'data', (body) ->
+        console.log "data", data
+        data += body
+        return
+      res.on 'end', () ->
+        console.log "complete data received"
+        callback data
+        return
+
+      return
+  )()
+  return
+#/episode?id=281536&airDate=22-06-2015
+#series?id=281536/episode?airDate=22-06-2015
+###
+makeHttpRequest "/episode?id=281536&airDate=22-06-2015", (data) ->
+  console.log "episode", data
+###
+
+###
+request "https://#{app.get 'host'}/seriesWithId=281536/episodeWithAirDate=22-06-2015", (error, response, body) ->
+  console.log "request", body
+  return
+###
 app.get '/series/seriesName/:name', (req, res) ->
+  console.log "series by name"
   tvdbWebService.getSeriesByName req.params.name, (data) ->
   	res.end data
   	return
@@ -142,12 +209,6 @@ app.get '/series/seriesId/:id/banners/', (req, res) ->
   tvdbWebService.getBannersForSeriesWithId req.params.id, (data) ->
   	res.end data
   	return
-  return
-
-app.get '/series?id=:id/episode?airDate=:airDate', (req, res) ->
-  tvdbwebservice.getEpisodeAiredOnDateForSeriesWithId req.params.airDate, req.params.id, (data) ->
-    res.end data
-    return
   return
 
 
@@ -845,7 +906,8 @@ generateHash = (string) ->
 
 
 
-#jobs.performJobs()
+jobs.performJobs()
+
 
 
 

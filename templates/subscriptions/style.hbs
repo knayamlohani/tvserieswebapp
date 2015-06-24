@@ -14,9 +14,10 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 100; }
 
 nav#app-nav-bar {
-  height: 3.5em;
+  height: 4.5em;
   width: 100%;
   color: white;
+  font-weight: 100;
   background: rgba(0, 0, 0, 0.7); }
   nav#app-nav-bar > div {
     display: inline-block; }
@@ -28,7 +29,7 @@ nav#app-nav-bar {
       color: white;
       text-decoration: none; }
     nav#app-nav-bar #app-info #app-name {
-      padding: 0em 2em 0 3em;
+      padding: .5em 2em 0 3em;
       vertical-align: center; 
       font-size: 1.5em;
       font-weight: 100;}
@@ -48,11 +49,14 @@ nav#app-nav-bar {
 }
 
 
-#mail-content #title {
+#mail-content #mail-title {
+  margin-top: 3em 0 1em 0;
 	width: 97%;
 	padding-bottom: .5%;
 	text-align: center;
 }
+
+
 
 #mail-content #body {
 	width: 100%;
@@ -65,13 +69,27 @@ nav#app-nav-bar {
 
 
 .series .artwork {
+  border-color: transparent;
+  background-color: rgba(255,255,255,.25);
 	width: 100%;
 	display: block;
+  border-radius: .4em;
 }
 
 .series .tag {
 	text-align: center;
 	padding-top: 2%; 
+}
+
+.series .episode-name {
+  text-align: center;
+  padding-top: 2%; 
+  wrap-text: normal;
+}
+
+#body #no-tvshows {
+  margin: 4em auto;
+  text-align: center;
 }
 
 
