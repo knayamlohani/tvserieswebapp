@@ -5,6 +5,7 @@ mailer = require './mailer.js'
 moment = require 'moment'
 
 _db = ""
+
 dbConfig = 
   "dbuser"     : ""
   "dbpassword" : ""
@@ -13,10 +14,9 @@ dbConfig =
 exports.setDbConfig = (dbuser, dbpassword, dburi) ->
   dbConfig.dbuser = dbuser
   dbConfig.dbpassword = dbpassword  
-  dbConfig.dburi = "#{dburi}"
-
-  console.log "mongodb://#{dbConfig.dbuser}:#{dbConfig.dbpassword}@ds029640.mongolab.com:29640/tvserieswebappdatabase"
+  dbConfig.dburi = dburi
   console.log dbConfig.dburi
+  
   mongoClient.connect dbConfig.dburi, (err, db) ->
     if !err
       _db = db

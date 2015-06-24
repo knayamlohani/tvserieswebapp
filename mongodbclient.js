@@ -23,8 +23,7 @@
   exports.setDbConfig = function(dbuser, dbpassword, dburi) {
     dbConfig.dbuser = dbuser;
     dbConfig.dbpassword = dbpassword;
-    dbConfig.dburi = "" + dburi;
-    console.log("mongodb://" + dbConfig.dbuser + ":" + dbConfig.dbpassword + "@ds029640.mongolab.com:29640/tvserieswebappdatabase");
+    dbConfig.dburi = dburi;
     console.log(dbConfig.dburi);
     mongoClient.connect(dbConfig.dburi, function(err, db) {
       if (!err) {

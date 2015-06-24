@@ -163,7 +163,8 @@ exports.performJobs = ->
           #if !jobs.contains job
           jobs.push job
 
-        #console.log "jobs entries", jobs
+        console.log "jobs entries", jobs
+        
         mongodbclient.addNewJob options =
           "object" : job
         , 

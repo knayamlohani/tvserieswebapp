@@ -66,7 +66,7 @@ handlebars.registerHelper 'raw-helper', (options) ->
 app.use session 
   "secret" : '67gvgchgch987jbcfgxdfmhye435jvgxzdzf'
   "store"  : new MongoStore
-    "url" : "mongodb://#{process.env["DB_USER"]}:#{process.env["DB_PASSWORD"]}@ds029640.mongolab.com:29640/tvserieswebappdatabase"
+    "url" : process.env["dburi"]
     "ttl" : 1*24*60*60*1000
   "cookie" : 
     "maxAge" : 1*24*60*60*1000
@@ -906,7 +906,7 @@ generateHash = (string) ->
 
 
 
-jobs.performJobs()
+#jobs.performJobs()
 
 
 

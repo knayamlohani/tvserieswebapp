@@ -72,7 +72,7 @@
   app.use(session({
     "secret": '67gvgchgch987jbcfgxdfmhye435jvgxzdzf',
     "store": new MongoStore({
-      "url": "mongodb://" + process.env["DB_USER"] + ":" + process.env["DB_PASSWORD"] + "@ds029640.mongolab.com:29640/tvserieswebappdatabase",
+      "url": process.env["dburi"],
       "ttl": 1 * 24 * 60 * 60 * 1000
     }),
     "cookie": {
@@ -911,8 +911,6 @@
     hashValue = shasum.digest('hex');
     return hashValue;
   };
-
-  jobs.performJobs();
 
 }).call(this);
 
