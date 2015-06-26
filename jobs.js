@@ -286,18 +286,22 @@
               "url": "https://" + host + "/seriesWithId=" + tvShow.id + "/episodeWithAirDate=" + (today.format('DD-MM-YYYY'))
             };
             request(options.url, function(error, response, body) {
-              var episode, user, usersCount, _j, _len1;
+              var episode, err, user, usersCount, _j, _len1;
               counter++;
-              episode = JSON.parse(body);
-              console.log("request", episode.number, " ", episode.name);
-              if (moment.utc(episode.airDate).format('DD-MM-YYYY') === today.format('DD-MM-YYYY')) {
-                console.log("request", episode);
-                subscribers[tvShow.subscribersUsername].tvShows.push({
-                  "name": tvShow.name,
-                  "id": tvShow.id,
-                  "artworkUrl": tvShow.artworkUrl,
-                  "episodeName": "S" + (episode.season < 10 ? 0 : '') + episode.season + "E" + (episode.number < 10 ? 0 : '') + episode.number + " " + episode.name
-                });
+              try {
+                episode = JSON.parse(body);
+                console.log("request", episode.number, " ", episode.name);
+                if (moment.utc(episode.airDate).format('DD-MM-YYYY') === today.format('DD-MM-YYYY')) {
+                  console.log("request", episode);
+                  subscribers[tvShow.subscribersUsername].tvShows.push({
+                    "name": tvShow.name,
+                    "id": tvShow.id,
+                    "artworkUrl": tvShow.artworkUrl,
+                    "episodeName": "S" + (episode.season < 10 ? 0 : '') + episode.season + "E" + (episode.number < 10 ? 0 : '') + episode.number + " " + episode.name
+                  });
+                }
+              } catch (_error) {
+                err = _error;
               }
               if (counter === tvShowsCount) {
                 console.log("subscribers today -\n", JSON.stringify(subscribers, null, 4));

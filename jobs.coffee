@@ -359,19 +359,20 @@ exports.performJobs = ->
             
             request options.url, (error, response, body) ->
               counter++
-              episode = JSON.parse body
-              console.log "request", episode.number, " ", episode.name
+              try 
+                episode = JSON.parse body
+                console.log "request", episode.number, " ", episode.name
 
-              
+                
 
-              if moment.utc(episode.airDate).format('DD-MM-YYYY') == today.format('DD-MM-YYYY')
-                console.log "request", episode
-                subscribers[tvShow.subscribersUsername].tvShows.push 
-                  "name"        : tvShow.name
-                  "id"          : tvShow.id
-                  "artworkUrl"  : tvShow.artworkUrl
-                  "episodeName" : "S#{if episode.season < 10 then 0 else ''}#{episode.season}E#{if episode.number < 10 then 0 else ''}#{episode.number} #{episode.name}"
-                  
+                if moment.utc(episode.airDate).format('DD-MM-YYYY') == today.format('DD-MM-YYYY')
+                  console.log "request", episode
+                  subscribers[tvShow.subscribersUsername].tvShows.push 
+                    "name"        : tvShow.name
+                    "id"          : tvShow.id
+                    "artworkUrl"  : tvShow.artworkUrl
+                    "episodeName" : "S#{if episode.season < 10 then 0 else ''}#{episode.season}E#{if episode.number < 10 then 0 else ''}#{episode.number} #{episode.name}"
+              catch err
 
               if counter == tvShowsCount
                 console.log "subscribers today -\n", JSON.stringify subscribers, null, 4
