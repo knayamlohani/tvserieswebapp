@@ -30,11 +30,15 @@
 
   app.set('tvdbApiKey', process.env["tvdbapikey"]);
 
-  app.set('emailusername', process.env.emailusername);
+  app.set('emailusername', process.env["emailusername"]);
 
-  app.set('emailpassword', process.env.emailpassword);
+  app.set('emailpassword', process.env["emailpassword"]);
 
-  app.set('host', process.env.host);
+  app.set('host', process.env["host"]);
+
+  app.set('dburi', process.env["dburi"]);
+
+  app.set('sessionsecret', process.env["sessionsecret"]);
 
   console.log("HOST", app.get('host'));
 
@@ -51,11 +55,9 @@
     "password": app.get('emailpassword')
   });
 
-  console.log(process.env["databaseuri"]);
-
   mongodbclient = require('./mongodbclient.js');
 
-  mongodbclient.setDbConfig(process.env["dbuser"], process.env["dbpassword"], process.env["dburi"]);
+  mongodbclient.setDbConfig(app.get('dbuser'), app.get('dbpassword'), app.get('dburi'));
 
   cookieParser = require('cookie-parser');
 
@@ -70,14 +72,13 @@
   });
 
   app.use(session({
-    "secret": '67gvgchgch987jbcfgxdfmhye435jvgxzdzf',
+    "secret": app.get('sessionsecret'),
     "store": new MongoStore({
-      "url": process.env["dburi"],
+      "url": app.get('dburi'),
       "ttl": 1 * 24 * 60 * 60 * 1000
     }),
     "cookie": {
-      "maxAge": 1 * 24 * 60 * 60 * 1000,
-      "domain": "tvseries.cf"
+      "maxAge": 1 * 24 * 60 * 60 * 1000
     },
     "resave": false,
     "saveUninitialized": true
