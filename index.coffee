@@ -70,6 +70,7 @@ app.use session
     "ttl" : 1*24*60*60*1000
   "cookie" : 
     "maxAge" : 1*24*60*60*1000
+    "domain" : "tvseries.cf"
   "resave": false
   "saveUninitialized": true
 
