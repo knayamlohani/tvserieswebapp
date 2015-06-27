@@ -77,7 +77,7 @@
     }),
     "cookie": {
       "maxAge": 1 * 24 * 60 * 60 * 1000,
-      "domain": "tvseries.cf"
+      "domain": ".tvseries.cf"
     },
     "resave": false,
     "saveUninitialized": true
