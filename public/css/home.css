@@ -80,8 +80,8 @@ svg {
   -webkit-transform: scale(1.5);
       -ms-transform: scale(1.5);
           transform: scale(1.5);
-  -webkit-transition: all .4s ease-in-out;
-          transition: all .4s ease-in-out; }
+  -webkit-transition: all 0s ease-in-out;
+          transition: all 0s ease-in-out; }
 
 #div-search-section.animate-search-section {
   -webkit-transform: translateY(-4em);

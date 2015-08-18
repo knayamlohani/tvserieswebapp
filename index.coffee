@@ -28,6 +28,7 @@ app.set 'dburi', (process.env["dburi"])
 app.set 'sessionsecret', process.env["sessionsecret"]
 
 console.log "HOST", app.get 'host'
+console.log "DB_URI", app.get 'dburi'
 
 jobs.setHost app.get('host')
 mongodbclient.setHost app.get('host')
